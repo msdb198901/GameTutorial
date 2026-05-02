@@ -48,6 +48,11 @@ void TerrainShader::LoadShineVariables(float damper, float reflectivity)
 	LoadFloat(m_location_reflectivity, reflectivity);
 }
 
+void TerrainShader::LoadSkyColor(const glm::vec3& color)
+{
+	LoadVector(m_location_skyColor, color);
+}
+
 void TerrainShader::GetAllUniformLocations()
 {
 	m_location_transformationMatrix = GetUniformLocation("transformationMatrix");
@@ -57,4 +62,5 @@ void TerrainShader::GetAllUniformLocations()
 	m_location_lightColor = GetUniformLocation("lightColor");
 	m_location_shineDamper = GetUniformLocation("shineDamper");
 	m_location_reflectivity = GetUniformLocation("reflectivity");
+	m_location_skyColor = GetUniformLocation("skyColor");
 }

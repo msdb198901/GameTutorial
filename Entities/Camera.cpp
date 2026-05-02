@@ -4,9 +4,9 @@
 
 Camera::Camera()
 {
-	m_position = glm::vec3(0.0f, 3.0f, 0.0f);
+	m_position = glm::vec3(0.0f, 0.0f, 0.0f);
 	m_yaw = 0.0f;
-	m_pitch = 20.0f;
+	m_pitch = 25.0f;
 	m_roll = 0.0f;
 }
 
@@ -31,6 +31,14 @@ void Camera::Move(GLFWwindow* window, float deltaTime)
 	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		m_position.x += 20 * deltaTime;
+	} 
+	else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	{
+		m_position.y -= 20 * deltaTime;
+	}
+	else if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+	{
+		m_position.y += 20 * deltaTime;
 	}
 }
 

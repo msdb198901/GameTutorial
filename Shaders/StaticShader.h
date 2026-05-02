@@ -22,6 +22,8 @@ public:
 	void LoadShineVariables(float shineDamper, float reflectivity);
 
 	void LoadFakeLightingVariable(bool useFake);
+
+	void LoadSkyColor(const glm::vec3& skyColor);
 private:
 	int m_location_transformationMatrix;
 	int m_location_viewMatrix;
@@ -31,4 +33,5 @@ private:
 	int m_location_shineDamper;
 	int m_location_reflectivity;
 	int m_location_useFakeLighting;
+	int m_location_skyColor;
 };

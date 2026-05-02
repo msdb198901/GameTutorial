@@ -41,6 +41,9 @@ private:
 	static const float FOV;
 	static const float NEAR_PLANE;
 	static const float FAR_PLANE;
+	static const float RED;
+	static const float GREEN;
+	static const float BLUE;
 
 	StaticShader* m_pEntityShader;
 	EntityRender* m_pEntityRender;

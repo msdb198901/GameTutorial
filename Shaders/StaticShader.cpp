@@ -53,6 +53,11 @@ void StaticShader::LoadFakeLightingVariable(bool useFake)
 	LoadFloat(m_location_useFakeLighting, useFake);
 }
 
+void StaticShader::LoadSkyColor(const glm::vec3& skyColor)
+{
+	LoadVector(m_location_skyColor, skyColor);
+}
+
 void StaticShader::GetAllUniformLocations()
 {
 	m_location_transformationMatrix = GetUniformLocation("transformationMatrix");
@@ -63,4 +68,5 @@ void StaticShader::GetAllUniformLocations()
 	m_location_shineDamper = GetUniformLocation("shineDamper");
 	m_location_reflectivity = GetUniformLocation("reflectivity");
 	m_location_useFakeLighting = GetUniformLocation("useFakeLighting");
+	m_location_skyColor = GetUniformLocation("skyColor");
 }

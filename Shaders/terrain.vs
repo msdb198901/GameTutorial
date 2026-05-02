@@ -7,19 +7,33 @@ out vec2 fragment_textureCoords;
 out vec3 surfaceNormal;
 out vec3 toLightVector;
 out vec3 toCameraVector; 
+// 每个顶点计算可见度
+out float visibility;
 
 uniform mat4 transformationMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform vec3 lightPosition;
 
+// 雾的密度值
+const float density = 0.0035;
+// 雾的梯度值
+const float gradient = 5.0;
+
 void main()
 {
    vec4 world_position = transformationMatrix * vec4(position, 1.0);
-   gl_Position = projectionMatrix * viewMatrix * world_position;
+    // 顶点相对于摄像机距离
+   vec4 positionRelativeToCamera = viewMatrix * world_position;
+   gl_Position = projectionMatrix * positionRelativeToCamera;
    fragment_textureCoords = textureCoords * 40;
 
    surfaceNormal = (transformationMatrix * vec4(normal, 0.0)).xyz;
    toLightVector = lightPosition - world_position.xyz;
    toCameraVector = (inverse(viewMatrix) * vec4(0.0,0.0,0.0,1.0)).xyz - world_position.xyz;
+
+   float distance = length(positionRelativeToCamera.xyz);
+   visibility = exp(-pow((distance*density), gradient));
+   // 限制值在0-1之间
+   visibility = clamp(visibility, 0, 1);
 }

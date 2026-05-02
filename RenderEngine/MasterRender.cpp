@@ -9,12 +9,22 @@
 #include "TerrainShader.h"
 #include "TerrainRender.h"
 
+const float MasterRender::FOV = 70;
+const float MasterRender::NEAR_PLANE = 0.1f;
+const float MasterRender::FAR_PLANE = 1000.0f;
+
+//const float MasterRender::RED = 0.42;
+//const float MasterRender::GREEN = 0.86;
+//const float MasterRender::BLUE = 0.82;
+
+const float MasterRender::RED = 0.5;
+const float MasterRender::GREEN = 0.5;
+const float MasterRender::BLUE = 0.5;
+
 MasterRender::MasterRender()
 {
-	static const float FOV = 70;
-	static const float NEAR_PLANE = 0.1f;
-	static const float FAR_PLANE = 1000.0f;
-	m_projectionMatrix = Maths::CreateProjectionMatrix(FOV, DisplayManager::WIDTH / DisplayManager::HEIHGT, NEAR_PLANE, FAR_PLANE);
+
+	m_projectionMatrix = Maths::CreateProjectionMatrix(MasterRender::FOV, DisplayManager::WIDTH / DisplayManager::HEIHGT, MasterRender::NEAR_PLANE, MasterRender::FAR_PLANE);
 
 	MasterRender::EnableCulling();
 
@@ -44,7 +54,7 @@ void MasterRender::DisableCulling()
 void MasterRender::Prepare()
 {
 	glEnable(GL_DEPTH_TEST);
-	glClearColor(0.42, 0.86, 0.83, 1);
+	glClearColor(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -52,12 +62,14 @@ void MasterRender::RenderModel(Light* pLight, Camera* pCamera)
 { 
 	Prepare();
 	m_pEntityShader->Start();
+	m_pEntityShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
 	m_pEntityShader->LoadLight(pLight);
 	m_pEntityShader->LoadViewMatrix(pCamera);
 	m_pEntityRender->RenderModel(m_entities);
 	m_pEntityShader->Stop();
 
 	m_pTerrainShader->Start();
+	m_pTerrainShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
 	m_pTerrainShader->LoadLight(pLight);
 	m_pTerrainShader->LoadViewMatrix(pCamera);
 	m_pTerrainRender->RenderModel(m_terrains);

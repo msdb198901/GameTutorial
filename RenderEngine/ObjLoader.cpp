@@ -41,55 +41,34 @@ RawModel* ObjLoader::LoadObjModel(const char* filePath, Loader* loader)
                 iss >> normal.x >> normal.y >> normal.z;
                 normals.push_back(normal);
             }
-            else if (prefix == "f") {  // 面
-                std::string vertexData;
-                unsigned int vertexIndex[3], texCoordIndex[3], normalIndex[3];
+            else if (prefix == "f") {
+                std::string v1, v2, v3;
+                iss >> v1 >> v2 >> v3;
+                std::string verts[3] = { v1, v2, v3 };
+
                 for (int i = 0; i < 3; ++i) {
-                    iss >> vertexData;
-                    std::istringstream vertexIss(vertexData);
-                    std::string token;
-                    std::getline(vertexIss, token, '/');
-                    vertexIndex[i] = std::stoi(token) - 1;
-                    std::getline(vertexIss, token, '/');
-                    if (!token.empty()) {
-                        texCoordIndex[i] = std::stoi(token) - 1;
+                    std::istringstream viss(verts[i]);
+                    std::string posStr, texStr, normStr;
+                    std::getline(viss, posStr, '/');
+                    std::getline(viss, texStr, '/');
+                    std::getline(viss, normStr, '/');
+
+                    int posIdx = std::stoi(posStr) - 1;
+                    int texIdx = texStr.empty() ? -1 : std::stoi(texStr) - 1;
+                    int normIdx = normStr.empty() ? -1 : std::stoi(normStr) - 1;
+
+                    Vertex vert;
+                    vert.position = positions[posIdx];
+                    if (texIdx >= 0 && texIdx < (int)texCoords.size()) {
+                        vert.texCoords = texCoords[texIdx];
+                        vert.texCoords.y = 1.0f - vert.texCoords.y;
                     }
-                    std::getline(vertexIss, token, '/');
-                    if (!token.empty()) {
-                        normalIndex[i] = std::stoi(token) - 1;
+                    if (normIdx >= 0 && normIdx < (int)normals.size()) {
+                        vert.normal = normals[normIdx];
                     }
+                    vertices.push_back(vert);
+                    indices.push_back(vertices.size() - 1);  // 当前顶点在 vertices 中的索引
                 }
-
-                indices.push_back(indices.size());
-                Vertex vertex;
-                vertex.position = positions[vertexIndex[0]];
-                if (texCoords.size() > 0) {
-                    vertex.texCoords = texCoords[texCoordIndex[0]];
-                }
-                if (normals.size() > 0) {
-                    vertex.normal = normals[normalIndex[0]];
-                }
-                vertices.push_back(vertex);
-
-                indices.push_back(indices.size());
-                vertex.position = positions[vertexIndex[1]];
-                if (texCoords.size() > 0) {
-                    vertex.texCoords = texCoords[texCoordIndex[1]];
-                }
-                if (normals.size() > 0) {
-                    vertex.normal = normals[normalIndex[1]];
-                }
-                vertices.push_back(vertex);
-
-                indices.push_back(indices.size());
-                vertex.position = positions[vertexIndex[2]];
-                if (texCoords.size() > 0) {
-                    vertex.texCoords = texCoords[texCoordIndex[2]];
-                }
-                if (normals.size() > 0) {
-                    vertex.normal = normals[normalIndex[2]];
-                }
-                vertices.push_back(vertex);
             }
         }
         file.close();
@@ -140,3 +119,4 @@ RawModel* ObjLoader::LoadObjModel(const char* filePath, Loader* loader)
     RawModel* model = loader->LoadData(vPositions, vTextureCoords, vNormals, vIndices);
     return model;
 }
+

@@ -10,4 +10,6 @@ public:
 	static glm::mat4 CreateProjectionMatrix(float fvo, float aspectRatio, float nearPlane, float farPlane);
 
 	static glm::mat4 CreateViewMatrix(Camera* camera);
+
+	static float RandFloat();
 };

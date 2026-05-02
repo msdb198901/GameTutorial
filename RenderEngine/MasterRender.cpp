@@ -1,14 +1,29 @@
 #include "StdAfx.h"
 #include "MasterRender.h"
 #include "StaticShader.h"
-#include "Render.h"
+#include "EntityRender.h"
 #include "Entity.h"
 #include "TextureModel.h"
+#include "Maths.h"
+#include "DisplayManager.h"
+#include "TerrainShader.h"
+#include "TerrainRender.h"
 
 MasterRender::MasterRender()
 {
-	m_pShader = new StaticShader();
-	m_pRender = new Render(m_pShader);
+	static const float FOV = 70;
+	static const float NEAR_PLANE = 0.1f;
+	static const float FAR_PLANE = 1000.0f;
+	m_projectionMatrix = Maths::CreateProjectionMatrix(FOV, DisplayManager::WIDTH / DisplayManager::HEIHGT, NEAR_PLANE, FAR_PLANE);
+
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+
+	m_pEntityShader = new StaticShader();
+	m_pEntityRender = new EntityRender(m_pEntityShader, m_projectionMatrix);
+
+	m_pTerrainShader = new TerrainShader();
+	m_pTerrainRender = new TerrainRender(m_pTerrainShader, m_projectionMatrix);
 }
 
 MasterRender::~MasterRender()
@@ -16,19 +31,30 @@ MasterRender::~MasterRender()
 
 }
 
+void MasterRender::Prepare()
+{
+	glEnable(GL_DEPTH_TEST);
+	glClearColor(0.42, 0.86, 0.83, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 void MasterRender::RenderModel(Light* pLight, Camera* pCamera)
 { 
-	m_pRender->Prepare();
-	m_pShader->Start();
+	Prepare();
+	m_pEntityShader->Start();
+	m_pEntityShader->LoadLight(pLight);
+	m_pEntityShader->LoadViewMatrix(pCamera);
+	m_pEntityRender->RenderModel(m_entities);
+	m_pEntityShader->Stop();
 
-	m_pShader->LoadLight(pLight);
+	m_pTerrainShader->Start();
+	m_pTerrainShader->LoadLight(pLight);
+	m_pTerrainShader->LoadViewMatrix(pCamera);
+	m_pTerrainRender->RenderModel(m_terrains);
+	m_pTerrainShader->Stop();
 
-	m_pShader->LoadViewMatrix(pCamera);
-
-	m_pRender->RenderModel(m_entities);
-
-	m_pShader->Stop();
 	m_entities.clear();
+	m_terrains.clear();
 }
 
 void MasterRender::ProcessEntity(Entity* pEntity)
@@ -45,7 +71,13 @@ void MasterRender::ProcessEntity(Entity* pEntity)
 	}
 }
 
+void MasterRender::ProcessTerrain(Terrain* terrain)
+{
+	m_terrains.push_back(terrain);
+}
+
 void MasterRender::CleanUp()
 {
-	m_pShader->CleanUp();
+	m_pEntityShader->CleanUp();
+	m_pTerrainShader->CleanUp();
 }

@@ -27,6 +27,10 @@ glm::mat4 Maths::CreateViewMatrix(Camera* camera)
 	glm::vec3 cameraPos = camera->GetPosition();
 	glm::vec3 negativeCameraPos = -cameraPos;
 	viewMatrix = glm::translate(viewMatrix, negativeCameraPos);  // 平移
-	viewMatrix = glm::inverse(viewMatrix);  // 反转矩阵，因为我们希望摄像机看向的方向是正值方向
+	//viewMatrix = glm::inverse(viewMatrix);  // 反转矩阵，因为我们希望摄像机看向的方向是正值方向
 	return viewMatrix;
+}
+
+float Maths::RandFloat() {
+	return (float)rand() / RAND_MAX;
 }

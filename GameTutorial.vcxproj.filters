@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="RenderEngine">
+      <UniqueIdentifier>{f5da6145-7a40-4df0-907d-ff868cfdc682}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EngineTester">
+      <UniqueIdentifier>{de6a6e9a-995e-4ccb-a605-307dcc77893e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{af4fbdef-169d-48f1-a8de-7f0b755ee17d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Textures">
+      <UniqueIdentifier>{ec3bb2db-612e-44f1-8d81-32efaa43d6c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Models">
+      <UniqueIdentifier>{1902b2a2-22dd-4463-a229-9015ae3b2e7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ToolBox">
+      <UniqueIdentifier>{ed7812a4-a213-4a8b-b277-0731d81f1e3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{1a89ed1e-1b33-475e-b82e-5aa2d02e0ed3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Terrains">
+      <UniqueIdentifier>{5a33a807-7728-4df7-b10d-6f27b7e9ef3e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="RenderEngine\DisplayManager.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineTester\MainLoop.cpp">
+      <Filter>EngineTester</Filter>
+    </ClCompile>
+    <ClCompile Include="Dependences\glad\src\glad.c">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngine\Loader.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngine\StdAfx.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngine\EntityRender.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders\ShaderProgram.cpp">
+      <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders\StaticShader.cpp">
+      <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures\Texture.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\RawModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Models\TextureModel.cpp">
+      <Filter>Models</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolBox\Maths.cpp">
+      <Filter>ToolBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Camera.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngine\ObjLoader.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\Light.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngine\MasterRender.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrains\Terrain.cpp">
+      <Filter>Terrains</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders\TerrainShader.cpp">
+      <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngine\TerrainRender.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RenderEngine\DisplayManager.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineTester\MainLoop.h">
+      <Filter>EngineTester</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngine\Loader.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngine\StdAfx.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngine\EntityRender.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\ShaderProgram.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\StaticShader.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngine\stb_image.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures\Texture.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\RawModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\TextureModel.h">
+      <Filter>Models</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolBox\Maths.h">
+      <Filter>ToolBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Camera.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngine\ObjLoader.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\Light.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngine\MasterRender.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrains\Terrain.h">
+      <Filter>Terrains</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders\TerrainShader.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngine\TerrainRender.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\shader.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\shader.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\terrain.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\terrain.vs">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

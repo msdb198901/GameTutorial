@@ -16,8 +16,7 @@ MasterRender::MasterRender()
 	static const float FAR_PLANE = 1000.0f;
 	m_projectionMatrix = Maths::CreateProjectionMatrix(FOV, DisplayManager::WIDTH / DisplayManager::HEIHGT, NEAR_PLANE, FAR_PLANE);
 
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
+	MasterRender::EnableCulling();
 
 	m_pEntityShader = new StaticShader();
 	m_pEntityRender = new EntityRender(m_pEntityShader, m_projectionMatrix);
@@ -29,6 +28,17 @@ MasterRender::MasterRender()
 MasterRender::~MasterRender()
 {
 
+}
+
+void MasterRender::EnableCulling()
+{
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
+}
+
+void MasterRender::DisableCulling()
+{
+	glDisable(GL_CULL_FACE);
 }
 
 void MasterRender::Prepare()

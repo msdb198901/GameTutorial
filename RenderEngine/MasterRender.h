@@ -33,6 +33,10 @@ public:
 
 	void CleanUp();
 
+public:
+	static void EnableCulling();
+	static void DisableCulling();
+
 private:
 	static const float FOV;
 	static const float NEAR_PLANE;

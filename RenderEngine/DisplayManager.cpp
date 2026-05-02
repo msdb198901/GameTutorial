@@ -67,10 +67,14 @@ void DisplayManager::UpdateDisplay()
 
 	RawModel *grassModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassModel.obj", loader);
 	Texture* grassTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassTexture.png"));
+	grassTexture->SetUseFakeLighting(true);
+	grassTexture->SetTransparency(true);
 	TextureModel* grassTextureModel = new TextureModel(grassModel, grassTexture);
 
 	RawModel *fernModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\fern.obj", loader);
 	Texture* fernTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\fern.png"));
+	fernTexture->SetTransparency(true);
+	//fernTexture->SetUseFakeLighting(true);
 	TextureModel*fernTextureModel = new TextureModel(fernModel, fernTexture);
 
 	std::vector<Entity*> entities;

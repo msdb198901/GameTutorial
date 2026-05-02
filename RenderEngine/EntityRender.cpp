@@ -7,6 +7,7 @@
 #include "Maths.h"
 #include "StaticShader.h"
 #include "DisplayManager.h"
+#include "MasterRender.h"
 
 EntityRender::EntityRender(StaticShader* shader, glm::mat4 projectionMatrix)
 {
@@ -87,8 +88,13 @@ void EntityRender::PrepareTextureModel(TextureModel* textureModel)
 	glEnableVertexAttribArray(2);
 
 	Texture* texture = textureModel->GetTexture();
+	if (texture->IsTransparency())
+	{
+		// 如果物体透明，禁用背面剔除
+		MasterRender::DisableCulling();
+	}
 	m_shader->LoadShineVariables(texture->GetShineDamper(), texture->GetReflectivity());
-
+	m_shader->LoadFakeLightingVariable(texture->IsUseFakeLighting());
 	// 告诉OpenGL要把哪个纹理激活（渲染到四边形上）
 	// 激活第一个纹理单元 GL_TEXTURE0 
 	// Sampler2D默认使用GL_TEXTURE0中的纹理
@@ -98,6 +104,9 @@ void EntityRender::PrepareTextureModel(TextureModel* textureModel)
 
 void EntityRender::UnBindTextureModel()
 {
+	// 重新启用背面剔除
+	MasterRender::EnableCulling();
+
 	// 绘画完成后，需要禁用属性列表 这里是 0 位置属性列表
 	glDisableVertexAttribArray(0);
 

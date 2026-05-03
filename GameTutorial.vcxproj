@@ -26,6 +26,7 @@
     <ClCompile Include="Entities\Camera.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
     <ClCompile Include="Entities\Light.cpp" />
+    <ClCompile Include="Entities\Player.cpp" />
     <ClCompile Include="Models\RawModel.cpp" />
     <ClCompile Include="Models\TextureModel.cpp" />
     <ClCompile Include="RenderEngine\DisplayManager.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="Entities\Camera.h" />
     <ClInclude Include="Entities\Entity.h" />
     <ClInclude Include="Entities\Light.h" />
+    <ClInclude Include="Entities\Player.h" />
     <ClInclude Include="Models\RawModel.h" />
     <ClInclude Include="Models\TextureModel.h" />
     <ClInclude Include="RenderEngine\DisplayManager.h" />

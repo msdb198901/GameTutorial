@@ -17,6 +17,7 @@
 
 #include "TerrainTexture.h"
 #include "TerrainTexturePack.h"
+#include "Player.h"
 
 float  deltaTime = 0.0f;
 float  lastFrame = 0.0f;
@@ -119,6 +120,7 @@ void DisplayManager::UpdateDisplay()
 	Texture* stallTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\stallTexture.png"));
 	TextureModel* stallTextureModel = new TextureModel(stallModel, stallTexture);
 	Entity* stall = new Entity(stallTextureModel, glm::vec3(0, 0, -25), glm::vec3(0, 0, 0), 1.0);
+	stall->IncreaseRotation(0, 180.0f, 0);
 	entities.push_back(stall);
 
 	// 地形
@@ -135,10 +137,18 @@ void DisplayManager::UpdateDisplay()
 	Camera *camera = new Camera();
 	Light* light = new Light(glm::vec3(2000, 4000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
 
-	
+	// 创建玩家
+	RawModel* playerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\person.obj", loader);
+	Texture* playerTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\playerTexture.png"));
+	TextureModel* playerTextureModel = new TextureModel(playerModel, playerTexture);
+	Player* player = new Player(playerTextureModel, glm::vec3(-5, 0, -50), glm::vec3(0, 0, 0), 1.0);
+
 	while (!glfwWindowShouldClose(windows))
 	{
 		processInput();
+
+		player->Move(windows, deltaTime);
+		shader->ProcessEntity(player);
 
 		// 这个时候变换z轴，物体没有任何变换
 		// z轴越远，物体应该越小 所以需要投影矩阵
@@ -148,9 +158,8 @@ void DisplayManager::UpdateDisplay()
 		// 3、	视图矩阵 相机位置 向量
 		//		场景物体相对于相机向相反方向移动
 		//		移动所有场景物体
-		stall->IncreaseRotation(0, 0.5f * deltaTime, 0);
 
-		camera->Move(windows, deltaTime);
+		//camera->Move(windows, deltaTime);
 
 		shader->ProcessTerrain(terrain1);
 		shader->ProcessTerrain(terrain2);

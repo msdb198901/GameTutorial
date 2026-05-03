@@ -50,11 +50,12 @@ void Player::Move(GLFWwindow* window, float deltaTime)
 		m_jumpSpeed = JUMP_SPEED;
 	}
 
-	IncreaseRotation(0, glm::radians(m_rotationSpeed * deltaTime), 0);
+	auto rotInc = m_rotationSpeed * deltaTime;
+	IncreaseRotation(0, rotInc, 0);
 
 	float distance = m_movementSpeed * deltaTime;
-	float dx = distance * sin(GetRotation().y);
-	float dz = distance * cos(GetRotation().y);
+	float dx = distance * sin(glm::radians(GetRotation().y));
+	float dz = distance * cos(glm::radians(GetRotation().y));
 	IncreasePosition(dx, 0, dz);
 
 	m_jumpSpeed += Player::GRAVITY * deltaTime;

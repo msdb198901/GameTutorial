@@ -5,9 +5,14 @@
 glm::mat4 Maths::CreateTransformationMatrix(const glm::vec3& translation, const glm::vec3& rotation, float scale)
 {
 	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), translation);
-	glm::mat4 rotationXMatrix = glm::rotate(glm::mat4(1.0f), rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	glm::mat4 rotationYMatrix = glm::rotate(glm::mat4(1.0f), rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 rotationZMatrix = glm::rotate(glm::mat4(1.0f), rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
+	// 将度数转换为弧度
+	float radX = glm::radians(rotation.x);
+	float radY = glm::radians(rotation.y);
+	float radZ = glm::radians(rotation.z);
+
+	glm::mat4 rotationXMatrix = glm::rotate(glm::mat4(1.0f), radX, glm::vec3(1.0f, 0.0f, 0.0f));
+	glm::mat4 rotationYMatrix = glm::rotate(glm::mat4(1.0f), radY, glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 rotationZMatrix = glm::rotate(glm::mat4(1.0f), radZ, glm::vec3(0.0f, 0.0f, 1.0f));
 	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(scale));
 	return translationMatrix * rotationZMatrix * rotationYMatrix * rotationXMatrix * scaleMatrix;
 }

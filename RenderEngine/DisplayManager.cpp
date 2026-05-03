@@ -45,6 +45,57 @@ void DisplayManager::CreateDisplay()
 
 	glfwMakeContextCurrent(windows);
 	glfwSetFramebufferSizeCallback(windows, framebuffersizefunc);
+	// 1. 滚轮回调 —— 缩放
+	glfwSetScrollCallback(windows, [](GLFWwindow* win, double xoffset, double yoffset) {
+		Camera* camera = static_cast<Camera*>(glfwGetWindowUserPointer(win));
+		if (camera) {
+			camera->CalculateZoom((float)yoffset);
+		}
+		return;
+		});
+
+	// 2. 鼠标按钮回调 —— 记录按键状态
+	glfwSetMouseButtonCallback(windows, [](GLFWwindow* win, int button, int action, int mods) {
+		Camera* camera = static_cast<Camera*>(glfwGetWindowUserPointer(win));
+		if (!camera) return;
+
+		if (button == GLFW_MOUSE_BUTTON_LEFT) {
+			camera->leftButtonPressed = (action == GLFW_PRESS);
+		}
+		else if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+			camera->rightButtonPressed = (action == GLFW_PRESS);
+		}
+	});
+
+	// 3. 鼠标移动回调 —— 根据按键状态更新 pitch 或 angleAroundPlayer
+	glfwSetCursorPosCallback(windows, [](GLFWwindow* win, double xpos, double ypos) {
+		Camera* camera = static_cast<Camera*>(glfwGetWindowUserPointer(win));
+		if (!camera) return;
+
+		// 初始化上一次鼠标位置
+		if (camera->firstMouse) {
+			camera->lastMouseX = xpos;
+			camera->lastMouseY = ypos;
+			camera->firstMouse = false;
+			return;
+		}
+
+		// 计算本次移动差值
+		float dx = static_cast<float>(xpos - camera->lastMouseX);
+		float dy = static_cast<float>(ypos - camera->lastMouseY);
+
+		// 根据按下->的按钮调用相应方法
+		if (camera->leftButtonPressed) {
+			camera->CalculateAngleAroundPlayer(dx);
+		}
+		if (camera->rightButtonPressed) {
+			camera->CalculatePitch(dy);
+		}
+
+		// 更新上一次鼠标位置
+		camera->lastMouseX = xpos;
+		camera->lastMouseY = ypos;
+		});
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -53,8 +104,6 @@ void DisplayManager::CreateDisplay()
 		return;
 	}
 }
-
-
 
 void DisplayManager::UpdateDisplay()
 {
@@ -134,32 +183,26 @@ void DisplayManager::UpdateDisplay()
 	Terrain* terrain1 = new Terrain(0, 0, loader, terrainTexturePack, blendMap);
 	Terrain* terrain2 = new Terrain(1, 0, loader, terrainTexturePack, blendMap);
 
-	Camera *camera = new Camera();
-	Light* light = new Light(glm::vec3(2000, 4000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
-
 	// 创建玩家
 	RawModel* playerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\person.obj", loader);
 	Texture* playerTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\playerTexture.png"));
 	TextureModel* playerTextureModel = new TextureModel(playerModel, playerTexture);
 	Player* player = new Player(playerTextureModel, glm::vec3(-5, 0, -50), glm::vec3(0, 0, 0), 1.0);
 
+	Camera *camera = new Camera(player);
+	Light* light = new Light(glm::vec3(2000, 4000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
+
+	// 设置鼠标滚动回调函数
+	glfwSetWindowUserPointer(windows, camera);
+	
+	
 	while (!glfwWindowShouldClose(windows))
 	{
 		processInput();
 
+		camera->Move(windows, deltaTime);
 		player->Move(windows, deltaTime);
 		shader->ProcessEntity(player);
-
-		// 这个时候变换z轴，物体没有任何变换
-		// z轴越远，物体应该越小 所以需要投影矩阵
-		// 2、	投影矩阵 视野角度 宽高比 近裁剪面 远裁剪面
-		//		视野角度 决定了视野的宽广程度
-		//		近裁剪面-远裁剪面 决定了可视距离有多远
-		// 3、	视图矩阵 相机位置 向量
-		//		场景物体相对于相机向相反方向移动
-		//		移动所有场景物体
-
-		//camera->Move(windows, deltaTime);
 
 		shader->ProcessTerrain(terrain1);
 		shader->ProcessTerrain(terrain2);

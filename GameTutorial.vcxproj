@@ -43,6 +43,8 @@
     <ClCompile Include="Shaders\StaticShader.cpp" />
     <ClCompile Include="Shaders\TerrainShader.cpp" />
     <ClCompile Include="Terrains\Terrain.cpp" />
+    <ClCompile Include="Textures\TerrainTexture.cpp" />
+    <ClCompile Include="Textures\TerrainTexturePack.cpp" />
     <ClCompile Include="Textures\Texture.cpp" />
     <ClCompile Include="ToolBox\Maths.cpp" />
   </ItemGroup>
@@ -65,6 +67,8 @@
     <ClInclude Include="Shaders\StaticShader.h" />
     <ClInclude Include="Shaders\TerrainShader.h" />
     <ClInclude Include="Terrains\Terrain.h" />
+    <ClInclude Include="Textures\TerrainTexture.h" />
+    <ClInclude Include="Textures\TerrainTexturePack.h" />
     <ClInclude Include="Textures\Texture.h" />
     <ClInclude Include="ToolBox\Maths.h" />
   </ItemGroup>

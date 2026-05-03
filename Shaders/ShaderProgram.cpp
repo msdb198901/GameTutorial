@@ -123,6 +123,12 @@ void ShaderProgram::LoadFloat(int location, float value)
 {
     glUniform1f(location, value);
 }
+
+void ShaderProgram::LoadInt(int location, int value)
+{
+    glUniform1i(location, value);
+}
+
 void ShaderProgram::LoadVector(int location, const glm::vec2& vector)
 {
     glUniform2f(location, vector.x, vector.y);

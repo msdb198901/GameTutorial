@@ -26,7 +26,7 @@ void main()
     // 顶点相对于摄像机距离
    vec4 positionRelativeToCamera = viewMatrix * world_position;
    gl_Position = projectionMatrix * positionRelativeToCamera;
-   fragment_textureCoords = textureCoords * 40;
+   fragment_textureCoords = textureCoords;
 
    surfaceNormal = (transformationMatrix * vec4(normal, 0.0)).xyz;
    toLightVector = lightPosition - world_position.xyz;

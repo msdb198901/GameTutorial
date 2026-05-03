@@ -15,6 +15,9 @@
 #include "Terrain.h"
 #include "Maths.h"
 
+#include "TerrainTexture.h"
+#include "TerrainTexturePack.h"
+
 float  deltaTime = 0.0f;
 float  lastFrame = 0.0f;
 
@@ -67,27 +70,49 @@ void DisplayManager::UpdateDisplay()
 
 	RawModel *grassModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassModel.obj", loader);
 	Texture* grassTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassTexture.png"));
-	grassTexture->SetUseFakeLighting(true);
-	grassTexture->SetTransparency(true);
 	TextureModel* grassTextureModel = new TextureModel(grassModel, grassTexture);
+
+	//RawModel* flowerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassModel.obj", loader);
+	Texture* flowerTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\flower.png"));
+	TextureModel* flowerTextureModel = new TextureModel(grassModel, flowerTexture);
 
 	RawModel *fernModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\fern.obj", loader);
 	Texture* fernTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\fern.png"));
-	fernTexture->SetTransparency(true);
-	//fernTexture->SetUseFakeLighting(true);
 	TextureModel*fernTextureModel = new TextureModel(fernModel, fernTexture);
 
+	RawModel* bobbleModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lowPolyTree.obj", loader);
+	Texture* bobbleTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lowPolyTree.png"));
+	TextureModel* bobbleTextureModel = new TextureModel(bobbleModel, bobbleTexture);
+
+	grassTexture->SetUseFakeLighting(true);
+	grassTexture->SetTransparency(true);
+	flowerTexture->SetUseFakeLighting(true);
+	flowerTexture->SetTransparency(true);
+	fernTexture->SetTransparency(true);
+
 	std::vector<Entity*> entities;
-	for (int i = 0; i < 500; ++i)
+	for (int i = 0; i < 400; ++i)
 	{
-		Entity* tree = new Entity(treeTextureModel, glm::vec3(Maths::RandFloat() * 800 - 400, 0, Maths::RandFloat() * -600), glm::vec3(0, 0, 0), 3);
-		entities.push_back(tree);
+		if (i % 7 == 0)
+		{
+			Entity* grass = new Entity(grassTextureModel, glm::vec3(Maths::RandFloat() * 400 - 200, 0, Maths::RandFloat() * -400), glm::vec3(0, 0, 0), 1.8);
+			entities.push_back(grass);
 
-		Entity* grass = new Entity(grassTextureModel, glm::vec3(Maths::RandFloat() * 800 - 400, 0, Maths::RandFloat() * -600), glm::vec3(0, 0, 0), 1);
-		entities.push_back(grass);
+			Entity* flower = new Entity(flowerTextureModel, glm::vec3(Maths::RandFloat() * 400 - 200, 0, Maths::RandFloat() * -400), glm::vec3(0, 0, 0), 2.3);
+			entities.push_back(grass);
+		}
 
-		Entity* fern = new Entity(fernTextureModel, glm::vec3(Maths::RandFloat() * 800 - 400, 0, Maths::RandFloat() * -600), glm::vec3(0, 0, 0), 0.6);
-		entities.push_back(fern);
+		if (i % 3 == 0)
+		{
+			Entity* fern = new Entity(fernTextureModel, glm::vec3(Maths::RandFloat() * 400 - 200, 0, Maths::RandFloat() * -400), glm::vec3(0, Maths::RandFloat()*360, 0), 0.9);
+			entities.push_back(fern);
+
+			Entity* bobble = new Entity(bobbleTextureModel, glm::vec3(Maths::RandFloat() * 800 - 400, 0, Maths::RandFloat() * -600), glm::vec3(0, Maths::RandFloat() * 360, 0), Maths::RandFloat() * 0.1 + 0.6);
+			entities.push_back(bobble);
+
+			Entity* tree = new Entity(treeTextureModel, glm::vec3(Maths::RandFloat() * 800 - 400, 0, Maths::RandFloat() * -600), glm::vec3(0, 0, 0), Maths::RandFloat() * 1 + 4);
+			entities.push_back(tree);
+		}
 	}
 
 	RawModel* stallModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\stall.obj", loader);
@@ -97,12 +122,18 @@ void DisplayManager::UpdateDisplay()
 	entities.push_back(stall);
 
 	// µØÐÎ
-	Texture* terrainTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grass.png"));
-	Terrain* terrain1 = new Terrain(0, 0, loader, terrainTexture);
-	Terrain* terrain2 = new Terrain(1, 0, loader, terrainTexture);
-	
+	TerrainTexture* backgroudTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassy.png"));
+	TerrainTexture* rTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\dirt.png"));
+	TerrainTexture* gTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\pinkFlowers.png"));
+	TerrainTexture* bTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\path.png"));
+	TerrainTexturePack* terrainTexturePack = new TerrainTexturePack(backgroudTexture, rTexture, gTexture, bTexture);
+	TerrainTexture* blendMap = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\blendMap.png"));
+
+	Terrain* terrain1 = new Terrain(0, 1, loader, terrainTexturePack, blendMap);
+	Terrain* terrain2 = new Terrain(1, 1, loader, terrainTexturePack, blendMap);
+
 	Camera *camera = new Camera();
-	Light* light = new Light(glm::vec3(3000, 2000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
+	Light* light = new Light(glm::vec3(3000, 4000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	
 	while (!glfwWindowShouldClose(windows))

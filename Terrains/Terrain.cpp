@@ -6,11 +6,12 @@
 float Terrain::SIZE = 800;
 int Terrain::VERTEX_COUNT = 128;
 
-Terrain::Terrain(int gridX, int gridZ, Loader* loader, Texture* texture)
+Terrain::Terrain(int gridX, int gridZ, Loader* loader, TerrainTexturePack* texturePack, TerrainTexture* blendMap)
 {
 	this->x = gridX * SIZE;
 	this->z = gridZ * SIZE;
-	this->texture = texture;
+	this->texturePack = texturePack;
+	this->blendMap = blendMap;
 	this->model = GenerateTerrain(loader);
 }
 

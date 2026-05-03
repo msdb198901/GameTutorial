@@ -20,5 +20,9 @@ public:
 	void LoadModelMatrix(Terrain *terrain);
 
 private:
+	void BindTextures(Terrain* terrain);
+	void UnbindTextures();
+
+private:
 	TerrainShader *m_shader;
 };

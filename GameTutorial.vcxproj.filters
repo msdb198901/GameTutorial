@@ -91,6 +91,12 @@
     <ClCompile Include="RenderEngine\MasterRender.cpp">
       <Filter>RenderEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Textures\TerrainTexture.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures\TerrainTexturePack.cpp">
+      <Filter>Textures</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderEngine\DisplayManager.h">
@@ -152,6 +158,12 @@
     </ClInclude>
     <ClInclude Include="RenderEngine\MasterRender.h">
       <Filter>RenderEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures\TerrainTexture.h">
+      <Filter>Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures\TerrainTexturePack.h">
+      <Filter>Textures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

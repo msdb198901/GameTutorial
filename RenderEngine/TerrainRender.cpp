@@ -7,12 +7,17 @@
 #include "Maths.h"
 #include "TerrainShader.h"
 #include "DisplayManager.h"
+#include "TerrainTexturePack.h"
+#include "TerrainTexture.h"
+
+using namespace std;
 
 TerrainRender::TerrainRender(TerrainShader* shader, glm::mat4 projectionMatrix)
 {
 	m_shader = shader;
 	shader->Start();
 	shader->LoadProjectionMatrix(projectionMatrix);
+	shader->ConnectTextureUnits();
 	shader->Stop();
 }
 
@@ -44,14 +49,28 @@ void TerrainRender::PrepareTerrain(Terrain* terrain)
 
 	glEnableVertexAttribArray(2);
 
-	Texture* texture = terrain->GetTexture();
-	m_shader->LoadShineVariables(texture->GetShineDamper(), texture->GetReflectivity());
+	BindTextures(terrain);
+	// 处理地形高光 需要设置高光变量 暂时设置为1 0
+	m_shader->LoadShineVariables(1, 0);
+}
 
-	// 告诉OpenGL要把哪个纹理激活（渲染到四边形上）
-	// 激活第一个纹理单元 GL_TEXTURE0 
-	// Sampler2D默认使用GL_TEXTURE0中的纹理
+void TerrainRender::BindTextures(Terrain* terrain)
+{
+	TerrainTexturePack* texture = terrain->GetTexturePack();
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture->GetID());
+	glBindTexture(GL_TEXTURE_2D, texture->GetBackgroundTexture()->GetTextureID());
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, texture->GetRTexture()->GetTextureID());
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, texture->GetGTexture()->GetTextureID());
+	glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, texture->GetBTexture()->GetTextureID());
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, terrain->GetBlendMap()->GetTextureID());
+}
+
+void TerrainRender::UnbindTextures()
+{
 }
 
 void TerrainRender::UnBindTextureModel()

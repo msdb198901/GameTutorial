@@ -24,6 +24,7 @@ protected:
 	int GetUniformLocation(const char* uniformName);
 
 	void LoadFloat(int location, float value);
+	void LoadInt(int location, int value);
 	void LoadVector(int location, const glm::vec2& vector);
 	void LoadVector(int location, const glm::vec3& vector);
 	void LoadVector(int location, const glm::vec4& vector);

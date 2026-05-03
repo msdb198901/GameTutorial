@@ -53,6 +53,15 @@ void TerrainShader::LoadSkyColor(const glm::vec3& color)
 	LoadVector(m_location_skyColor, color);
 }
 
+void TerrainShader::ConnectTextureUnits()
+{
+	LoadInt(m_location_backgroundTexture, 0);
+	LoadInt(m_location_rTexture, 1);
+	LoadInt(m_location_gTexture, 2);
+	LoadInt(m_location_bTexture, 3);
+	LoadInt(m_location_blendMap, 4);
+}
+
 void TerrainShader::GetAllUniformLocations()
 {
 	m_location_transformationMatrix = GetUniformLocation("transformationMatrix");
@@ -63,4 +72,9 @@ void TerrainShader::GetAllUniformLocations()
 	m_location_shineDamper = GetUniformLocation("shineDamper");
 	m_location_reflectivity = GetUniformLocation("reflectivity");
 	m_location_skyColor = GetUniformLocation("skyColor");
+	m_location_backgroundTexture = GetUniformLocation("backgroundTexture");
+	m_location_rTexture = GetUniformLocation("rTexture");
+	m_location_gTexture = GetUniformLocation("gTexture");
+	m_location_bTexture = GetUniformLocation("bTexture");
+	m_location_blendMap = GetUniformLocation("blendMap");
 }

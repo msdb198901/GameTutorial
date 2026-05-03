@@ -1,12 +1,14 @@
 #pragma once
 
 class RawModel;
-class Texture;
+class TerrainTexturePack;
+class TerrainTexture;
 class Loader;
 class Terrain
 {
 public:
-	Terrain(int gridX, int gridZ, Loader *loader, Texture* texture);
+	// 四种地形纹理 + 混合贴图
+	Terrain(int gridX, int gridZ, Loader *loader, TerrainTexturePack* texturePack, TerrainTexture* blendMap);
 	~Terrain();
 
 	RawModel* GenerateTerrain(Loader *loader);
@@ -14,7 +16,8 @@ public:
 	float GetX() { return x; }
 	float GetZ() { return z; }
 	RawModel*  GetRawModel() { return model; }
-	Texture* GetTexture() { return texture; }
+	TerrainTexturePack* GetTexturePack() { return texturePack; }
+	TerrainTexture* GetBlendMap() { return blendMap; }
 
 private:
 	static float SIZE;
@@ -23,5 +26,6 @@ private:
 	float x;
 	float z;
 	RawModel* model;
-    Texture* texture;
+	TerrainTexturePack* texturePack;
+	TerrainTexture* blendMap;
 };

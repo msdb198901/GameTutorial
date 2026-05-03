@@ -24,7 +24,8 @@ void main()
 {
     vec4 blendMapColor = texture(blendMap, fragment_textureCoords);
     // 计算强度 用于背景纹理的渲染 背景纹理在混合贴图为黑色时显示
-    float backTextureAlpha = 1 - (blendMapColor.r + blendMapColor.g + blendMapColor.b);
+    float totalWeight = blendMapColor.r + blendMapColor.g + blendMapColor.b;
+    float backTextureAlpha = clamp(1.0 - totalWeight, 0.0, 1.0);
     // 计算平铺纹理坐标 用于纹理的平铺渲染 平铺纹理坐标的倍数越大，纹理越不明显
     vec2 tiledCoords = fragment_textureCoords * 40.0;
     // 计算背景纹理颜色和混合贴图纹理颜色

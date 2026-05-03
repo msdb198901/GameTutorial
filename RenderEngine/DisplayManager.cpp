@@ -99,7 +99,7 @@ void DisplayManager::UpdateDisplay()
 			entities.push_back(grass);
 
 			Entity* flower = new Entity(flowerTextureModel, glm::vec3(Maths::RandFloat() * 400 - 200, 0, Maths::RandFloat() * -400), glm::vec3(0, 0, 0), 2.3);
-			entities.push_back(grass);
+			entities.push_back(flower);
 		}
 
 		if (i % 3 == 0)
@@ -129,11 +129,11 @@ void DisplayManager::UpdateDisplay()
 	TerrainTexturePack* terrainTexturePack = new TerrainTexturePack(backgroudTexture, rTexture, gTexture, bTexture);
 	TerrainTexture* blendMap = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\blendMap.png"));
 
-	Terrain* terrain1 = new Terrain(0, 1, loader, terrainTexturePack, blendMap);
-	Terrain* terrain2 = new Terrain(1, 1, loader, terrainTexturePack, blendMap);
+	Terrain* terrain1 = new Terrain(0, 0, loader, terrainTexturePack, blendMap);
+	Terrain* terrain2 = new Terrain(1, 0, loader, terrainTexturePack, blendMap);
 
 	Camera *camera = new Camera();
-	Light* light = new Light(glm::vec3(3000, 4000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
+	Light* light = new Light(glm::vec3(2000, 4000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	
 	while (!glfwWindowShouldClose(windows))

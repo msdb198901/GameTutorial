@@ -8,6 +8,8 @@ public:
 	// 加载顶点数据 返回一个包含VAO信息的原始模型对象
 	RawModel* LoadData(std::vector<float> positions, std::vector<float> vTextureCoords, std::vector<float> vNormals, std::vector<int> vIndices);
 
+	RawModel* LoadData(std::vector<float> positions);
+
 	int CreateVAO();
 
 	void StoreDataInAttributeList(int iVAO, int coordinateSize, std::vector<float> vPositions);

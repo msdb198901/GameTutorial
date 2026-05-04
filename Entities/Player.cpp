@@ -45,7 +45,8 @@ void Player::Move(GLFWwindow* window, float deltaTime, Terrain* terrain)
 		m_rotationSpeed = 0;
 	}
 
-	bool isOnGround = (GetPosition().y <= Player::TERRAIN_HEIGHT + 0.1f);
+	float terrainHeight = terrain->GetHeightOfTerrain(GetPosition().x, GetPosition().z);
+	bool isOnGround = (GetPosition().y <= terrainHeight + 0.1f);
 	if (isOnGround && glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
 	{
 		m_jumpSpeed = JUMP_SPEED;
@@ -62,7 +63,6 @@ void Player::Move(GLFWwindow* window, float deltaTime, Terrain* terrain)
 	m_jumpSpeed += Player::GRAVITY * deltaTime;
 	IncreasePosition(0, m_jumpSpeed * deltaTime, 0);
 
-	float terrainHeight = terrain->GetHeightOfTerrain(GetPosition().x, GetPosition().z);
 	if (GetPosition().y < terrainHeight)
 	{
 		m_jumpSpeed = 0;

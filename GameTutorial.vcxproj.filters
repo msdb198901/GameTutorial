@@ -29,6 +29,9 @@
     <Filter Include="Terrains">
       <UniqueIdentifier>{5a33a807-7728-4df7-b10d-6f27b7e9ef3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Guis">
+      <UniqueIdentifier>{56c2dfc4-4f21-4bb8-aa24-a522161e93db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderEngine\DisplayManager.cpp">
@@ -99,6 +102,15 @@
     </ClCompile>
     <ClCompile Include="Entities\Player.cpp">
       <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Guis\GuiTexture.cpp">
+      <Filter>Guis</Filter>
+    </ClCompile>
+    <ClCompile Include="Guis\GuiRender.cpp">
+      <Filter>Guis</Filter>
+    </ClCompile>
+    <ClCompile Include="Guis\GuiShader.cpp">
+      <Filter>Guis</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +183,15 @@
     <ClInclude Include="Entities\Player.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Guis\GuiTexture.h">
+      <Filter>Guis</Filter>
+    </ClInclude>
+    <ClInclude Include="Guis\GuiRender.h">
+      <Filter>Guis</Filter>
+    </ClInclude>
+    <ClInclude Include="Guis\GuiShader.h">
+      <Filter>Guis</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.vs">
@@ -184,6 +205,12 @@
     </None>
     <None Include="Shaders\terrain.vs">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="Guis\GuiFragmentShader.fs">
+      <Filter>Guis</Filter>
+    </None>
+    <None Include="Guis\GuiVertexShader.vs">
+      <Filter>Guis</Filter>
     </None>
   </ItemGroup>
 </Project>

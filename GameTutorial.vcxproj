@@ -27,6 +27,9 @@
     <ClCompile Include="Entities\Entity.cpp" />
     <ClCompile Include="Entities\Light.cpp" />
     <ClCompile Include="Entities\Player.cpp" />
+    <ClCompile Include="Guis\GuiRender.cpp" />
+    <ClCompile Include="Guis\GuiShader.cpp" />
+    <ClCompile Include="Guis\GuiTexture.cpp" />
     <ClCompile Include="Models\RawModel.cpp" />
     <ClCompile Include="Models\TextureModel.cpp" />
     <ClCompile Include="RenderEngine\DisplayManager.cpp" />
@@ -55,6 +58,9 @@
     <ClInclude Include="Entities\Entity.h" />
     <ClInclude Include="Entities\Light.h" />
     <ClInclude Include="Entities\Player.h" />
+    <ClInclude Include="Guis\GuiRender.h" />
+    <ClInclude Include="Guis\GuiShader.h" />
+    <ClInclude Include="Guis\GuiTexture.h" />
     <ClInclude Include="Models\RawModel.h" />
     <ClInclude Include="Models\TextureModel.h" />
     <ClInclude Include="RenderEngine\DisplayManager.h" />
@@ -75,6 +81,8 @@
     <ClInclude Include="ToolBox\Maths.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Guis\GuiFragmentShader.fs" />
+    <None Include="Guis\GuiVertexShader.vs" />
     <None Include="Shaders\shader.fs" />
     <None Include="Shaders\shader.vs" />
     <None Include="Shaders\terrain.fs" />
@@ -142,7 +150,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)RenderEngine;$(SolutionDir)Shaders;$(SolutionDir)Models;$(SolutionDir)Textures;$(SolutionDir)ToolBox;$(SolutionDir)Entities;$(SolutionDir)Terrains;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)RenderEngine;$(SolutionDir)Shaders;$(SolutionDir)Models;$(SolutionDir)Textures;$(SolutionDir)ToolBox;$(SolutionDir)Entities;$(SolutionDir)Terrains;$(SolutionDir)Guis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>

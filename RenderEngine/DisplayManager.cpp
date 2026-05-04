@@ -19,6 +19,9 @@
 #include "TerrainTexturePack.h"
 #include "Player.h"
 
+#include "GuiTexture.h"
+#include "GuiRender.h"
+
 float  deltaTime = 0.0f;
 float  lastFrame = 0.0f;
 
@@ -128,9 +131,9 @@ void DisplayManager::UpdateDisplay()
 
 
 	// 加载模型文件
-	RawModel *treeModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\tree.obj", loader);
-	Texture* treeTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\tree.png"));
-	TextureModel* treeTextureModel = new TextureModel(treeModel, treeTexture);
+	RawModel * pineModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\pine.obj", loader);
+	Texture* pineTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\pine.png"));
+	TextureModel* pineTextureModel = new TextureModel(pineModel, pineTexture);
 
 	RawModel *grassModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassModel.obj", loader);
 	Texture* grassTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassTexture.png"));
@@ -160,19 +163,6 @@ void DisplayManager::UpdateDisplay()
 	{
 		if (i % 2 == 0)
 		{
-			//float x = Maths::RandFloat() * 400;
-			//float z = Maths::RandFloat() * 400;
-			//float y = terrain1->GetHeightOfTerrain(x, z);
-			//std::cout << "obj at x:"<< x  << " y:" << y << " z:" << z << std::endl;
-			//Entity* grass = new Entity(grassTextureModel, glm::vec3(x, y, z), glm::vec3(0, 0, 0), 1.8);
-			//entities.push_back(grass);
-
-			//x = Maths::RandFloat() * 400;
-			//z = Maths::RandFloat() * 400;
-			//y = terrain1->GetHeightOfTerrain(x, z);
-			//Entity* flower = new Entity(flowerTextureModel, glm::vec3(x, y, z), glm::vec3(0, 0, 0), 2.3);
-			//entities.push_back(flower);
-
 			float x = Maths::RandFloat() * 400;
 			float z = Maths::RandFloat() * 400;
 			float y = terrain1->GetHeightOfTerrain(x, z);
@@ -180,19 +170,19 @@ void DisplayManager::UpdateDisplay()
 			entities.push_back(fern);
 		}
 
-		if (i % 5 == 0)
+		if (i % 3 == 0)
 		{
+			//float x = Maths::RandFloat() * 800;
+			//float z = Maths::RandFloat() * 600;
+			//float y = terrain1->GetHeightOfTerrain(x, z);
+			//Entity* bobble = new Entity(bobbleTextureModel, glm::vec3(x, y, z), glm::vec3(0, Maths::RandFloat() * 360, 0), Maths::RandFloat() * 0.1 + 0.6);
+			//entities.push_back(bobble);	
+
 			float x = Maths::RandFloat() * 800;
 			float z = Maths::RandFloat() * 600;
 			float y = terrain1->GetHeightOfTerrain(x, z);
-			Entity* bobble = new Entity(bobbleTextureModel, glm::vec3(x, y, z), glm::vec3(0, Maths::RandFloat() * 360, 0), Maths::RandFloat() * 0.1 + 0.6);
-			entities.push_back(bobble);	
-
-			x = Maths::RandFloat() * 800;
-			z = Maths::RandFloat() * 600;
-			y = terrain1->GetHeightOfTerrain(x, z);
-			Entity* tree = new Entity(treeTextureModel, glm::vec3(x, y, z), glm::vec3(0, 0, 0), Maths::RandFloat() * 1 + 4);
-			entities.push_back(tree);
+			Entity* pine = new Entity(pineTextureModel, glm::vec3(x, y, z), glm::vec3(0, 0, 0), Maths::RandFloat() * 1 + 1);
+			entities.push_back(pine);
 		}
 	}
 
@@ -207,15 +197,25 @@ void DisplayManager::UpdateDisplay()
 	RawModel* playerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\person.obj", loader);
 	Texture* playerTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\playerTexture.png"));
 	TextureModel* playerTextureModel = new TextureModel(playerModel, playerTexture);
-	Player* player = new Player(playerTextureModel, glm::vec3(100, 0, 150), glm::vec3(0, 180, 0), 1.0);
+	Player* player = new Player(playerTextureModel, glm::vec3(100, 0, 150), glm::vec3(0, 90, 0), 1.0);
 
 	Camera *camera = new Camera(player);
 	Light* light = new Light(glm::vec3(2000, 4000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
 
 	// 设置鼠标滚动回调函数
 	glfwSetWindowUserPointer(windows, camera);
-	
-	
+
+	// 创建 GUI
+	std::list<GuiTexture*> guis;
+	GuiTexture* gui = new GuiTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\socuwan.png"), 
+		glm::vec2(0.5), glm::vec2(0.25));
+	GuiTexture* gui2 = new GuiTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\thinmatrix.png"),
+		glm::vec2(0.3, 0.74), glm::vec2(0.4));
+	guis.push_back(gui);
+	guis.push_back(gui2);
+
+	GuiRender* guiRenderer = new GuiRender(loader);
+
 	while (!glfwWindowShouldClose(windows))
 	{
 		processInput();
@@ -232,9 +232,12 @@ void DisplayManager::UpdateDisplay()
 		}
 		shader->RenderModel(light, camera);
 
+		guiRenderer->RenderModel(guis);
+
 		glfwSwapBuffers(windows);
 		glfwPollEvents();
 	}
+	guiRenderer->CleanUp();
 	shader->CleanUp();
 	// 删除顶点缓冲资源 删除所有顶点对象
 	loader->ClearUp();

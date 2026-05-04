@@ -11,6 +11,9 @@ public:
 
 	static glm::mat4 CreateViewMatrix(Camera* camera);
 
+	// 创建一个二维位置和缩放 生成变换矩阵
+	static glm::mat4 CreateTransformationMatrix(const glm::vec2& translation, const glm::vec2& scale);
+
 	static float RandFloat();
 
 	static float BarryCentric(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& p3,

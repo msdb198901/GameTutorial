@@ -13,7 +13,16 @@ RawModel* Loader::LoadData(std::vector<float> vPositions, std::vector<float> vTe
 	StoreDataInAttributeList(1, 2, vTextureCoords);
 	StoreDataInAttributeList(2, 3, vNormals);
 	BindIndicesBuffer(vIndices);
+	unbindVAO();
 	return new RawModel(VAO, vIndices.size());
+}
+
+RawModel* Loader::LoadData(std::vector<float> positions)
+{
+	int VAO = CreateVAO();
+	StoreDataInAttributeList(0, 2, positions);
+	unbindVAO();
+	return new RawModel(VAO, positions.size() / 2);
 }
 
 int Loader::CreateVAO()

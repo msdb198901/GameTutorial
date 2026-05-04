@@ -36,6 +36,13 @@ glm::mat4 Maths::CreateViewMatrix(Camera* camera)
 	return viewMatrix;
 }
 
+glm::mat4 Maths::CreateTransformationMatrix(const glm::vec2& translation, const glm::vec2& scale)
+{
+	glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0f), glm::vec3(translation, 0));
+	glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(scale, 1));
+	return translationMatrix * scaleMatrix;
+}
+
 float Maths::RandFloat() {
 	return (float)rand() / RAND_MAX;
 }

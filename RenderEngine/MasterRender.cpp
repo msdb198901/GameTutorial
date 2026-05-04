@@ -13,6 +13,8 @@
 #include "EmissiveShader.h"
 #include "EmissiveRender.h"
 
+#include "SkyboxRender.h"
+
 const float MasterRender::FOV = 70;
 const float MasterRender::NEAR_PLANE = 0.1f;
 const float MasterRender::FAR_PLANE = 1000.0f;
@@ -21,13 +23,12 @@ const float MasterRender::FAR_PLANE = 1000.0f;
 //const float MasterRender::GREEN = 0.86;
 //const float MasterRender::BLUE = 0.82;
 
-const float MasterRender::RED = 0.5;
-const float MasterRender::GREEN = 0.5;
-const float MasterRender::BLUE = 0.5;
+const float MasterRender::RED = 0.5444;
+const float MasterRender::GREEN = 0.62;
+const float MasterRender::BLUE = 0.69;
 
-MasterRender::MasterRender()
+MasterRender::MasterRender(Loader* loader)
 {
-
 	m_projectionMatrix = Maths::CreateProjectionMatrix(MasterRender::FOV, DisplayManager::WIDTH / DisplayManager::HEIHGT, MasterRender::NEAR_PLANE, MasterRender::FAR_PLANE);
 
 	MasterRender::EnableCulling();
@@ -40,6 +41,8 @@ MasterRender::MasterRender()
 
 	m_pEmissiveShader = new EmissiveShader();
 	m_pEmissiveRender = new EmissiveRender(m_pEmissiveShader, m_projectionMatrix);
+
+	m_pSkyboxRender = new SkyboxRender(loader, m_projectionMatrix);
 }
 
 MasterRender::~MasterRender()
@@ -76,7 +79,6 @@ void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
 	m_pEntityShader->Stop();
 
 	m_pEmissiveShader->Start();
-	//m_pEmissiveShader->LoadEmissiveColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
 	m_pEmissiveShader->LoadViewMatrix(pCamera);
 	m_pEmissiveRender->RenderModel(m_emissiveEntities);
 	m_pEmissiveShader->Stop();
@@ -87,6 +89,8 @@ void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
 	m_pTerrainShader->LoadViewMatrix(pCamera);
 	m_pTerrainRender->RenderModel(m_terrains);
 	m_pTerrainShader->Stop();
+
+	m_pSkyboxRender->RenderModel(pCamera);
 
 	m_entities.clear();
 	m_emissiveEntities.clear();

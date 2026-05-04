@@ -9,7 +9,7 @@
 GuiRender::GuiRender(Loader* loader)
 {
 	std::vector<float> vertices = {-1, 1, -1, -1, 1, 1, 1, -1};
-	quad = loader->LoadData(vertices);
+	quad = loader->LoadData(vertices, 2);
 	shader = new GuiShader();
 }
 

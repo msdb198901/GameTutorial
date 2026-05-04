@@ -17,12 +17,12 @@ RawModel* Loader::LoadData(std::vector<float> vPositions, std::vector<float> vTe
 	return new RawModel(VAO, vIndices.size());
 }
 
-RawModel* Loader::LoadData(std::vector<float> positions)
+RawModel* Loader::LoadData(std::vector<float> positions, int dimensions)
 {
 	int VAO = CreateVAO();
-	StoreDataInAttributeList(0, 2, positions);
+	StoreDataInAttributeList(0, dimensions, positions);
 	unbindVAO();
-	return new RawModel(VAO, positions.size() / 2);
+	return new RawModel(VAO, positions.size() / dimensions);
 }
 
 int Loader::CreateVAO()
@@ -116,6 +116,36 @@ int Loader::LoadTexture(const char* fileName)
 		stbi_image_free(data);
 	}
 
+	return textureID;
+}
+
+int Loader::LoadCubeMapTexture(std::vector<const char*> textureFiles)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	int width, height, nrChannels;
+	for (GLuint i = 0; i < textureFiles.size(); i++)
+	{
+		unsigned char* data = stbi_load(textureFiles[i], &width, &height, &nrChannels, 3);
+		if (data)
+		{
+			GLenum format = GL_RGB;
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+			stbi_image_free(data);
+		}
+		else
+		{
+			std::cout << "Texture failed to load at path: " << textureFiles[i] << std::endl;
+			stbi_image_free(data);
+		}
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	//glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	return textureID;
 }
 

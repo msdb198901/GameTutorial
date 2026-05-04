@@ -6,6 +6,7 @@
 class TextureModel;
 class Light;
 class Camera;
+class Loader;
 
 class Entity;
 class StaticShader;
@@ -19,11 +20,13 @@ class EmissiveEntity;
 class EmissiveShader;
 class EmissiveRender;
 
+class SkyboxRender;
+
 // 负责管理所有渲染代码
 class MasterRender
 {
 public:
-	MasterRender();
+	MasterRender(Loader *loader);
 	~MasterRender();
 
 	// 每一帧调用一次
@@ -59,6 +62,8 @@ private:
 
 	EmissiveShader* m_pEmissiveShader;
 	EmissiveRender* m_pEmissiveRender;
+
+	SkyboxRender* m_pSkyboxRender;
 
 	std::map<TextureModel*, std::vector<Entity*> > m_entities;
 	std::list<Terrain*> m_terrains;

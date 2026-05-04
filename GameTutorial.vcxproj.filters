@@ -32,6 +32,9 @@
     <Filter Include="Guis">
       <UniqueIdentifier>{56c2dfc4-4f21-4bb8-aa24-a522161e93db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SkyBox">
+      <UniqueIdentifier>{b24a7470-a6a7-44e4-a710-7ac61e7a4800}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderEngine\DisplayManager.cpp">
@@ -120,6 +123,12 @@
     </ClCompile>
     <ClCompile Include="RenderEngine\EmissiveRender.cpp">
       <Filter>RenderEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox\SkyboxShader.cpp">
+      <Filter>SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="SkyBox\SkyboxRender.cpp">
+      <Filter>SkyBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,6 +219,12 @@
     <ClInclude Include="RenderEngine\EmissiveRender.h">
       <Filter>RenderEngine</Filter>
     </ClInclude>
+    <ClInclude Include="SkyBox\SkyboxShader.h">
+      <Filter>SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="SkyBox\SkyboxRender.h">
+      <Filter>SkyBox</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.vs">
@@ -235,6 +250,12 @@
     </None>
     <None Include="Shaders\emissive.vs">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="SkyBox\skybox.fs">
+      <Filter>SkyBox</Filter>
+    </None>
+    <None Include="SkyBox\skybox.vs">
+      <Filter>SkyBox</Filter>
     </None>
   </ItemGroup>
 </Project>

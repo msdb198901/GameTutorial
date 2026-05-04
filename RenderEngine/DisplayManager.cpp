@@ -117,7 +117,7 @@ void DisplayManager::UpdateDisplay()
 	Loader* loader = new Loader();
 
 	// 创建主渲染器
-	MasterRender* shader = new MasterRender();
+	MasterRender* shader = new MasterRender(loader);
 
 	// 地形
 	TerrainTexture* backgroudTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassy.png"));

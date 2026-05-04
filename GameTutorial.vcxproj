@@ -49,6 +49,8 @@
     <ClCompile Include="Shaders\ShaderProgram.cpp" />
     <ClCompile Include="Shaders\StaticShader.cpp" />
     <ClCompile Include="Shaders\TerrainShader.cpp" />
+    <ClCompile Include="SkyBox\SkyboxRender.cpp" />
+    <ClCompile Include="SkyBox\SkyboxShader.cpp" />
     <ClCompile Include="Terrains\Terrain.cpp" />
     <ClCompile Include="Textures\TerrainTexture.cpp" />
     <ClCompile Include="Textures\TerrainTexturePack.cpp" />
@@ -80,6 +82,8 @@
     <ClInclude Include="Shaders\ShaderProgram.h" />
     <ClInclude Include="Shaders\StaticShader.h" />
     <ClInclude Include="Shaders\TerrainShader.h" />
+    <ClInclude Include="SkyBox\SkyboxRender.h" />
+    <ClInclude Include="SkyBox\SkyboxShader.h" />
     <ClInclude Include="Terrains\Terrain.h" />
     <ClInclude Include="Textures\TerrainTexture.h" />
     <ClInclude Include="Textures\TerrainTexturePack.h" />
@@ -95,6 +99,8 @@
     <None Include="Shaders\shader.vs" />
     <None Include="Shaders\terrain.fs" />
     <None Include="Shaders\terrain.vs" />
+    <None Include="SkyBox\skybox.fs" />
+    <None Include="SkyBox\skybox.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -158,7 +164,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)RenderEngine;$(SolutionDir)Shaders;$(SolutionDir)Models;$(SolutionDir)Textures;$(SolutionDir)ToolBox;$(SolutionDir)Entities;$(SolutionDir)Terrains;$(SolutionDir)Guis;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)RenderEngine;$(SolutionDir)Shaders;$(SolutionDir)Models;$(SolutionDir)Textures;$(SolutionDir)ToolBox;$(SolutionDir)Entities;$(SolutionDir)Terrains;$(SolutionDir)Guis;$(SolutionDir)SkyBox;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>

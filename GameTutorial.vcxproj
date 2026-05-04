@@ -24,6 +24,7 @@
     </ClCompile>
     <ClCompile Include="EngineTester\MainLoop.cpp" />
     <ClCompile Include="Entities\Camera.cpp" />
+    <ClCompile Include="Entities\EmissiveEntity.cpp" />
     <ClCompile Include="Entities\Entity.cpp" />
     <ClCompile Include="Entities\Light.cpp" />
     <ClCompile Include="Entities\Player.cpp" />
@@ -33,6 +34,7 @@
     <ClCompile Include="Models\RawModel.cpp" />
     <ClCompile Include="Models\TextureModel.cpp" />
     <ClCompile Include="RenderEngine\DisplayManager.cpp" />
+    <ClCompile Include="RenderEngine\EmissiveRender.cpp" />
     <ClCompile Include="RenderEngine\Loader.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
     </ClCompile>
@@ -43,6 +45,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="RenderEngine\TerrainRender.cpp" />
+    <ClCompile Include="Shaders\EmissiveShader.cpp" />
     <ClCompile Include="Shaders\ShaderProgram.cpp" />
     <ClCompile Include="Shaders\StaticShader.cpp" />
     <ClCompile Include="Shaders\TerrainShader.cpp" />
@@ -55,6 +58,7 @@
   <ItemGroup>
     <ClInclude Include="EngineTester\MainLoop.h" />
     <ClInclude Include="Entities\Camera.h" />
+    <ClInclude Include="Entities\EmissiveEntity.h" />
     <ClInclude Include="Entities\Entity.h" />
     <ClInclude Include="Entities\Light.h" />
     <ClInclude Include="Entities\Player.h" />
@@ -64,6 +68,7 @@
     <ClInclude Include="Models\RawModel.h" />
     <ClInclude Include="Models\TextureModel.h" />
     <ClInclude Include="RenderEngine\DisplayManager.h" />
+    <ClInclude Include="RenderEngine\EmissiveRender.h" />
     <ClInclude Include="RenderEngine\Loader.h" />
     <ClInclude Include="RenderEngine\MasterRender.h" />
     <ClInclude Include="RenderEngine\ObjLoader.h" />
@@ -71,6 +76,7 @@
     <ClInclude Include="RenderEngine\stb_image.h" />
     <ClInclude Include="RenderEngine\StdAfx.h" />
     <ClInclude Include="RenderEngine\TerrainRender.h" />
+    <ClInclude Include="Shaders\EmissiveShader.h" />
     <ClInclude Include="Shaders\ShaderProgram.h" />
     <ClInclude Include="Shaders\StaticShader.h" />
     <ClInclude Include="Shaders\TerrainShader.h" />
@@ -83,6 +89,8 @@
   <ItemGroup>
     <None Include="Guis\GuiFragmentShader.fs" />
     <None Include="Guis\GuiVertexShader.vs" />
+    <None Include="Shaders\emissive.fs" />
+    <None Include="Shaders\emissive.vs" />
     <None Include="Shaders\shader.fs" />
     <None Include="Shaders\shader.vs" />
     <None Include="Shaders\terrain.fs" />

@@ -9,6 +9,10 @@
 #include "TerrainShader.h"
 #include "TerrainRender.h"
 
+#include "EmissiveEntity.h"
+#include "EmissiveShader.h"
+#include "EmissiveRender.h"
+
 const float MasterRender::FOV = 70;
 const float MasterRender::NEAR_PLANE = 0.1f;
 const float MasterRender::FAR_PLANE = 1000.0f;
@@ -33,6 +37,9 @@ MasterRender::MasterRender()
 
 	m_pTerrainShader = new TerrainShader();
 	m_pTerrainRender = new TerrainRender(m_pTerrainShader, m_projectionMatrix);
+
+	m_pEmissiveShader = new EmissiveShader();
+	m_pEmissiveRender = new EmissiveRender(m_pEmissiveShader, m_projectionMatrix);
 }
 
 MasterRender::~MasterRender()
@@ -68,6 +75,12 @@ void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
 	m_pEntityRender->RenderModel(m_entities);
 	m_pEntityShader->Stop();
 
+	m_pEmissiveShader->Start();
+	//m_pEmissiveShader->LoadEmissiveColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
+	m_pEmissiveShader->LoadViewMatrix(pCamera);
+	m_pEmissiveRender->RenderModel(m_emissiveEntities);
+	m_pEmissiveShader->Stop();
+
 	m_pTerrainShader->Start();
 	m_pTerrainShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
 	m_pTerrainShader->LoadLights(lights);
@@ -76,6 +89,7 @@ void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
 	m_pTerrainShader->Stop();
 
 	m_entities.clear();
+	m_emissiveEntities.clear();
 	m_terrains.clear();
 }
 
@@ -98,8 +112,14 @@ void MasterRender::ProcessTerrain(Terrain* terrain)
 	m_terrains.push_back(terrain);
 }
 
+void  MasterRender::ProcessEmissiveEntity(EmissiveEntity* emissiveEntity)
+{
+	m_emissiveEntities.push_back(emissiveEntity);
+}
+
 void MasterRender::CleanUp()
 {
+	m_pEmissiveShader->CleanUp();
 	m_pEntityShader->CleanUp();
 	m_pTerrainShader->CleanUp();
 }

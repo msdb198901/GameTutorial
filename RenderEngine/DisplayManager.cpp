@@ -22,6 +22,9 @@
 #include "GuiTexture.h"
 #include "GuiRender.h"
 
+#include "EmissiveEntity.h"
+#include "EmissiveShader.h"
+
 float  deltaTime = 0.0f;
 float  lastFrame = 0.0f;
 
@@ -172,12 +175,6 @@ void DisplayManager::UpdateDisplay()
 
 		if (i % 3 == 0)
 		{
-			//float x = Maths::RandFloat() * 800;
-			//float z = Maths::RandFloat() * 600;
-			//float y = terrain1->GetHeightOfTerrain(x, z);
-			//Entity* bobble = new Entity(bobbleTextureModel, glm::vec3(x, y, z), glm::vec3(0, Maths::RandFloat() * 360, 0), Maths::RandFloat() * 0.1 + 0.6);
-			//entities.push_back(bobble);	
-
 			float x = Maths::RandFloat() * 800;
 			float z = Maths::RandFloat() * 600;
 			float y = terrain1->GetHeightOfTerrain(x, z);
@@ -202,7 +199,7 @@ void DisplayManager::UpdateDisplay()
 	Camera *camera = new Camera(player);
 	Light* light1 = new Light(glm::vec3(0, 10000, -7000), glm::vec3(0.4f, 0.4f, 0.4f));
 	Light* light2 = new Light(glm::vec3(185, 10, 293), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
-	Light* light3 = new Light(glm::vec3(370, 17, 300), glm::vec3(0.0f, 2.0f, 2.0f), glm::vec3(1, 0.01, 0.002));
+	Light* light3 = new Light(glm::vec3(370, 5, 300), glm::vec3(0.0f, 2.0f, 2.0f), glm::vec3(1, 0.01, 0.002));
 	Light* light4 = new Light(glm::vec3(293, 7, 305), glm::vec3(2.0f, 2.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
 	std::vector<Light*> lights;
 	lights.push_back(light1);
@@ -214,12 +211,16 @@ void DisplayManager::UpdateDisplay()
 	RawModel* lampModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lamp.obj", loader);
 	Texture* lampTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lamp.png"));
 	TextureModel* lampTextureModel = new TextureModel(lampModel, lampTexture);
-	Entity* lamp1 = new Entity(lampTextureModel, glm::vec3(185, -4.7, 293), glm::vec3(0, 0, 0), 1.0);
-	Entity* lamp2 = new Entity(lampTextureModel, glm::vec3(370, 4.2, 300), glm::vec3(0, 0, 0), 1.0);
-	Entity* lamp3 = new Entity(lampTextureModel, glm::vec3(293, -6.8, 305), glm::vec3(0, 0, 0), 1.0);
-	entities.push_back(lamp1);
-	entities.push_back(lamp2);
-	entities.push_back(lamp3);
+	EmissiveEntity* lamp1 = new EmissiveEntity(lampTextureModel, glm::vec3(185, -4.7, 293), glm::vec3(0, 0, 0), 1.0);
+	EmissiveEntity* lamp2 = new EmissiveEntity(lampTextureModel, glm::vec3(370, -9.2, 300), glm::vec3(0, 0, 0), 1.0);
+	EmissiveEntity* lamp3 = new EmissiveEntity(lampTextureModel, glm::vec3(293, -6.8, 305), glm::vec3(0, 0, 0), 1.0);
+	lamp1->SetEmissiveColor(glm::vec3(2.0f, 0.0f, 0.0f));
+	lamp2->SetEmissiveColor(glm::vec3(0.0f, 2.0f, 2.0f));
+	lamp3->SetEmissiveColor(glm::vec3(2.0f, 2.0f, 0.0f));
+	std::vector<EmissiveEntity*> emissiveEntities;
+	emissiveEntities.push_back(lamp1);
+	emissiveEntities.push_back(lamp2);
+	emissiveEntities.push_back(lamp3);
 
 	// 设置鼠标滚动回调函数
 	glfwSetWindowUserPointer(windows, camera);
@@ -244,10 +245,13 @@ void DisplayManager::UpdateDisplay()
 		shader->ProcessEntity(player);
 
 		shader->ProcessTerrain(terrain1);
-		//shader->ProcessTerrain(terrain2);
 		for (auto entity : entities)
 		{
 			shader->ProcessEntity(entity);
+		}
+		for (auto emissiveEntity : emissiveEntities)
+		{
+			shader->ProcessEmissiveEntity(emissiveEntity);
 		}
 		shader->RenderModel(lights, camera);
 

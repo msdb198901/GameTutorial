@@ -112,6 +112,15 @@
     <ClCompile Include="Guis\GuiShader.cpp">
       <Filter>Guis</Filter>
     </ClCompile>
+    <ClCompile Include="Shaders\EmissiveShader.cpp">
+      <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Entities\EmissiveEntity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderEngine\EmissiveRender.cpp">
+      <Filter>RenderEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderEngine\DisplayManager.h">
@@ -192,6 +201,15 @@
     <ClInclude Include="Guis\GuiShader.h">
       <Filter>Guis</Filter>
     </ClInclude>
+    <ClInclude Include="Shaders\EmissiveShader.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Entities\EmissiveEntity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderEngine\EmissiveRender.h">
+      <Filter>RenderEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.vs">
@@ -211,6 +229,12 @@
     </None>
     <None Include="Guis\GuiVertexShader.vs">
       <Filter>Guis</Filter>
+    </None>
+    <None Include="Shaders\emissive.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\emissive.vs">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

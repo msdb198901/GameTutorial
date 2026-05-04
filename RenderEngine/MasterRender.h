@@ -15,6 +15,10 @@ class Terrain;
 class TerrainShader;
 class TerrainRender;
 
+class EmissiveEntity;
+class EmissiveShader;
+class EmissiveRender;
+
 // 负责管理所有渲染代码
 class MasterRender
 {
@@ -30,6 +34,8 @@ public:
 	void ProcessEntity(Entity*);
 
 	void ProcessTerrain(Terrain*);
+
+	void ProcessEmissiveEntity(EmissiveEntity*);
 
 	void CleanUp();
 
@@ -51,7 +57,12 @@ private:
 	TerrainShader* m_pTerrainShader;
 	TerrainRender* m_pTerrainRender;
 
+	EmissiveShader* m_pEmissiveShader;
+	EmissiveRender* m_pEmissiveRender;
+
 	std::map<TextureModel*, std::vector<Entity*> > m_entities;
 	std::list<Terrain*> m_terrains;
+	std::list<EmissiveEntity*> m_emissiveEntities;
+
 	glm::mat4 m_projectionMatrix;
 };

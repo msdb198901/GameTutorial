@@ -180,8 +180,10 @@ void DisplayManager::UpdateDisplay()
 	TerrainTexturePack* terrainTexturePack = new TerrainTexturePack(backgroudTexture, rTexture, gTexture, bTexture);
 	TerrainTexture* blendMap = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\blendMap.png"));
 
-	Terrain* terrain1 = new Terrain(0, 0, loader, terrainTexturePack, blendMap);
-	Terrain* terrain2 = new Terrain(1, 0, loader, terrainTexturePack, blendMap);
+	loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
+	Terrain* terrain1 = new Terrain(0, 0, loader, terrainTexturePack, blendMap, 
+		"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
+	Terrain* terrain2 = new Terrain(1, 0, loader, terrainTexturePack, blendMap, "E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
 
 	// ´´½¨Íæ¼Ò
 	RawModel* playerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\person.obj", loader);

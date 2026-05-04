@@ -4,14 +4,18 @@ class RawModel;
 class TerrainTexturePack;
 class TerrainTexture;
 class Loader;
+class HeightMap;
 class Terrain
 {
 public:
 	// 四种地形纹理 + 混合贴图
-	Terrain(int gridX, int gridZ, Loader *loader, TerrainTexturePack* texturePack, TerrainTexture* blendMap);
+	Terrain(int gridX, int gridZ, Loader *loader, 
+		TerrainTexturePack* texturePack, 
+		TerrainTexture* blendMap, const char* heightMapPath);
 	~Terrain();
 
-	RawModel* GenerateTerrain(Loader *loader);
+	RawModel* GenerateTerrain(Loader *loader, const char* heightMapPath);
+	glm::vec3 CalculateNormal(int x, int z, HeightMap* heightMap);
 
 	float GetX() { return x; }
 	float GetZ() { return z; }
@@ -21,11 +25,11 @@ public:
 
 private:
 	static float SIZE;
-	static int VERTEX_COUNT;
 
 	float x;
 	float z;
 	RawModel* model;
 	TerrainTexturePack* texturePack;
 	TerrainTexture* blendMap;
+	HeightMap* heightMap;
 };

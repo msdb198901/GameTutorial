@@ -16,6 +16,8 @@ uniform mat4 projectionMatrix;
 uniform vec3 lightPosition;
 
 uniform float useFakeLighting;
+uniform float numberOfRows;
+uniform vec2  offset;
 
 // 雾的密度值
 const float density = 0.0035;
@@ -28,7 +30,7 @@ void main()
    // 顶点相对于摄像机距离
    vec4 positionRelativeToCamera = viewMatrix * world_position;
    gl_Position = projectionMatrix * positionRelativeToCamera;
-   fragment_textureCoords = textureCoords;
+   fragment_textureCoords = (textureCoords/numberOfRows) + offset;
 
    vec3 actualNormal = normal;
    if (useFakeLighting > 0.5)

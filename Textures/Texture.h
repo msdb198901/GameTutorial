@@ -51,6 +51,16 @@ public:
 		return m_bUseFakeLighting;
 	}
 
+	void SetNumberOfRows(int i)
+	{
+		m_iNumberOfRows = i;
+	}
+
+	int GetNumberOfRows()
+	{
+		return m_iNumberOfRows;
+	}
+
 
 private:
 	int m_textureID;
@@ -62,4 +72,6 @@ private:
 	bool m_bTransparency = false;
 	// 是否使用假光照 默认为false 不使用
 	bool m_bUseFakeLighting = false;
+	// 纹理集
+	int m_iNumberOfRows = 1;
 };

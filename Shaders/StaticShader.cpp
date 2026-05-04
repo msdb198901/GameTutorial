@@ -58,6 +58,16 @@ void StaticShader::LoadSkyColor(const glm::vec3& skyColor)
 	LoadVector(m_location_skyColor, skyColor);
 }
 
+void StaticShader::LoadNumberOfRows(int numberOfRows)
+{
+	LoadFloat(m_location_numberOfRows, numberOfRows);
+}
+
+void StaticShader::LoadOffset(float x, float y)
+{
+	LoadVector(m_location_offset, glm::vec2(x, y));
+}
+
 void StaticShader::GetAllUniformLocations()
 {
 	m_location_transformationMatrix = GetUniformLocation("transformationMatrix");
@@ -69,4 +79,6 @@ void StaticShader::GetAllUniformLocations()
 	m_location_reflectivity = GetUniformLocation("reflectivity");
 	m_location_useFakeLighting = GetUniformLocation("useFakeLighting");
 	m_location_skyColor = GetUniformLocation("skyColor");
+	m_location_numberOfRows = GetUniformLocation("numberOfRows");
+	m_location_offset = GetUniformLocation("offset");
 }

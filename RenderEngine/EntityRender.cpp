@@ -88,6 +88,8 @@ void EntityRender::PrepareTextureModel(TextureModel* textureModel)
 	glEnableVertexAttribArray(2);
 
 	Texture* texture = textureModel->GetTexture();
+	m_shader->LoadNumberOfRows(texture->GetNumberOfRows());
+
 	if (texture->IsTransparency())
 	{
 		// 如果物体透明，禁用背面剔除
@@ -121,6 +123,7 @@ void EntityRender::PrepareInstance(Entity* entity)
 {
 	glm::mat4 transformationMartix = Maths::CreateTransformationMatrix(entity->GetPosition(), entity->GetRotation(), entity->GetScale());
 	m_shader->LoadTransformationMatrix(transformationMartix);
+	m_shader->LoadOffset(entity->GetTextureXOffset(), entity->GetTextureYOffset());
 }
 
 void EntityRender::CleanUp()

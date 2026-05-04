@@ -142,6 +142,7 @@ void DisplayManager::UpdateDisplay()
 
 	RawModel *fernModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\fern.obj", loader);
 	Texture* fernTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\fern.png"));
+	fernTexture->SetNumberOfRows(2);
 	TextureModel*fernTextureModel = new TextureModel(fernModel, fernTexture);
 
 	RawModel* bobbleModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lowPolyTree.obj", loader);
@@ -157,7 +158,7 @@ void DisplayManager::UpdateDisplay()
 	std::vector<Entity*> entities;
 	for (int i = 0; i < 400; ++i)
 	{
-		if (i % 20 == 0)
+		if (i % 2 == 0)
 		{
 			//float x = Maths::RandFloat() * 400;
 			//float z = Maths::RandFloat() * 400;
@@ -175,7 +176,7 @@ void DisplayManager::UpdateDisplay()
 			float x = Maths::RandFloat() * 400;
 			float z = Maths::RandFloat() * 400;
 			float y = terrain1->GetHeightOfTerrain(x, z);
-			Entity* fern = new Entity(fernTextureModel, glm::vec3(x, y, z), glm::vec3(0, Maths::RandFloat() * 360, 0), 0.9);
+			Entity* fern = new Entity(fernTextureModel, rand() % 4, glm::vec3(x, y, z), glm::vec3(0, Maths::RandFloat() * 360, 0), 0.9);
 			entities.push_back(fern);
 		}
 

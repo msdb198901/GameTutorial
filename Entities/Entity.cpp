@@ -1,8 +1,19 @@
 #include "StdAfx.h"
 #include "Entity.h"
+#include "Texture.h"
+#include "TextureModel.h"
 
 Entity::Entity(TextureModel* model, glm::vec3 position, glm::vec3 rotation, float scale)
 {
+	this->model = model;
+	this->position = position;
+	this->rotation = rotation;
+	this->scale = scale;
+}
+
+Entity::Entity(TextureModel* model, int texutreId, glm::vec3 position, glm::vec3 rotation, float scale)
+{
+	this->texureIndex = texutreId;
 	this->model = model;
 	this->position = position;
 	this->rotation = rotation;
@@ -55,4 +66,16 @@ void Entity::IncreaseRotation(float x, float y, float z)
 	this->rotation.x += x;
 	this->rotation.y += y;
 	this->rotation.z += z;
+}
+
+float Entity::GetTextureXOffset() const
+{
+	int column = texureIndex % model->GetTexture()->GetNumberOfRows();
+	return (float)column / (float)model->GetTexture()->GetNumberOfRows();
+}
+
+float Entity::GetTextureYOffset() const
+{
+	int row = texureIndex / model->GetTexture()->GetNumberOfRows();
+	return (float)row / (float)model->GetTexture()->GetNumberOfRows();
 }

@@ -24,6 +24,9 @@ public:
 	void LoadFakeLightingVariable(bool useFake);
 
 	void LoadSkyColor(const glm::vec3& skyColor);
+
+	void LoadNumberOfRows(int numberOfRows);
+	void LoadOffset(float x, float y);
 private:
 	int m_location_transformationMatrix;
 	int m_location_viewMatrix;
@@ -34,4 +37,6 @@ private:
 	int m_location_reflectivity;
 	int m_location_useFakeLighting;
 	int m_location_skyColor;
+	int m_location_numberOfRows;
+	int m_location_offset;
 };

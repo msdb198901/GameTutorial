@@ -113,6 +113,20 @@ void DisplayManager::UpdateDisplay()
 	// 创建主渲染器
 	MasterRender* shader = new MasterRender();
 
+	// 地形
+	TerrainTexture* backgroudTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassy.png"));
+	TerrainTexture* rTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\dirt.png"));
+	TerrainTexture* gTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\pinkFlowers.png"));
+	TerrainTexture* bTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\path.png"));
+	TerrainTexturePack* terrainTexturePack = new TerrainTexturePack(backgroudTexture, rTexture, gTexture, bTexture);
+	TerrainTexture* blendMap = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\blendMap.png"));
+
+	loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
+	Terrain* terrain1 = new Terrain(0, 0, loader, terrainTexturePack, blendMap,
+		"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
+	//Terrain* terrain2 = new Terrain(-1, 0, loader, terrainTexturePack, blendMap, "E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
+
+
 	// 加载模型文件
 	RawModel *treeModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\tree.obj", loader);
 	Texture* treeTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\tree.png"));
@@ -143,24 +157,40 @@ void DisplayManager::UpdateDisplay()
 	std::vector<Entity*> entities;
 	for (int i = 0; i < 400; ++i)
 	{
-		if (i % 7 == 0)
+		if (i % 20 == 0)
 		{
-			Entity* grass = new Entity(grassTextureModel, glm::vec3(Maths::RandFloat() * 400 - 200, 0, Maths::RandFloat() * -400), glm::vec3(0, 0, 0), 1.8);
-			entities.push_back(grass);
+			//float x = Maths::RandFloat() * 400;
+			//float z = Maths::RandFloat() * 400;
+			//float y = terrain1->GetHeightOfTerrain(x, z);
+			//std::cout << "obj at x:"<< x  << " y:" << y << " z:" << z << std::endl;
+			//Entity* grass = new Entity(grassTextureModel, glm::vec3(x, y, z), glm::vec3(0, 0, 0), 1.8);
+			//entities.push_back(grass);
 
-			Entity* flower = new Entity(flowerTextureModel, glm::vec3(Maths::RandFloat() * 400 - 200, 0, Maths::RandFloat() * -400), glm::vec3(0, 0, 0), 2.3);
-			entities.push_back(flower);
+			//x = Maths::RandFloat() * 400;
+			//z = Maths::RandFloat() * 400;
+			//y = terrain1->GetHeightOfTerrain(x, z);
+			//Entity* flower = new Entity(flowerTextureModel, glm::vec3(x, y, z), glm::vec3(0, 0, 0), 2.3);
+			//entities.push_back(flower);
+
+			float x = Maths::RandFloat() * 400;
+			float z = Maths::RandFloat() * 400;
+			float y = terrain1->GetHeightOfTerrain(x, z);
+			Entity* fern = new Entity(fernTextureModel, glm::vec3(x, y, z), glm::vec3(0, Maths::RandFloat() * 360, 0), 0.9);
+			entities.push_back(fern);
 		}
 
-		if (i % 3 == 0)
+		if (i % 5 == 0)
 		{
-			Entity* fern = new Entity(fernTextureModel, glm::vec3(Maths::RandFloat() * 400 - 200, 0, Maths::RandFloat() * -400), glm::vec3(0, Maths::RandFloat()*360, 0), 0.9);
-			entities.push_back(fern);
+			float x = Maths::RandFloat() * 800;
+			float z = Maths::RandFloat() * 600;
+			float y = terrain1->GetHeightOfTerrain(x, z);
+			Entity* bobble = new Entity(bobbleTextureModel, glm::vec3(x, y, z), glm::vec3(0, Maths::RandFloat() * 360, 0), Maths::RandFloat() * 0.1 + 0.6);
+			entities.push_back(bobble);	
 
-			Entity* bobble = new Entity(bobbleTextureModel, glm::vec3(Maths::RandFloat() * 800 - 400, 0, Maths::RandFloat() * -600), glm::vec3(0, Maths::RandFloat() * 360, 0), Maths::RandFloat() * 0.1 + 0.6);
-			entities.push_back(bobble);
-
-			Entity* tree = new Entity(treeTextureModel, glm::vec3(Maths::RandFloat() * 800 - 400, 0, Maths::RandFloat() * -600), glm::vec3(0, 0, 0), Maths::RandFloat() * 1 + 4);
+			x = Maths::RandFloat() * 800;
+			z = Maths::RandFloat() * 600;
+			y = terrain1->GetHeightOfTerrain(x, z);
+			Entity* tree = new Entity(treeTextureModel, glm::vec3(x, y, z), glm::vec3(0, 0, 0), Maths::RandFloat() * 1 + 4);
 			entities.push_back(tree);
 		}
 	}
@@ -171,25 +201,12 @@ void DisplayManager::UpdateDisplay()
 	Entity* stall = new Entity(stallTextureModel, glm::vec3(0, 0, -25), glm::vec3(0, 0, 0), 1.0);
 	stall->IncreaseRotation(0, 180.0f, 0);
 	entities.push_back(stall);
-
-	// 地形
-	TerrainTexture* backgroudTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassy.png"));
-	TerrainTexture* rTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\dirt.png"));
-	TerrainTexture* gTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\pinkFlowers.png"));
-	TerrainTexture* bTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\path.png"));
-	TerrainTexturePack* terrainTexturePack = new TerrainTexturePack(backgroudTexture, rTexture, gTexture, bTexture);
-	TerrainTexture* blendMap = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\blendMap.png"));
-
-	loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
-	Terrain* terrain1 = new Terrain(0, 0, loader, terrainTexturePack, blendMap, 
-		"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
-	Terrain* terrain2 = new Terrain(1, 0, loader, terrainTexturePack, blendMap, "E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
-
+	
 	// 创建玩家
 	RawModel* playerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\person.obj", loader);
 	Texture* playerTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\playerTexture.png"));
 	TextureModel* playerTextureModel = new TextureModel(playerModel, playerTexture);
-	Player* player = new Player(playerTextureModel, glm::vec3(-5, 0, -50), glm::vec3(0, 0, 0), 1.0);
+	Player* player = new Player(playerTextureModel, glm::vec3(100, 0, 150), glm::vec3(0, 180, 0), 1.0);
 
 	Camera *camera = new Camera(player);
 	Light* light = new Light(glm::vec3(2000, 4000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
@@ -203,11 +220,11 @@ void DisplayManager::UpdateDisplay()
 		processInput();
 
 		camera->Move(windows, deltaTime);
-		player->Move(windows, deltaTime);
+		player->Move(windows, deltaTime, terrain1);
 		shader->ProcessEntity(player);
 
 		shader->ProcessTerrain(terrain1);
-		shader->ProcessTerrain(terrain2);
+		//shader->ProcessTerrain(terrain2);
 		for (auto entity : entities)
 		{
 			shader->ProcessEntity(entity);

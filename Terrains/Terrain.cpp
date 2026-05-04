@@ -3,6 +3,7 @@
 #include "Loader.h"
 #include "Texture.h"
 #include "stb_image.h"
+#include "Maths.h"
 
 float Terrain::SIZE = 800;
 
@@ -76,7 +77,9 @@ RawModel* Terrain::GenerateTerrain(Loader* loader, const char* heightMapPath)
 {
     heightMap = new HeightMap(heightMapPath, 40.0f);
 
-    int VERTEX_COUNT = heightMap->GetHeight();
+    VERTEX_COUNT = heightMap->GetHeight();
+    // 存储每个格点的高度值
+    heights = new float[VERTEX_COUNT * VERTEX_COUNT];
 
     const int count = VERTEX_COUNT * VERTEX_COUNT;
     const int verticesSize = count * 3;
@@ -94,11 +97,13 @@ RawModel* Terrain::GenerateTerrain(Loader* loader, const char* heightMapPath)
     {
         for (int j = 0; j < VERTEX_COUNT; ++j)
         {
-            const float x = -(float)j / ((float)VERTEX_COUNT - 1) * SIZE;
-            const float z = -(float)i / ((float)VERTEX_COUNT - 1) * SIZE;
+            const float x = (float)j / ((float)VERTEX_COUNT - 1) * SIZE;
+            const float z = (float)i / ((float)VERTEX_COUNT - 1) * SIZE;
 
+            float height = heightMap->GetHeight(j, i);
+            heights[j + i * VERTEX_COUNT] = height;
             vertices[vertexPointer * 3] = x;
-            vertices[vertexPointer * 3 + 1] = heightMap->GetHeight(j, i);
+            vertices[vertexPointer * 3 + 1] = height;
             vertices[vertexPointer * 3 + 2] = z;
 
             // 计算法线向量
@@ -136,7 +141,7 @@ RawModel* Terrain::GenerateTerrain(Loader* loader, const char* heightMapPath)
     return loader->LoadData(vertices, textureCoords, normals, indices);
 }
 
-glm::vec3 Terrain::CalculateNormal(int x, int z, HeightMap *heightMap)
+glm::vec3 Terrain::CalculateNormal(int x, int z, HeightMap* heightMap)
 {
     float heightL = heightMap->GetHeight(x - 1, z);
     float heightR = heightMap->GetHeight(x + 1, z);
@@ -152,3 +157,42 @@ glm::vec3 Terrain::CalculateNormal(int x, int z, HeightMap *heightMap)
     return normal;
 }
 
+float Terrain::GetHeightOfTerrain(float worldX, float worldZ)
+{
+    float terrainX = worldX - this->x;
+    float terrainZ = worldZ - this->z;
+    float gridSquareSize = SIZE / (VERTEX_COUNT - 1);
+    int xIndex = (int)(terrainX / gridSquareSize);
+    int zIndex = (int)(terrainZ / gridSquareSize);
+
+    int maxIndex = VERTEX_COUNT - 1;
+    if (xIndex < 0 || zIndex < 0 || xIndex >= maxIndex || zIndex >= maxIndex)
+        return 0.0f;   // 或返回边界高度
+
+    float xCoord = (terrainX - xIndex * gridSquareSize) / gridSquareSize;
+    float zCoord = (terrainZ - zIndex * gridSquareSize) / gridSquareSize;
+
+    // 获取四个角的高度
+    float h00 = heights[zIndex * VERTEX_COUNT + xIndex];
+    float h10 = heights[zIndex * VERTEX_COUNT + xIndex + 1];
+    float h01 = heights[(zIndex + 1) * VERTEX_COUNT + xIndex];
+    float h11 = heights[(zIndex + 1) * VERTEX_COUNT + xIndex + 1];
+
+    // 使用重心坐标插值（两个三角形）
+    if (xCoord <= (1 - zCoord)) {
+        return Maths::BarryCentric(
+            glm::vec3(0, h00, 0),
+            glm::vec3(1, h10, 0),
+            glm::vec3(0, h01, 1),
+            glm::vec2(xCoord, zCoord)
+        );
+    }
+    else {
+        return Maths::BarryCentric(
+            glm::vec3(1, h10, 0),
+            glm::vec3(1, h11, 1),
+            glm::vec3(0, h01, 1),
+            glm::vec2(xCoord, zCoord)
+        );
+    }
+}

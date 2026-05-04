@@ -19,40 +19,13 @@ Camera::~Camera()
 
 void Camera::Move(GLFWwindow* window, float deltaTime)
 {
-	/*if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		m_position.z -= 20  * deltaTime;
-	} 
-	else if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		m_position.z += 20 * deltaTime;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		m_position.x -= 20 * deltaTime;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		m_position.x += 20 * deltaTime;
-	} 
-	else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-	{
-		m_position.y -= 20 * deltaTime;
-	}
-	else if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-	{
-		m_position.y += 20 * deltaTime;
-	}*/
-
-	//float horizontalDistance = CalculateHorizontalDistance();
-	//float verticalDistance = CalculateVerticalDistance();
 	CalculateCameraPosition();
 	m_yaw = 180 - m_player->GetRotation().y - m_angleAroundPlayer;
 }
 
 void Camera::CalculateZoom(float yoffset)
 {
-	m_distanceFromPlayer -= yoffset * 0.1f;
+	m_distanceFromPlayer -= yoffset * 1.0f;
 	if (m_distanceFromPlayer < 0) m_distanceFromPlayer = 0;
 }
 

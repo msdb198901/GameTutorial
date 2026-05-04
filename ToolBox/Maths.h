@@ -12,4 +12,7 @@ public:
 	static glm::mat4 CreateViewMatrix(Camera* camera);
 
 	static float RandFloat();
+
+	static float BarryCentric(const glm::vec3& p1, const glm::vec3& p2, const glm::vec3& p3,
+							   const glm::vec2& pos);
 };

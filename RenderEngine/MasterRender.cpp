@@ -61,6 +61,13 @@ void MasterRender::Prepare()
 void MasterRender::RenderModel(Light* pLight, Camera* pCamera)
 { 
 	Prepare();
+	m_pTerrainShader->Start();
+	m_pTerrainShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
+	m_pTerrainShader->LoadLight(pLight);
+	m_pTerrainShader->LoadViewMatrix(pCamera);
+	m_pTerrainRender->RenderModel(m_terrains);
+	m_pTerrainShader->Stop();
+
 	m_pEntityShader->Start();
 	m_pEntityShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
 	m_pEntityShader->LoadLight(pLight);
@@ -68,12 +75,7 @@ void MasterRender::RenderModel(Light* pLight, Camera* pCamera)
 	m_pEntityRender->RenderModel(m_entities);
 	m_pEntityShader->Stop();
 
-	m_pTerrainShader->Start();
-	m_pTerrainShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
-	m_pTerrainShader->LoadLight(pLight);
-	m_pTerrainShader->LoadViewMatrix(pCamera);
-	m_pTerrainRender->RenderModel(m_terrains);
-	m_pTerrainShader->Stop();
+
 
 	m_entities.clear();
 	m_terrains.clear();

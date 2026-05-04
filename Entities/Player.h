@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Entity.h"
+class Terrain;
 class Player : public Entity
 {
 public:
 	Player(TextureModel* model, glm::vec3 position, glm::vec3 rotation, float scale);
 	~Player();
 
-	void Move(GLFWwindow* window, float deltaTime);
+	void Move(GLFWwindow* window, float deltaTime, Terrain* terrain);
 
 private:
 	static const float RUN_SPEED;

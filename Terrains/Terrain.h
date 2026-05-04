@@ -17,6 +17,8 @@ public:
 	RawModel* GenerateTerrain(Loader *loader, const char* heightMapPath);
 	glm::vec3 CalculateNormal(int x, int z, HeightMap* heightMap);
 
+	float GetHeightOfTerrain(float worldX, float worldZ);
+
 	float GetX() { return x; }
 	float GetZ() { return z; }
 	RawModel*  GetRawModel() { return model; }
@@ -32,4 +34,7 @@ private:
 	TerrainTexturePack* texturePack;
 	TerrainTexture* blendMap;
 	HeightMap* heightMap;
+	int VERTEX_COUNT;
+
+	float* heights;
 };

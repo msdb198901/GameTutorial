@@ -1,5 +1,6 @@
 #include "StdAfx.h"
 #include "Player.h"
+#include "Terrain.h"
 
 const float Player::RUN_SPEED = 20;
 const float Player::TRUN_SPEED = 160.0f;
@@ -17,7 +18,7 @@ Player::Player(TextureModel* model, glm::vec3 position, glm::vec3 rotation, floa
 Player::~Player()
 { }
 
-void Player::Move(GLFWwindow* window, float deltaTime)
+void Player::Move(GLFWwindow* window, float deltaTime, Terrain* terrain)
 {
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
@@ -61,9 +62,10 @@ void Player::Move(GLFWwindow* window, float deltaTime)
 	m_jumpSpeed += Player::GRAVITY * deltaTime;
 	IncreasePosition(0, m_jumpSpeed * deltaTime, 0);
 
-	if (GetPosition().y < Player::TERRAIN_HEIGHT)
+	float terrainHeight = terrain->GetHeightOfTerrain(GetPosition().x, GetPosition().z);
+	if (GetPosition().y < terrainHeight)
 	{
 		m_jumpSpeed = 0;
-		SetPosition(glm::vec3(GetPosition().x, Player::TERRAIN_HEIGHT, GetPosition().z));
+		SetPosition(glm::vec3(GetPosition().x, terrainHeight, GetPosition().z));
 	}
 }

@@ -200,7 +200,13 @@ void DisplayManager::UpdateDisplay()
 	Player* player = new Player(playerTextureModel, glm::vec3(100, 0, 150), glm::vec3(0, 90, 0), 1.0);
 
 	Camera *camera = new Camera(player);
-	Light* light = new Light(glm::vec3(2000, 4000, 2000), glm::vec3(1.0f, 1.0f, 1.0f));
+	Light* light1 = new Light(glm::vec3(0, 10000, -7000), glm::vec3(1.0f, 1.0f, 1.0f));
+	Light* light2 = new Light(glm::vec3(-200, 10, -200), glm::vec3(5.0f, 0.0f, 0.0f));
+	Light* light3 = new Light(glm::vec3(200, 10, 200), glm::vec3(0.0f, 0.0f, 2.0f));
+	std::vector<Light*> lights;
+	lights.push_back(light1);
+	lights.push_back(light2);
+	lights.push_back(light3);
 
 	// 设置鼠标滚动回调函数
 	glfwSetWindowUserPointer(windows, camera);
@@ -230,7 +236,7 @@ void DisplayManager::UpdateDisplay()
 		{
 			shader->ProcessEntity(entity);
 		}
-		shader->RenderModel(light, camera);
+		shader->RenderModel(lights, camera);
 
 		guiRenderer->RenderModel(guis);
 

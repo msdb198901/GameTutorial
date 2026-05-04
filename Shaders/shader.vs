@@ -5,7 +5,8 @@ layout (location = 2) in vec3 normal;
 
 out vec2 fragment_textureCoords;
 out vec3 surfaceNormal;
-out vec3 toLightVector;
+// 向量数组 多光源 4个光源 光源越多游戏运行越慢
+out vec3 toLightVector[4];
 out vec3 toCameraVector; 
 // 每个顶点计算可见度
 out float visibility;
@@ -13,7 +14,7 @@ out float visibility;
 uniform mat4 transformationMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
-uniform vec3 lightPosition;
+uniform vec3 lightPosition[4];
 
 uniform float useFakeLighting;
 uniform float numberOfRows;
@@ -39,7 +40,11 @@ void main()
    }
 
    surfaceNormal = (transformationMatrix * vec4(actualNormal, 0.0)).xyz;
-   toLightVector = lightPosition - world_position.xyz;
+   
+   for (int i = 0; i < 4; i++)
+   {
+	   toLightVector[i] = lightPosition[i] - world_position.xyz;
+   }
    toCameraVector = (inverse(viewMatrix) * vec4(0.0,0.0,0.0,1.0)).xyz - world_position.xyz;
 
    float distance = length(positionRelativeToCamera.xyz);

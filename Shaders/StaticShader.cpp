@@ -3,6 +3,7 @@
 #include "Maths.h"
 #include "Camera.h"
 #include "Light.h"
+#include <string>
 
 const char* vertexFile = "E:\\Learn\\OpenGL\\GameTutorial\\Shaders\\shader.vs";
 const char* fragmentFile = "E:\\Learn\\OpenGL\\GameTutorial\\Shaders\\shader.fs";
@@ -36,10 +37,21 @@ void StaticShader::LoadProjectionMatrix(const glm::mat4& projectionMatrix)
 	LoadMatrix(m_location_projectionMatrix, projectionMatrix);
 }
 
-void StaticShader::LoadLight(Light* light)
+void StaticShader::LoadLights(std::vector<Light*> lights)
 {
-	LoadVector(m_location_lightPosition, light->GetPosition());
-	LoadVector(m_location_lightColor, light->GetColor());
+	for (int i = 0; i < MAX_LIGHTS; i++)
+	{
+		if (i < lights.size())
+		{
+			LoadVector(m_location_lightPosition[i], lights[i]->GetPosition());
+			LoadVector(m_location_lightColor[i], lights[i]->GetColor());
+		}
+		else
+		{
+			LoadVector(m_location_lightPosition[i], glm::vec3(0, 0, 0));
+			LoadVector(m_location_lightColor[i], glm::vec3(0, 0, 0));
+		}
+	}
 }
 
 void StaticShader::LoadShineVariables(float damper, float reflectivity)
@@ -73,12 +85,19 @@ void StaticShader::GetAllUniformLocations()
 	m_location_transformationMatrix = GetUniformLocation("transformationMatrix");
 	m_location_viewMatrix = GetUniformLocation("viewMatrix");
 	m_location_projectionMatrix = GetUniformLocation("projectionMatrix");
-	m_location_lightPosition = GetUniformLocation("lightPosition");
-	m_location_lightColor = GetUniformLocation("lightColor");
 	m_location_shineDamper = GetUniformLocation("shineDamper");
 	m_location_reflectivity = GetUniformLocation("reflectivity");
 	m_location_useFakeLighting = GetUniformLocation("useFakeLighting");
 	m_location_skyColor = GetUniformLocation("skyColor");
 	m_location_numberOfRows = GetUniformLocation("numberOfRows");
 	m_location_offset = GetUniformLocation("offset");
+
+	for (int i = 0; i < MAX_LIGHTS; i++)
+	{
+		std::string lightPos = "lightPosition[" + std::to_string(i) + "]";
+		m_location_lightPosition[i] = GetUniformLocation(lightPos.c_str());
+
+		std::string lightColor = "lightColor[" + std::to_string(i) + "]";
+		m_location_lightColor[i] = GetUniformLocation(lightColor.c_str());
+	}
 }

@@ -2,7 +2,7 @@
 
 in vec2 fragment_textureCoords;
 in vec3 surfaceNormal;
-in vec3 toLightVector;
+in vec3 toLightVector[4];
 in vec3 toCameraVector;
 in float visibility;
 
@@ -14,7 +14,7 @@ uniform sampler2D gTexture;
 uniform sampler2D bTexture;
 uniform sampler2D blendMap;
 
-uniform vec3 lightColor;
+uniform vec3 lightColor[4];
 uniform float shineDamper;
 uniform float reflectivity;
 uniform vec3 skyColor;
@@ -39,20 +39,29 @@ void main()
 
     // 光照计算
     vec3 unitNormal = normalize(surfaceNormal);
-    vec3 unitLightVector = normalize(toLightVector);
-    float brightness = dot(unitNormal, unitLightVector);
-    brightness = max(0.2, brightness);
-    vec3 diffuse = brightness * lightColor;
+    vec3 totalDiffuse = vec3(0.0);
+    vec3 totalFinalSpecular = vec3(0.0);
+    for (int i = 0; i < 4; i++) {
+        vec3 unitLightVector = normalize(toLightVector[i]);
+        float brightness = dot(unitNormal, unitLightVector);
+        brightness = max(0.2, brightness);
+   
+        vec3 unitCameraVector = normalize(toCameraVector);
+        vec3 lightDirection = -unitLightVector;
+        vec3 reflectedLightDirection = reflect(lightDirection, unitNormal);
+        float specularFactor = dot(reflectedLightDirection, unitCameraVector);
+        specularFactor = max(0.0, specularFactor);
+        float dampedFactor = pow(specularFactor, shineDamper);
 
-    vec3 unitCameraVector = normalize(toCameraVector);
-    vec3 lightDirection = -unitLightVector;
-    vec3 reflectedLightDirection = reflect(lightDirection, unitNormal);
-    float specularFactor = dot(reflectedLightDirection, unitCameraVector);
-    specularFactor = max(0.0, specularFactor);
-    float dampedFactor = pow(specularFactor, shineDamper);
-    vec3 finalSpecular = dampedFactor * reflectivity * lightColor;
+        vec3 diffuse = brightness * lightColor[i];
+        vec3 finalSpecular = dampedFactor * reflectivity * lightColor[i];
 
-    outColor = vec4(diffuse, 1.0) * totalColor + vec4(finalSpecular, 1.0);
+        totalDiffuse += diffuse;
+        totalFinalSpecular += finalSpecular;
+    }
+    totalDiffuse = max(totalDiffuse, 0.2);
+
+    outColor = vec4(totalDiffuse, 1.0) * totalColor + vec4(totalFinalSpecular, 1.0);
     // 进行天空颜色和物体颜色混合
     outColor = mix(vec4(skyColor, 1.0), outColor, visibility);
 }

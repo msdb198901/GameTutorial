@@ -58,24 +58,22 @@ void MasterRender::Prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MasterRender::RenderModel(Light* pLight, Camera* pCamera)
+void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
 { 
 	Prepare();
-	m_pTerrainShader->Start();
-	m_pTerrainShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
-	m_pTerrainShader->LoadLight(pLight);
-	m_pTerrainShader->LoadViewMatrix(pCamera);
-	m_pTerrainRender->RenderModel(m_terrains);
-	m_pTerrainShader->Stop();
-
 	m_pEntityShader->Start();
 	m_pEntityShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
-	m_pEntityShader->LoadLight(pLight);
+	m_pEntityShader->LoadLights(lights);
 	m_pEntityShader->LoadViewMatrix(pCamera);
 	m_pEntityRender->RenderModel(m_entities);
 	m_pEntityShader->Stop();
 
-
+	m_pTerrainShader->Start();
+	m_pTerrainShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
+	m_pTerrainShader->LoadLights(lights);
+	m_pTerrainShader->LoadViewMatrix(pCamera);
+	m_pTerrainRender->RenderModel(m_terrains);
+	m_pTerrainShader->Stop();
 
 	m_entities.clear();
 	m_terrains.clear();

@@ -25,7 +25,7 @@ public:
 	// 每一帧调用一次
 	void Prepare();
 
-	void RenderModel(Light*, Camera*);
+	void RenderModel(std::vector<Light*>, Camera*);
 
 	void ProcessEntity(Entity*);
 

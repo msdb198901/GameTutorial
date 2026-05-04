@@ -32,12 +32,15 @@ private:
 	int m_location_transformationMatrix;
 	int m_location_viewMatrix;
 	int m_location_projectionMatrix;
-	int m_location_lightPosition[MAX_LIGHTS];
-	int m_location_lightColor[MAX_LIGHTS];
 	int m_location_shineDamper;
 	int m_location_reflectivity;
 	int m_location_useFakeLighting;
 	int m_location_skyColor;
 	int m_location_numberOfRows;
 	int m_location_offset;
+
+	int m_location_lightPosition[MAX_LIGHTS];
+	int m_location_lightColor[MAX_LIGHTS];
+	int m_location_attenuation[MAX_LIGHTS];
+
 };

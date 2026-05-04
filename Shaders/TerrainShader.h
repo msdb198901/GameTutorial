@@ -39,4 +39,5 @@ private:
 
 	int m_location_lightPosition[MAX_LIGHTS];
 	int m_location_lightColor[MAX_LIGHTS];
+	int m_location_attenuation[MAX_LIGHTS];
 };

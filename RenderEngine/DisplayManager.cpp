@@ -197,16 +197,29 @@ void DisplayManager::UpdateDisplay()
 	RawModel* playerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\person.obj", loader);
 	Texture* playerTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\playerTexture.png"));
 	TextureModel* playerTextureModel = new TextureModel(playerModel, playerTexture);
-	Player* player = new Player(playerTextureModel, glm::vec3(100, 0, 150), glm::vec3(0, 90, 0), 1.0);
+	Player* player = new Player(playerTextureModel, glm::vec3(153, 5, 273), glm::vec3(0, 100, 0), 1.0);
 
 	Camera *camera = new Camera(player);
-	Light* light1 = new Light(glm::vec3(0, 10000, -7000), glm::vec3(1.0f, 1.0f, 1.0f));
-	Light* light2 = new Light(glm::vec3(-200, 10, -200), glm::vec3(5.0f, 0.0f, 0.0f));
-	Light* light3 = new Light(glm::vec3(200, 10, 200), glm::vec3(0.0f, 0.0f, 2.0f));
+	Light* light1 = new Light(glm::vec3(0, 10000, -7000), glm::vec3(0.4f, 0.4f, 0.4f));
+	Light* light2 = new Light(glm::vec3(185, 10, 293), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
+	Light* light3 = new Light(glm::vec3(370, 17, 300), glm::vec3(0.0f, 2.0f, 2.0f), glm::vec3(1, 0.01, 0.002));
+	Light* light4 = new Light(glm::vec3(293, 7, 305), glm::vec3(2.0f, 2.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
 	std::vector<Light*> lights;
 	lights.push_back(light1);
 	lights.push_back(light2);
 	lights.push_back(light3);
+	lights.push_back(light4);
+
+	// 创建发光物
+	RawModel* lampModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lamp.obj", loader);
+	Texture* lampTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lamp.png"));
+	TextureModel* lampTextureModel = new TextureModel(lampModel, lampTexture);
+	Entity* lamp1 = new Entity(lampTextureModel, glm::vec3(185, -4.7, 293), glm::vec3(0, 0, 0), 1.0);
+	Entity* lamp2 = new Entity(lampTextureModel, glm::vec3(370, 4.2, 300), glm::vec3(0, 0, 0), 1.0);
+	Entity* lamp3 = new Entity(lampTextureModel, glm::vec3(293, -6.8, 305), glm::vec3(0, 0, 0), 1.0);
+	entities.push_back(lamp1);
+	entities.push_back(lamp2);
+	entities.push_back(lamp3);
 
 	// 设置鼠标滚动回调函数
 	glfwSetWindowUserPointer(windows, camera);

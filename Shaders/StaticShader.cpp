@@ -45,11 +45,13 @@ void StaticShader::LoadLights(std::vector<Light*> lights)
 		{
 			LoadVector(m_location_lightPosition[i], lights[i]->GetPosition());
 			LoadVector(m_location_lightColor[i], lights[i]->GetColor());
+			LoadVector(m_location_attenuation[i], lights[i]->GetAttenuation());
 		}
 		else
 		{
 			LoadVector(m_location_lightPosition[i], glm::vec3(0, 0, 0));
 			LoadVector(m_location_lightColor[i], glm::vec3(0, 0, 0));
+			LoadVector(m_location_attenuation[i], glm::vec3(1, 0, 0));
 		}
 	}
 }
@@ -99,5 +101,8 @@ void StaticShader::GetAllUniformLocations()
 
 		std::string lightColor = "lightColor[" + std::to_string(i) + "]";
 		m_location_lightColor[i] = GetUniformLocation(lightColor.c_str());
+
+		std::string lightAttenuation = "attenuation[" + std::to_string(i) + "]";
+		m_location_attenuation[i] = GetUniformLocation(lightAttenuation.c_str());
 	}
 }

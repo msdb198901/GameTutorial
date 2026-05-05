@@ -34,6 +34,8 @@ public:
 
 	void RenderModel(std::vector<Light*>, Camera*);
 
+	void RenderScene(std::vector<Entity*>, std::vector<EmissiveEntity*>, std::vector<Terrain*>, std::vector<Light*>, Camera*);
+
 	void ProcessEntity(Entity*);
 
 	void ProcessTerrain(Terrain*);

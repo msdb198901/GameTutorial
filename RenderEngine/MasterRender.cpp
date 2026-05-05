@@ -72,6 +72,23 @@ void MasterRender::Prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+void MasterRender::RenderScene(std::vector<Entity*> entities, std::vector<EmissiveEntity*> emissives, std::vector<Terrain*> terrains, std::vector<Light*> lights, Camera* camera)
+{
+	for (auto entity : entities)
+	{
+		ProcessEntity(entity);
+	}
+	for (auto emissiveEntity : emissives)
+	{
+		ProcessEmissiveEntity(emissiveEntity);
+	}
+	for (auto terrain : terrains)
+	{
+		ProcessTerrain(terrain);
+	}
+	RenderModel(lights, camera);
+}
+
 void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
 { 
 	glm::vec3 fogColor = GetFogColor();

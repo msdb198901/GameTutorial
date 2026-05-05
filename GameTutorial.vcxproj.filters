@@ -35,6 +35,9 @@
     <Filter Include="SkyBox">
       <UniqueIdentifier>{b24a7470-a6a7-44e4-a710-7ac61e7a4800}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Water">
+      <UniqueIdentifier>{a7567826-6b45-4b83-aada-60b3c4b3b7c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderEngine\DisplayManager.cpp">
@@ -132,6 +135,18 @@
     </ClCompile>
     <ClCompile Include="ToolBox\MousePicker.cpp">
       <Filter>ToolBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Water\WaterShader.cpp">
+      <Filter>Water</Filter>
+    </ClCompile>
+    <ClCompile Include="Water\WaterRenderer.cpp">
+      <Filter>Water</Filter>
+    </ClCompile>
+    <ClCompile Include="Water\WaterTile.cpp">
+      <Filter>Water</Filter>
+    </ClCompile>
+    <ClCompile Include="Water\WaterFrameBuffers.cpp">
+      <Filter>Water</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +246,18 @@
     <ClInclude Include="ToolBox\MousePicker.h">
       <Filter>ToolBox</Filter>
     </ClInclude>
+    <ClInclude Include="Water\WaterShader.h">
+      <Filter>Water</Filter>
+    </ClInclude>
+    <ClInclude Include="Water\WaterRenderer.h">
+      <Filter>Water</Filter>
+    </ClInclude>
+    <ClInclude Include="Water\WaterTile.h">
+      <Filter>Water</Filter>
+    </ClInclude>
+    <ClInclude Include="Water\WaterFrameBuffers.h">
+      <Filter>Water</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.vs">
@@ -262,6 +289,12 @@
     </None>
     <None Include="SkyBox\skybox.vs">
       <Filter>SkyBox</Filter>
+    </None>
+    <None Include="Water\water.fs">
+      <Filter>Water</Filter>
+    </None>
+    <None Include="Water\water.vs">
+      <Filter>Water</Filter>
     </None>
   </ItemGroup>
 </Project>

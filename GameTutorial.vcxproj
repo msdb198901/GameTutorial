@@ -57,6 +57,10 @@
     <ClCompile Include="Textures\Texture.cpp" />
     <ClCompile Include="ToolBox\Maths.cpp" />
     <ClCompile Include="ToolBox\MousePicker.cpp" />
+    <ClCompile Include="Water\WaterFrameBuffers.cpp" />
+    <ClCompile Include="Water\WaterRenderer.cpp" />
+    <ClCompile Include="Water\WaterShader.cpp" />
+    <ClCompile Include="Water\WaterTile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineTester\MainLoop.h" />
@@ -91,6 +95,10 @@
     <ClInclude Include="Textures\Texture.h" />
     <ClInclude Include="ToolBox\Maths.h" />
     <ClInclude Include="ToolBox\MousePicker.h" />
+    <ClInclude Include="Water\WaterFrameBuffers.h" />
+    <ClInclude Include="Water\WaterRenderer.h" />
+    <ClInclude Include="Water\WaterShader.h" />
+    <ClInclude Include="Water\WaterTile.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Guis\GuiFragmentShader.fs" />
@@ -103,6 +111,8 @@
     <None Include="Shaders\terrain.vs" />
     <None Include="SkyBox\skybox.fs" />
     <None Include="SkyBox\skybox.vs" />
+    <None Include="Water\water.fs" />
+    <None Include="Water\water.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -166,7 +176,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)RenderEngine;$(SolutionDir)Shaders;$(SolutionDir)Models;$(SolutionDir)Textures;$(SolutionDir)ToolBox;$(SolutionDir)Entities;$(SolutionDir)Terrains;$(SolutionDir)Guis;$(SolutionDir)SkyBox;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)RenderEngine;$(SolutionDir)Shaders;$(SolutionDir)Models;$(SolutionDir)Textures;$(SolutionDir)ToolBox;$(SolutionDir)Entities;$(SolutionDir)Terrains;$(SolutionDir)Guis;$(SolutionDir)SkyBox;$(SolutionDir)Water;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
     </ClCompile>
     <Link>

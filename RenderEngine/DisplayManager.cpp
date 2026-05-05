@@ -27,11 +27,22 @@
 
 #include "MousePicker.h"
 
+#include "WaterShader.h"
+#include "WaterTile.h"
+#include "WaterRenderer.h"
+#include "WaterFrameBuffers.h"
+
+
 float  deltaTime = 0.0f;
 float  lastFrame = 0.0f;
 
+int DisplayManager::WIDTH = 1280;
+int DisplayManager::HEIHGT = 720;
+
 void framebuffersizefunc(GLFWwindow* window, int width, int height)
 {
+	DisplayManager::WIDTH = width;
+	DisplayManager::HEIHGT = height;
 	glViewport(0, 0, width, height);
 }
 
@@ -53,10 +64,10 @@ void DisplayManager::CreateDisplay()
 
 	glfwMakeContextCurrent(windows);
 	glfwSetFramebufferSizeCallback(windows, [](GLFWwindow* win, int width, int height){
-		MousePicker* picker = static_cast<MousePicker*>(glfwGetWindowUserPointer(win));
-		if (picker) {
-			picker->SetWidthHeight(width, height);
-		}
+		//MousePicker* picker = static_cast<MousePicker*>(glfwGetWindowUserPointer(win));
+		//if (picker) {
+		//	picker->SetWidthHeight(width, height);
+		//}
 		framebuffersizefunc(win, width, height);
 	});
 
@@ -140,7 +151,8 @@ void DisplayManager::UpdateDisplay()
 	Terrain* terrain1 = new Terrain(0, 0, loader, terrainTexturePack, blendMap,
 		"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
 	//Terrain* terrain2 = new Terrain(-1, 0, loader, terrainTexturePack, blendMap, "E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
-
+	std::vector<Terrain*> terrains;
+	terrains.push_back(terrain1);
 
 	// 加载模型文件
 	RawModel * pineModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\pine.obj", loader);
@@ -203,7 +215,8 @@ void DisplayManager::UpdateDisplay()
 	RawModel* playerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\person.obj", loader);
 	Texture* playerTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\playerTexture.png"));
 	TextureModel* playerTextureModel = new TextureModel(playerModel, playerTexture);
-	Player* player = new Player(playerTextureModel, glm::vec3(153, 5, 273), glm::vec3(0, 100, 0), 1.0);
+	Player* player = new Player(playerTextureModel, glm::vec3(153, 5, 120), glm::vec3(0, 100, 0), 1.0);
+	entities.push_back(player);
 
 	Camera *camera = new Camera(player);
 	Light* light1 = new Light(glm::vec3(0, 10000, -7000), glm::vec3(0.4f, 0.4f, 0.4f));
@@ -231,6 +244,14 @@ void DisplayManager::UpdateDisplay()
 	emissiveEntities.push_back(lamp2);
 	emissiveEntities.push_back(lamp3);
 
+	// 创建水面
+	WaterShader* waterShader = new WaterShader();
+	WaterRenderer* waterRender = new WaterRenderer(loader, waterShader, render->GetProjectionMatrix());
+	std::vector<WaterTile*> waterTiles;
+	waterTiles.push_back(new WaterTile(120, 120, -5));
+
+	WaterFrameBuffers *waterFrameBuffers = new WaterFrameBuffers();
+
 	// 创建 GUI
 	std::list<GuiTexture*> guis;
 	GuiTexture* gui = new GuiTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\socuwan.png"), 
@@ -240,15 +261,19 @@ void DisplayManager::UpdateDisplay()
 	guis.push_back(gui);
 	guis.push_back(gui2);
 
-	GuiRender* guiRenderer = new GuiRender(loader);
+	GuiTexture* waterGui = new GuiTexture(waterFrameBuffers->GetReflectionTexture(), glm::vec2(-0.75, 0.75), glm::vec2(0.25, 0.25));
+	guis.push_back(waterGui);
+
+	GuiRender* guiRender = new GuiRender(loader);
 
 	// 创建鼠标拾取器
-	MousePicker* picker = new MousePicker(camera, render->GetProjectionMatrix(), terrain1, WIDTH, HEIHGT);
+	//MousePicker* picker = new MousePicker(camera, render->GetProjectionMatrix(), terrain1, WIDTH, HEIHGT);
 
 	// 设置鼠标滚动回调函数
 	glfwSetWindowUserPointer(windows, camera);
-	glfwSetWindowUserPointer(windows, picker);
+	//glfwSetWindowUserPointer(windows, picker);
 
+	
 	while (!glfwWindowShouldClose(windows))
 	{
 		processInput();
@@ -256,33 +281,42 @@ void DisplayManager::UpdateDisplay()
 		camera->Move(windows, deltaTime);
 		player->Move(windows, deltaTime, terrain1);
 
-		// 相机移动后再更新鼠标拾取器
-		picker->Update();
-		glm::vec3 terrainPoint = picker->GetCurrentTerrainPoint();
-		if (terrainPoint != glm::vec3(0, 0, 0))
-		{
-			lamp1->SetPosition(terrainPoint);
-			light2->SetPosition(terrainPoint);
-		}
-		
-		render->ProcessEntity(player);
-		render->ProcessTerrain(terrain1);
-		for (auto entity : entities)
-		{
-			render->ProcessEntity(entity);
-		}
-		for (auto emissiveEntity : emissiveEntities)
-		{
-			render->ProcessEmissiveEntity(emissiveEntity);
-		}
-		render->RenderModel(lights, camera);
+		//// 相机移动后再更新鼠标拾取器
+		//picker->Update();
+		//glm::vec3 terrainPoint = picker->GetCurrentTerrainPoint();
+		//if (terrainPoint != glm::vec3(0, 0, 0))
+		//{
+		//	lamp1->SetPosition(terrainPoint);
+		//	light2->SetPosition(terrainPoint);
+		//}
+		waterFrameBuffers->BindReflectionFrameBuffer();
+		render->RenderScene(entities, emissiveEntities, terrains, lights, camera);
+		waterFrameBuffers->UnBindCurrentFrameBuffer(WIDTH, HEIHGT);
 
-		guiRenderer->RenderModel(guis);
+		render->RenderScene(entities, emissiveEntities, terrains, lights, camera);
+		//render->ProcessEntity(player);
+		//render->ProcessTerrain(terrain1);
+		//for (auto entity : entities)
+		//{
+		//	render->ProcessEntity(entity);
+		//}
+		//for (auto emissiveEntity : emissiveEntities)
+		//{
+		//	render->ProcessEmissiveEntity(emissiveEntity);
+		//}
+		//render->RenderModel(lights, camera);
+
+
+		waterRender->RenderModel(waterTiles, camera);
+
+		guiRender->RenderModel(guis);
 
 		glfwSwapBuffers(windows);
 		glfwPollEvents();
 	}
-	guiRenderer->CleanUp();
+	waterFrameBuffers->CleanUp();
+	waterRender->CleanUp();
+	guiRender->CleanUp();
 	render->CleanUp();
 	// 删除顶点缓冲资源 删除所有顶点对象
 	loader->ClearUp();

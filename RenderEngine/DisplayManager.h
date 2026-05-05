@@ -13,8 +13,8 @@ private:
 	void processInput();
 
 public:
-	const static int WIDTH = 1280;
-	const static int HEIHGT = 720;
+	static int WIDTH ;
+	static int HEIHGT;
 
 private:
 	GLFWwindow* windows;

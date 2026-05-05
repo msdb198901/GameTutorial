@@ -56,6 +56,7 @@
     <ClCompile Include="Textures\TerrainTexturePack.cpp" />
     <ClCompile Include="Textures\Texture.cpp" />
     <ClCompile Include="ToolBox\Maths.cpp" />
+    <ClCompile Include="ToolBox\MousePicker.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineTester\MainLoop.h" />
@@ -89,6 +90,7 @@
     <ClInclude Include="Textures\TerrainTexturePack.h" />
     <ClInclude Include="Textures\Texture.h" />
     <ClInclude Include="ToolBox\Maths.h" />
+    <ClInclude Include="ToolBox\MousePicker.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Guis\GuiFragmentShader.fs" />

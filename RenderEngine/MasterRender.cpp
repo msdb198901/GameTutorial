@@ -134,6 +134,11 @@ void MasterRender::CleanUp()
 	m_pTerrainShader->CleanUp();
 }
 
+glm::mat4 MasterRender::GetProjectionMatrix()
+{
+	return m_projectionMatrix;
+}
+
 glm::vec3 MasterRender::GetFogColor()
 {
 	double currentSeconds = glfwGetTime();

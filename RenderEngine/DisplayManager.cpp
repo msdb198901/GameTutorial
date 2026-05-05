@@ -25,6 +25,8 @@
 #include "EmissiveEntity.h"
 #include "EmissiveShader.h"
 
+#include "MousePicker.h"
+
 float  deltaTime = 0.0f;
 float  lastFrame = 0.0f;
 
@@ -50,7 +52,14 @@ void DisplayManager::CreateDisplay()
 	}
 
 	glfwMakeContextCurrent(windows);
-	glfwSetFramebufferSizeCallback(windows, framebuffersizefunc);
+	glfwSetFramebufferSizeCallback(windows, [](GLFWwindow* win, int width, int height){
+		MousePicker* picker = static_cast<MousePicker*>(glfwGetWindowUserPointer(win));
+		if (picker) {
+			picker->SetWidthHeight(width, height);
+		}
+		framebuffersizefunc(win, width, height);
+	});
+
 	// 1. 滚轮回调 —— 缩放
 	glfwSetScrollCallback(windows, [](GLFWwindow* win, double xoffset, double yoffset) {
 		Camera* camera = static_cast<Camera*>(glfwGetWindowUserPointer(win));
@@ -117,7 +126,7 @@ void DisplayManager::UpdateDisplay()
 	Loader* loader = new Loader();
 
 	// 创建主渲染器
-	MasterRender* shader = new MasterRender(loader);
+	MasterRender* render = new MasterRender(loader);
 
 	// 地形
 	TerrainTexture* backgroudTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassy.png"));
@@ -222,9 +231,6 @@ void DisplayManager::UpdateDisplay()
 	emissiveEntities.push_back(lamp2);
 	emissiveEntities.push_back(lamp3);
 
-	// 设置鼠标滚动回调函数
-	glfwSetWindowUserPointer(windows, camera);
-
 	// 创建 GUI
 	std::list<GuiTexture*> guis;
 	GuiTexture* gui = new GuiTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\socuwan.png"), 
@@ -236,24 +242,40 @@ void DisplayManager::UpdateDisplay()
 
 	GuiRender* guiRenderer = new GuiRender(loader);
 
+	// 创建鼠标拾取器
+	MousePicker* picker = new MousePicker(camera, render->GetProjectionMatrix(), terrain1, WIDTH, HEIHGT);
+
+	// 设置鼠标滚动回调函数
+	glfwSetWindowUserPointer(windows, camera);
+	glfwSetWindowUserPointer(windows, picker);
+
 	while (!glfwWindowShouldClose(windows))
 	{
 		processInput();
 
 		camera->Move(windows, deltaTime);
 		player->Move(windows, deltaTime, terrain1);
-		shader->ProcessEntity(player);
 
-		shader->ProcessTerrain(terrain1);
+		// 相机移动后再更新鼠标拾取器
+		picker->Update();
+		glm::vec3 terrainPoint = picker->GetCurrentTerrainPoint();
+		if (terrainPoint != glm::vec3(0, 0, 0))
+		{
+			lamp1->SetPosition(terrainPoint);
+			light2->SetPosition(terrainPoint);
+		}
+		
+		render->ProcessEntity(player);
+		render->ProcessTerrain(terrain1);
 		for (auto entity : entities)
 		{
-			shader->ProcessEntity(entity);
+			render->ProcessEntity(entity);
 		}
 		for (auto emissiveEntity : emissiveEntities)
 		{
-			shader->ProcessEmissiveEntity(emissiveEntity);
+			render->ProcessEmissiveEntity(emissiveEntity);
 		}
-		shader->RenderModel(lights, camera);
+		render->RenderModel(lights, camera);
 
 		guiRenderer->RenderModel(guis);
 
@@ -261,7 +283,7 @@ void DisplayManager::UpdateDisplay()
 		glfwPollEvents();
 	}
 	guiRenderer->CleanUp();
-	shader->CleanUp();
+	render->CleanUp();
 	// 删除顶点缓冲资源 删除所有顶点对象
 	loader->ClearUp();
 }

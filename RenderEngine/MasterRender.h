@@ -44,6 +44,8 @@ public:
 
 	glm::vec3 GetFogColor();
 
+	glm::mat4 GetProjectionMatrix();
+
 public:
 	static void EnableCulling();
 	static void DisableCulling();

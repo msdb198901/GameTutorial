@@ -130,6 +130,9 @@
     <ClCompile Include="SkyBox\SkyboxRender.cpp">
       <Filter>SkyBox</Filter>
     </ClCompile>
+    <ClCompile Include="ToolBox\MousePicker.cpp">
+      <Filter>ToolBox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RenderEngine\DisplayManager.h">
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="SkyBox\SkyboxRender.h">
       <Filter>SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolBox\MousePicker.h">
+      <Filter>ToolBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

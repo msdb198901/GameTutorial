@@ -27,6 +27,10 @@ const float MasterRender::RED = 0.5444;
 const float MasterRender::GREEN = 0.62;
 const float MasterRender::BLUE = 0.69;
 
+const float MasterRender::NIGHT_RED = 0.0;
+const float MasterRender::NIGHT_GREEN = 0.027;
+const float MasterRender::NIGHT_BLUE = 0.0588;
+
 MasterRender::MasterRender(Loader* loader)
 {
 	m_projectionMatrix = Maths::CreateProjectionMatrix(MasterRender::FOV, DisplayManager::WIDTH / DisplayManager::HEIHGT, MasterRender::NEAR_PLANE, MasterRender::FAR_PLANE);
@@ -70,9 +74,11 @@ void MasterRender::Prepare()
 
 void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
 { 
+	glm::vec3 fogColor = GetFogColor();
+
 	Prepare();
 	m_pEntityShader->Start();
-	m_pEntityShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
+	m_pEntityShader->LoadSkyColor(fogColor);
 	m_pEntityShader->LoadLights(lights);
 	m_pEntityShader->LoadViewMatrix(pCamera);
 	m_pEntityRender->RenderModel(m_entities);
@@ -84,13 +90,13 @@ void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
 	m_pEmissiveShader->Stop();
 
 	m_pTerrainShader->Start();
-	m_pTerrainShader->LoadSkyColor(glm::vec3(MasterRender::RED, MasterRender::GREEN, MasterRender::BLUE));
+	m_pTerrainShader->LoadSkyColor(fogColor);
 	m_pTerrainShader->LoadLights(lights);
 	m_pTerrainShader->LoadViewMatrix(pCamera);
 	m_pTerrainRender->RenderModel(m_terrains);
 	m_pTerrainShader->Stop();
 
-	m_pSkyboxRender->RenderModel(pCamera);
+	m_pSkyboxRender->RenderModel(pCamera, fogColor);
 
 	m_entities.clear();
 	m_emissiveEntities.clear();
@@ -126,4 +132,42 @@ void MasterRender::CleanUp()
 	m_pEmissiveShader->CleanUp();
 	m_pEntityShader->CleanUp();
 	m_pTerrainShader->CleanUp();
+}
+
+glm::vec3 MasterRender::GetFogColor()
+{
+	double currentSeconds = glfwGetTime();
+	long long timeMs = (long long)(currentSeconds * 1000) % 24000;
+
+	// 定义夜晚和白天雾色（你需要根据自己的场景调整）
+	glm::vec3 nightFog = glm::vec3(NIGHT_RED, NIGHT_GREEN, NIGHT_BLUE);
+	glm::vec3 dayFog = glm::vec3(RED, GREEN, BLUE);
+
+	float blendFactor;  // 复用相同的混合因子
+	int phase;          // 0:全夜, 1:夜->昼, 2:全昼, 3:昼->夜
+
+	if (timeMs >= 0 && timeMs < 5000) {
+		phase = 0;
+		blendFactor = 0.0f;
+	}
+	else if (timeMs >= 5000 && timeMs < 8000) {
+		phase = 1;
+		blendFactor = (float)(timeMs - 5000) / (8000 - 5000);
+	}
+	else if (timeMs >= 8000 && timeMs < 21000) {
+		phase = 2;
+		blendFactor = 1.0f;
+	}
+	else { // 21000 ~ 23999
+		phase = 3;
+		blendFactor = (float)(timeMs - 21000) / (24000 - 21000);
+	}
+
+	switch (phase) {
+	case 0: return dayFog;
+	case 1: return glm::mix(dayFog, nightFog, blendFactor);
+	case 2: return nightFog;
+	case 3: return glm::mix(nightFog, dayFog, blendFactor);
+	}
+	return dayFog; // fallback
 }

@@ -42,6 +42,8 @@ public:
 
 	void CleanUp();
 
+	glm::vec3 GetFogColor();
+
 public:
 	static void EnableCulling();
 	static void DisableCulling();
@@ -53,6 +55,10 @@ private:
 	static const float RED;
 	static const float GREEN;
 	static const float BLUE;
+
+	static const float NIGHT_RED;
+	static const float NIGHT_GREEN;
+	static const float NIGHT_BLUE;
 
 	StaticShader* m_pEntityShader;
 	EntityRender* m_pEntityRender;

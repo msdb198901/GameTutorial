@@ -23,6 +23,8 @@ public:
 
 	void LoadSkyColor(const glm::vec3& color);
 
+	void LoadClipPlane(const glm::vec4& clipPlane);
+
 	void ConnectTextureUnits();
 private:
 	int m_location_transformationMatrix;
@@ -36,6 +38,7 @@ private:
 	int m_location_gTexture;
 	int m_location_bTexture;
 	int m_location_blendMap;
+	int m_location_clipPlane;
 
 	int m_location_lightPosition[MAX_LIGHTS];
 	int m_location_lightColor[MAX_LIGHTS];

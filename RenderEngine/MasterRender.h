@@ -32,9 +32,9 @@ public:
 	// 每一帧调用一次
 	void Prepare();
 
-	void RenderModel(std::vector<Light*>, Camera*);
+	void RenderModel(std::vector<Light*>, Camera*, glm::vec4);
 
-	void RenderScene(std::vector<Entity*>, std::vector<EmissiveEntity*>, std::vector<Terrain*>, std::vector<Light*>, Camera*);
+	void RenderScene(std::vector<Entity*>, std::vector<EmissiveEntity*>, std::vector<Terrain*>, std::vector<Light*>, Camera*, glm::vec4);
 
 	void ProcessEntity(Entity*);
 

@@ -72,7 +72,7 @@ void MasterRender::Prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MasterRender::RenderScene(std::vector<Entity*> entities, std::vector<EmissiveEntity*> emissives, std::vector<Terrain*> terrains, std::vector<Light*> lights, Camera* camera)
+void MasterRender::RenderScene(std::vector<Entity*> entities, std::vector<EmissiveEntity*> emissives, std::vector<Terrain*> terrains, std::vector<Light*> lights, Camera* camera, glm::vec4 clipPlane)
 {
 	for (auto entity : entities)
 	{
@@ -86,15 +86,16 @@ void MasterRender::RenderScene(std::vector<Entity*> entities, std::vector<Emissi
 	{
 		ProcessTerrain(terrain);
 	}
-	RenderModel(lights, camera);
+	RenderModel(lights, camera, clipPlane);
 }
 
-void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
+void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera, glm::vec4 clipPlane)
 { 
 	glm::vec3 fogColor = GetFogColor();
 
 	Prepare();
 	m_pEntityShader->Start();
+	m_pEntityShader->LoadClipPlane(clipPlane);
 	m_pEntityShader->LoadSkyColor(fogColor);
 	m_pEntityShader->LoadLights(lights);
 	m_pEntityShader->LoadViewMatrix(pCamera);
@@ -107,6 +108,7 @@ void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera)
 	m_pEmissiveShader->Stop();
 
 	m_pTerrainShader->Start();
+	m_pTerrainShader->LoadClipPlane(clipPlane);
 	m_pTerrainShader->LoadSkyColor(fogColor);
 	m_pTerrainShader->LoadLights(lights);
 	m_pTerrainShader->LoadViewMatrix(pCamera);

@@ -14,6 +14,7 @@ uniform mat4 transformationMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform vec3 lightPosition[4];
+uniform vec4 clipPlane;
 
 // 雾的密度值
 const float density = 0.0035;
@@ -23,6 +24,9 @@ const float gradient = 5.0;
 void main()
 {
    vec4 world_position = transformationMatrix * vec4(position, 1.0);
+
+   gl_ClipDistance[0] = dot(world_position, clipPlane);
+
     // 顶点相对于摄像机距离
    vec4 positionRelativeToCamera = viewMatrix * world_position;
    gl_Position = projectionMatrix * positionRelativeToCamera;

@@ -248,7 +248,8 @@ void DisplayManager::UpdateDisplay()
 	WaterShader* waterShader = new WaterShader();
 	WaterRenderer* waterRender = new WaterRenderer(loader, waterShader, render->GetProjectionMatrix());
 	std::vector<WaterTile*> waterTiles;
-	waterTiles.push_back(new WaterTile(120, 120, -5));
+	WaterTile *water = new WaterTile(120, 120, -5);
+	waterTiles.push_back(water);
 
 	WaterFrameBuffers *waterFrameBuffers = new WaterFrameBuffers();
 
@@ -261,8 +262,10 @@ void DisplayManager::UpdateDisplay()
 	guis.push_back(gui);
 	guis.push_back(gui2);
 
-	GuiTexture* waterGui = new GuiTexture(waterFrameBuffers->GetReflectionTexture(), glm::vec2(-0.75, 0.75), glm::vec2(0.25, 0.25));
-	guis.push_back(waterGui);
+	GuiTexture* refraction = new GuiTexture(waterFrameBuffers->GetRefractionTexture(), glm::vec2(0.5, 0.5), glm::vec2(0.25, 0.25));
+	GuiTexture* reflection = new GuiTexture(waterFrameBuffers->GetReflectionTexture(), glm::vec2(-0.5, 0.5), glm::vec2(0.25, 0.25));
+	guis.push_back(refraction);
+	guis.push_back(reflection);
 
 	GuiRender* guiRender = new GuiRender(loader);
 
@@ -272,7 +275,6 @@ void DisplayManager::UpdateDisplay()
 	// 设置鼠标滚动回调函数
 	glfwSetWindowUserPointer(windows, camera);
 	//glfwSetWindowUserPointer(windows, picker);
-
 	
 	while (!glfwWindowShouldClose(windows))
 	{
@@ -289,13 +291,26 @@ void DisplayManager::UpdateDisplay()
 		//	lamp1->SetPosition(terrainPoint);
 		//	light2->SetPosition(terrainPoint);
 		//}
+		glEnable(GL_CLIP_DISTANCE0);
+
 		waterFrameBuffers->BindReflectionFrameBuffer();
-		render->RenderScene(entities, emissiveEntities, terrains, lights, camera);
+		// 渲染水面反射场景 (水面之上) 原点的距离就等于水面高度
+		float distance = 2 * (camera->GetPosition().y - water->GetHeight());
+		camera->IncreasePosition(0, -distance, 0);
+		camera->InvertPitch();
+		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0.0f, 1.0f, 0.0f, -water->GetHeight()));
+		camera->IncreasePosition(0, distance, 0);
+		camera->InvertPitch();
+
+		// 渲染水面折射场景 (水面之下) 原点的距离就等于-水面高度
+		waterFrameBuffers->BindRefractionFrameBuffer();
+		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0, -1.0f, 0.0f, water->GetHeight()));
 		waterFrameBuffers->UnBindCurrentFrameBuffer(WIDTH, HEIHGT);
+		
+		glDisable(GL_CLIP_DISTANCE0);
 
-		render->RenderScene(entities, emissiveEntities, terrains, lights, camera);
+		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0, 1, 0, 1000));
 		waterRender->RenderModel(waterTiles, camera);
-
 		guiRender->RenderModel(guis);
 
 		glfwSwapBuffers(windows);

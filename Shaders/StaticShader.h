@@ -28,6 +28,8 @@ public:
 
 	void LoadNumberOfRows(int numberOfRows);
 	void LoadOffset(float x, float y);
+
+	void LoadClipPlane(const glm::vec4& plane);
 private:
 	int m_location_transformationMatrix;
 	int m_location_viewMatrix;
@@ -38,6 +40,7 @@ private:
 	int m_location_skyColor;
 	int m_location_numberOfRows;
 	int m_location_offset;
+	int m_location_plane;
 
 	int m_location_lightPosition[MAX_LIGHTS];
 	int m_location_lightColor[MAX_LIGHTS];

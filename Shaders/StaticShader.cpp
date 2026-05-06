@@ -82,6 +82,11 @@ void StaticShader::LoadOffset(float x, float y)
 	LoadVector(m_location_offset, glm::vec2(x, y));
 }
 
+void StaticShader::LoadClipPlane(const glm::vec4& plane)
+{
+	LoadVector(m_location_plane, plane);
+}
+
 void StaticShader::GetAllUniformLocations()
 {
 	m_location_transformationMatrix = GetUniformLocation("transformationMatrix");
@@ -93,6 +98,7 @@ void StaticShader::GetAllUniformLocations()
 	m_location_skyColor = GetUniformLocation("skyColor");
 	m_location_numberOfRows = GetUniformLocation("numberOfRows");
 	m_location_offset = GetUniformLocation("offset");
+	m_location_plane = GetUniformLocation("clipPlane");
 
 	for (int i = 0; i < MAX_LIGHTS; i++)
 	{

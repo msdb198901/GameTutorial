@@ -67,6 +67,11 @@ void TerrainShader::LoadSkyColor(const glm::vec3& color)
 	LoadVector(m_location_skyColor, color);
 }
 
+void TerrainShader::LoadClipPlane(const glm::vec4& clipPlane)
+{
+	LoadVector(m_location_clipPlane, clipPlane);
+}
+
 void TerrainShader::ConnectTextureUnits()
 {
 	LoadInt(m_location_backgroundTexture, 0);
@@ -89,6 +94,7 @@ void TerrainShader::GetAllUniformLocations()
 	m_location_gTexture = GetUniformLocation("gTexture");
 	m_location_bTexture = GetUniformLocation("bTexture");
 	m_location_blendMap = GetUniformLocation("blendMap");
+	m_location_clipPlane = GetUniformLocation("clipPlane");
 
 	for (int i = 0; i < MAX_LIGHTS; i++)
 	{

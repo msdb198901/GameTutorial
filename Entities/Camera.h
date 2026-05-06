@@ -18,6 +18,10 @@ public:
 	float CalculateVerticalDistance() const;
 
 	void CalculateCameraPosition();
+	void IncreasePosition(float dx, float dy, float dz);
+
+	// ÉãÏñ»ú·­×ªº¯Êý
+	void InvertPitch();
 
 	glm::vec3 GetPosition() const;
 	float GetYaw() const;

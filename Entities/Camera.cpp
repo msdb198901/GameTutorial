@@ -62,6 +62,18 @@ void Camera::CalculateCameraPosition()
 	m_position.y = m_player->GetPosition().y + CalculateVerticalDistance();
 }
 
+void Camera::InvertPitch()
+{
+	m_pitch = -m_pitch;
+}
+
+void Camera::IncreasePosition(float dx, float dy, float dz)
+{
+	m_position.x += dx;
+	m_position.y += dy;
+	m_position.z += dz;
+}
+
 glm::vec3 Camera::GetPosition() const 
 {
 	return m_position;

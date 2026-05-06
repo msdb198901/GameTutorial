@@ -6,11 +6,12 @@ class WaterShader;
 class Loader;
 class WaterTile;
 class Camera;
+class WaterFrameBuffers;
 
 class WaterRenderer {
 
 public:
-	WaterRenderer(Loader* loader, WaterShader* shader, glm::mat4 projectionMatrix);
+	WaterRenderer(Loader* loader, WaterShader* shader, glm::mat4 projectionMatrix, WaterFrameBuffers* buffers);
 
 	void RenderModel(std::vector<WaterTile*> water, Camera* camera);
 
@@ -22,4 +23,5 @@ private:
 
 	RawModel* quad;
     WaterShader* shader;
+	WaterFrameBuffers* fbo;
 };

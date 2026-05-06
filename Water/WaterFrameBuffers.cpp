@@ -2,8 +2,8 @@
 #include "WaterFrameBuffers.h"
 
 // 静态常量定义
-const int WaterFrameBuffers::REFLECTION_WIDTH = 320;
-const int WaterFrameBuffers::REFLECTION_HEIGHT = 180;
+const int WaterFrameBuffers::REFLECTION_WIDTH = 1280;
+const int WaterFrameBuffers::REFLECTION_HEIGHT = 720;
 const int WaterFrameBuffers::REFRACTION_WIDTH = 1280;
 const int WaterFrameBuffers::REFRACTION_HEIGHT = 720;
 

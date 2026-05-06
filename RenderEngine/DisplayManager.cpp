@@ -246,27 +246,14 @@ void DisplayManager::UpdateDisplay()
 
 	// 创建水面
 	WaterShader* waterShader = new WaterShader();
-	WaterRenderer* waterRender = new WaterRenderer(loader, waterShader, render->GetProjectionMatrix());
+	WaterFrameBuffers* waterFrameBuffers = new WaterFrameBuffers();
+	WaterRenderer* waterRender = new WaterRenderer(loader, waterShader, render->GetProjectionMatrix(), waterFrameBuffers);
 	std::vector<WaterTile*> waterTiles;
 	WaterTile *water = new WaterTile(120, 120, -5);
 	waterTiles.push_back(water);
 
-	WaterFrameBuffers *waterFrameBuffers = new WaterFrameBuffers();
-
 	// 创建 GUI
 	std::list<GuiTexture*> guis;
-	GuiTexture* gui = new GuiTexture(loader->LoadTexture("Resources\\socuwan.png"), 
-		glm::vec2(0.5), glm::vec2(0.25));
-	GuiTexture* gui2 = new GuiTexture(loader->LoadTexture("Resources\\thinmatrix.png"),
-		glm::vec2(0.3, 0.74), glm::vec2(0.4));
-	guis.push_back(gui);
-	guis.push_back(gui2);
-
-	GuiTexture* refraction = new GuiTexture(waterFrameBuffers->GetRefractionTexture(), glm::vec2(0.5, 0.5), glm::vec2(0.25, 0.25));
-	GuiTexture* reflection = new GuiTexture(waterFrameBuffers->GetReflectionTexture(), glm::vec2(-0.5, 0.5), glm::vec2(0.25, 0.25));
-	guis.push_back(refraction);
-	guis.push_back(reflection);
-
 	GuiRender* guiRender = new GuiRender(loader);
 
 	// 创建鼠标拾取器

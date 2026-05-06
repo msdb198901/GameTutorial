@@ -24,3 +24,9 @@ void WaterShader::LoadModelMatrix(glm::mat4 modelMatrix)
 {
 	LoadMatrix(location_modelMatrix, modelMatrix);
 }
+
+void WaterShader::ConnectTextureUnits()
+{
+	LoadInt(location_reflectionTexture, 0);
+	LoadInt(location_refractionTexture, 1);
+}

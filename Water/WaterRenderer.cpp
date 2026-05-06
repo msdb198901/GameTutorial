@@ -5,11 +5,14 @@
 #include "WaterTile.h"
 #include "Maths.h"
 #include "RawModel.h"
+#include "WaterFrameBuffers.h"
 
-WaterRenderer::WaterRenderer(Loader* loader, WaterShader* shader, glm::mat4 projectionMatrix) 
+WaterRenderer::WaterRenderer(Loader* loader, WaterShader* shader, glm::mat4 projectionMatrix, WaterFrameBuffers* frameBuffers)
 {
+	this->fbo = frameBuffers;
 	this->shader = shader;
 	shader->Start();
+	shader->ConnectTextureUnits();
 	shader->LoadProjectionMatrix(projectionMatrix);
 	shader->Stop();
 	setUpVAO(loader);
@@ -33,6 +36,12 @@ void WaterRenderer::prepareRender(Camera* camera)
 	shader->LoadViewMatrix(camera);
 	glBindVertexArray(quad->GetVAOID());
 	glEnableVertexAttribArray(0);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, fbo->GetReflectionTexture());
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, fbo->GetRefractionTexture());
 }
 	
 void WaterRenderer::unbind()

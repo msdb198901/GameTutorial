@@ -1,8 +1,8 @@
 #include "StdAfx.h"
 #include "GuiShader.h"
 
-const char* GuiShader::VERTEX_FILE = "E:\\Learn\\OpenGL\\GameTutorial\\Guis\\GuiVertexShader.vs";
-const char* GuiShader::FRAGMENT_FILE = "E:\\Learn\\OpenGL\\GameTutorial\\Guis\\GuiFragmentShader.fs";
+const char* GuiShader::VERTEX_FILE = "Guis\\GuiVertexShader.vs";
+const char* GuiShader::FRAGMENT_FILE = "Guis\\GuiFragmentShader.fs";
 
 GuiShader::GuiShader() {
 	LoadShader(GuiShader::VERTEX_FILE, GuiShader::FRAGMENT_FILE);

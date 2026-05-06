@@ -51,21 +51,21 @@ const std::vector<float> VERTICES = {
 };
 
 std::vector<const char*> TextureFiles = {
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\nightRight.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\nightLeft.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\nightTop.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\nightBottom.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\nightBack.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\nightFront.png"
+	"Resources\\nightRight.png",
+	"Resources\\nightLeft.png",
+	"Resources\\nightTop.png",
+	"Resources\\nightBottom.png",
+	"Resources\\nightBack.png",
+	"Resources\\nightFront.png"
 };
 
 std::vector<const char*> NightTextureFiles = {
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\right.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\left.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\top.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\bottom.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\back.png",
-	"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\front.png"
+	"Resources\\right.png",
+	"Resources\\left.png",
+	"Resources\\top.png",
+	"Resources\\bottom.png",
+	"Resources\\back.png",
+	"Resources\\front.png"
 };
 
 

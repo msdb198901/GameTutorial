@@ -140,40 +140,40 @@ void DisplayManager::UpdateDisplay()
 	MasterRender* render = new MasterRender(loader);
 
 	// 地形
-	TerrainTexture* backgroudTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassy.png"));
-	TerrainTexture* rTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\dirt.png"));
-	TerrainTexture* gTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\pinkFlowers.png"));
-	TerrainTexture* bTexture = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\path.png"));
+	TerrainTexture* backgroudTexture = new TerrainTexture(loader->LoadTexture("Resources\\grassy.png"));
+	TerrainTexture* rTexture = new TerrainTexture(loader->LoadTexture("Resources\\dirt.png"));
+	TerrainTexture* gTexture = new TerrainTexture(loader->LoadTexture("Resources\\pinkFlowers.png"));
+	TerrainTexture* bTexture = new TerrainTexture(loader->LoadTexture("Resources\\path.png"));
 	TerrainTexturePack* terrainTexturePack = new TerrainTexturePack(backgroudTexture, rTexture, gTexture, bTexture);
-	TerrainTexture* blendMap = new TerrainTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\blendMap.png"));
+	TerrainTexture* blendMap = new TerrainTexture(loader->LoadTexture("Resources\\blendMap.png"));
 
-	loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
+	loader->LoadTexture("Resources\\heightmap.png");
 	Terrain* terrain1 = new Terrain(0, 0, loader, terrainTexturePack, blendMap,
-		"E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
-	//Terrain* terrain2 = new Terrain(-1, 0, loader, terrainTexturePack, blendMap, "E:\\Learn\\OpenGL\\GameTutorial\\Resources\\heightmap.png");
+		"Resources\\heightmap.png");
+	//Terrain* terrain2 = new Terrain(-1, 0, loader, terrainTexturePack, blendMap, "Resources\\heightmap.png");
 	std::vector<Terrain*> terrains;
 	terrains.push_back(terrain1);
 
 	// 加载模型文件
-	RawModel * pineModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\pine.obj", loader);
-	Texture* pineTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\pine.png"));
+	RawModel * pineModel = ObjLoader::LoadObjModel("Resources\\pine.obj", loader);
+	Texture* pineTexture = new Texture(loader->LoadTexture("Resources\\pine.png"));
 	TextureModel* pineTextureModel = new TextureModel(pineModel, pineTexture);
 
-	RawModel *grassModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassModel.obj", loader);
-	Texture* grassTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassTexture.png"));
+	RawModel *grassModel = ObjLoader::LoadObjModel("Resources\\grassModel.obj", loader);
+	Texture* grassTexture = new Texture(loader->LoadTexture("Resources\\grassTexture.png"));
 	TextureModel* grassTextureModel = new TextureModel(grassModel, grassTexture);
 
-	//RawModel* flowerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\grassModel.obj", loader);
-	Texture* flowerTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\flower.png"));
+	//RawModel* flowerModel = ObjLoader::LoadObjModel("Resources\\grassModel.obj", loader);
+	Texture* flowerTexture = new Texture(loader->LoadTexture("Resources\\flower.png"));
 	TextureModel* flowerTextureModel = new TextureModel(grassModel, flowerTexture);
 
-	RawModel *fernModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\fern.obj", loader);
-	Texture* fernTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\fern.png"));
+	RawModel *fernModel = ObjLoader::LoadObjModel("Resources\\fern.obj", loader);
+	Texture* fernTexture = new Texture(loader->LoadTexture("Resources\\fern.png"));
 	fernTexture->SetNumberOfRows(2);
 	TextureModel*fernTextureModel = new TextureModel(fernModel, fernTexture);
 
-	RawModel* bobbleModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lowPolyTree.obj", loader);
-	Texture* bobbleTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lowPolyTree.png"));
+	RawModel* bobbleModel = ObjLoader::LoadObjModel("Resources\\lowPolyTree.obj", loader);
+	Texture* bobbleTexture = new Texture(loader->LoadTexture("Resources\\lowPolyTree.png"));
 	TextureModel* bobbleTextureModel = new TextureModel(bobbleModel, bobbleTexture);
 
 	grassTexture->SetUseFakeLighting(true);
@@ -204,16 +204,16 @@ void DisplayManager::UpdateDisplay()
 		}
 	}
 
-	RawModel* stallModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\stall.obj", loader);
-	Texture* stallTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\stallTexture.png"));
+	RawModel* stallModel = ObjLoader::LoadObjModel("Resources\\stall.obj", loader);
+	Texture* stallTexture = new Texture(loader->LoadTexture("Resources\\stallTexture.png"));
 	TextureModel* stallTextureModel = new TextureModel(stallModel, stallTexture);
 	Entity* stall = new Entity(stallTextureModel, glm::vec3(0, 0, -25), glm::vec3(0, 0, 0), 1.0);
 	stall->IncreaseRotation(0, 180.0f, 0);
 	entities.push_back(stall);
 	
 	// 创建玩家
-	RawModel* playerModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\person.obj", loader);
-	Texture* playerTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\playerTexture.png"));
+	RawModel* playerModel = ObjLoader::LoadObjModel("Resources\\person.obj", loader);
+	Texture* playerTexture = new Texture(loader->LoadTexture("Resources\\playerTexture.png"));
 	TextureModel* playerTextureModel = new TextureModel(playerModel, playerTexture);
 	Player* player = new Player(playerTextureModel, glm::vec3(153, 5, 120), glm::vec3(0, 100, 0), 1.0);
 	entities.push_back(player);
@@ -230,8 +230,8 @@ void DisplayManager::UpdateDisplay()
 	lights.push_back(light4);
 
 	// 创建发光物
-	RawModel* lampModel = ObjLoader::LoadObjModel("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lamp.obj", loader);
-	Texture* lampTexture = new Texture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\lamp.png"));
+	RawModel* lampModel = ObjLoader::LoadObjModel("Resources\\lamp.obj", loader);
+	Texture* lampTexture = new Texture(loader->LoadTexture("Resources\\lamp.png"));
 	TextureModel* lampTextureModel = new TextureModel(lampModel, lampTexture);
 	EmissiveEntity* lamp1 = new EmissiveEntity(lampTextureModel, glm::vec3(185, -4.7, 293), glm::vec3(0, 0, 0), 1.0);
 	EmissiveEntity* lamp2 = new EmissiveEntity(lampTextureModel, glm::vec3(370, -9.2, 300), glm::vec3(0, 0, 0), 1.0);
@@ -254,9 +254,9 @@ void DisplayManager::UpdateDisplay()
 
 	// 创建 GUI
 	std::list<GuiTexture*> guis;
-	GuiTexture* gui = new GuiTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\socuwan.png"), 
+	GuiTexture* gui = new GuiTexture(loader->LoadTexture("Resources\\socuwan.png"), 
 		glm::vec2(0.5), glm::vec2(0.25));
-	GuiTexture* gui2 = new GuiTexture(loader->LoadTexture("E:\\Learn\\OpenGL\\GameTutorial\\Resources\\thinmatrix.png"),
+	GuiTexture* gui2 = new GuiTexture(loader->LoadTexture("Resources\\thinmatrix.png"),
 		glm::vec2(0.3, 0.74), glm::vec2(0.4));
 	guis.push_back(gui);
 	guis.push_back(gui2);
@@ -294,19 +294,6 @@ void DisplayManager::UpdateDisplay()
 		waterFrameBuffers->UnBindCurrentFrameBuffer(WIDTH, HEIHGT);
 
 		render->RenderScene(entities, emissiveEntities, terrains, lights, camera);
-		//render->ProcessEntity(player);
-		//render->ProcessTerrain(terrain1);
-		//for (auto entity : entities)
-		//{
-		//	render->ProcessEntity(entity);
-		//}
-		//for (auto emissiveEntity : emissiveEntities)
-		//{
-		//	render->ProcessEmissiveEntity(emissiveEntity);
-		//}
-		//render->RenderModel(lights, camera);
-
-
 		waterRender->RenderModel(waterTiles, camera);
 
 		guiRender->RenderModel(guis);

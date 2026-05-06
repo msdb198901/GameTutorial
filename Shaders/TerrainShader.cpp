@@ -5,8 +5,8 @@
 #include "Light.h"
 #include <string>
 
-const char* terrainVertexFile = "E:\\Learn\\OpenGL\\GameTutorial\\Shaders\\terrain.vs";
-const char* terrainFragmentFile = "E:\\Learn\\OpenGL\\GameTutorial\\Shaders\\terrain.fs";
+const char* terrainVertexFile = "Shaders\\terrain.vs";
+const char* terrainFragmentFile = "Shaders\\terrain.fs";
 
 TerrainShader::TerrainShader()
 {

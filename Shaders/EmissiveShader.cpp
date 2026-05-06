@@ -3,8 +3,8 @@
 #include "Camera.h"
 #include "Maths.h"
 
-const char* emissiveVertexFile = "E:\\Learn\\OpenGL\\GameTutorial\\Shaders\\emissive.vs";
-const char* emissiveFragmentFile = "E:\\Learn\\OpenGL\\GameTutorial\\Shaders\\emissive.fs";
+const char* emissiveVertexFile = "Shaders\\emissive.vs";
+const char* emissiveFragmentFile = "Shaders\\emissive.fs";
 
 EmissiveShader::EmissiveShader()
 {

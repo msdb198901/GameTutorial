@@ -2,8 +2,8 @@
 #include "WaterShader.h"
 #include "Maths.h"
 
-const char* VERTEX_FILE = "E:\\Learn\\OpenGL\\GameTutorial\\Water\\water.vs";
-const char* FRAGMENT_FILE = "E:\\Learn\\OpenGL\\GameTutorial\\Water\\water.fs";
+const char* VERTEX_FILE = "Water\\water.vs";
+const char* FRAGMENT_FILE = "Water\\water.fs";
 
 WaterShader::WaterShader()
 {

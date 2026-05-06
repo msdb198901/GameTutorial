@@ -5,8 +5,8 @@
 #include "Light.h"
 #include <string>
 
-const char* vertexFile = "E:\\Learn\\OpenGL\\GameTutorial\\Shaders\\shader.vs";
-const char* fragmentFile = "E:\\Learn\\OpenGL\\GameTutorial\\Shaders\\shader.fs";
+const char* vertexFile = "Shaders\\shader.vs";
+const char* fragmentFile = "Shaders\\shader.fs";
 
 StaticShader::StaticShader()
 {

@@ -169,6 +169,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)Dependences\glfw\include;$(SolutionDir)Dependences\glad\include;$(SolutionDir)Dependences\glm;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Dependences\glfw\lib;$(LibraryPath)</LibraryPath>
+    <IntDir>$(SolutionDir)$(Configuration)\$(ShortProjectName)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

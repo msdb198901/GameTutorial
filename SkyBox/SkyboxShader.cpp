@@ -2,8 +2,8 @@
 #include "SkyboxShader.h"
 #include "Maths.h"
 
-const char* skyboxVertexFile = "E:\\Learn\\OpenGL\\GameTutorial\\SkyBox\\skybox.vs";
-const char* skyboxFragmentFile = "E:\\Learn\\OpenGL\\GameTutorial\\SkyBox\\skybox.fs";
+const char* skyboxVertexFile = "SkyBox\\skybox.vs";
+const char* skyboxFragmentFile = "SkyBox\\skybox.fs";
 
 
 SkyboxShader::SkyboxShader() 

@@ -219,7 +219,7 @@ void DisplayManager::UpdateDisplay()
 	entities.push_back(player);
 
 	Camera *camera = new Camera(player);
-	Light* light1 = new Light(glm::vec3(0, 10000, -7000), glm::vec3(0.4f, 0.4f, 0.4f));
+	Light* light1 = new Light(glm::vec3(0, 10000, -7000), glm::vec3(0.8f, 0.8f, 0.8f));
 	Light* light2 = new Light(glm::vec3(185, 10, 293), glm::vec3(2.0f, 0.0f, 0.0f), glm::vec3(1, 0.01, 0.002));
 	Light* light3 = new Light(glm::vec3(370, 5, 300), glm::vec3(0.0f, 2.0f, 2.0f), glm::vec3(1, 0.01, 0.002));
 	Light* light4 = new Light(glm::vec3(293, 7, 305), glm::vec3(2.0f, 2.0f, 0.0f), glm::vec3(1, 0.01, 0.002));

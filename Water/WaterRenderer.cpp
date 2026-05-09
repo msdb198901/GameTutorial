@@ -7,10 +7,14 @@
 #include "RawModel.h"
 #include "WaterFrameBuffers.h"
 
+const float WAVE_SPEED = 0.03f;
+
 WaterRenderer::WaterRenderer(Loader* loader, WaterShader* shader, glm::mat4 projectionMatrix, WaterFrameBuffers* frameBuffers)
 {
 	this->fbo = frameBuffers;
 	this->shader = shader;
+	moveFactor = 0;
+	dudvTextureID = loader->LoadTexture("Resources\\waterDUDV.png");
 	shader->Start();
 	shader->ConnectTextureUnits();
 	shader->LoadProjectionMatrix(projectionMatrix);
@@ -34,6 +38,11 @@ void WaterRenderer::prepareRender(Camera* camera)
 {
 	shader->Start();
 	shader->LoadViewMatrix(camera);
+
+	moveFactor += WAVE_SPEED * 0.01;
+	moveFactor = modf(moveFactor, &moveFactor);
+	shader->LoadMoveFactor(moveFactor);
+
 	glBindVertexArray(quad->GetVAOID());
 	glEnableVertexAttribArray(0);
 
@@ -42,6 +51,9 @@ void WaterRenderer::prepareRender(Camera* camera)
 
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, fbo->GetRefractionTexture());
+
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, dudvTextureID);
 }
 	
 void WaterRenderer::unbind()

@@ -20,6 +20,11 @@ void WaterShader::LoadViewMatrix(Camera* camera) {
 	LoadMatrix(location_viewMatrix, viewMatrix);
 }
 
+void WaterShader::LoadMoveFactor(float move_factor)
+{
+	LoadFloat(location_moveFactor, move_factor);
+}
+
 void WaterShader::LoadModelMatrix(glm::mat4 modelMatrix)
 {
 	LoadMatrix(location_modelMatrix, modelMatrix);
@@ -29,4 +34,5 @@ void WaterShader::ConnectTextureUnits()
 {
 	LoadInt(location_reflectionTexture, 0);
 	LoadInt(location_refractionTexture, 1);
+	LoadInt(location_dudvMap, 2);
 }

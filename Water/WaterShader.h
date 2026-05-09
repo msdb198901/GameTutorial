@@ -19,6 +19,8 @@ public:
 		location_modelMatrix = GetUniformLocation("modelMatrix");
 		location_reflectionTexture = GetUniformLocation("reflectionTexture");
 		location_refractionTexture = GetUniformLocation("refractionTexture");
+		location_dudvMap = GetUniformLocation("dudvMap");
+		location_moveFactor = GetUniformLocation("moveFactor");
 	}
 
 	void LoadProjectionMatrix(glm::mat4 projection) {
@@ -28,6 +30,8 @@ public:
 	void LoadViewMatrix(Camera* camera);
 	void LoadModelMatrix(glm::mat4 modelMatrix);
 
+	void LoadMoveFactor(float move_factor);
+
 	void ConnectTextureUnits();
 
 private:
@@ -36,4 +40,6 @@ private:
 	int location_projectionMatrix;
 	int location_reflectionTexture;
 	int location_refractionTexture;
+	int location_dudvMap;
+	int location_moveFactor;
 };

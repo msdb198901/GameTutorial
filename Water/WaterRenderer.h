@@ -24,4 +24,7 @@ private:
 	RawModel* quad;
     WaterShader* shader;
 	WaterFrameBuffers* fbo;
+	int dudvTextureID;
+	float moveFactor;
+	long long lastFrameTime;
 };

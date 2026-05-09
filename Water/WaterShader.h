@@ -21,6 +21,7 @@ public:
 		location_refractionTexture = GetUniformLocation("refractionTexture");
 		location_dudvMap = GetUniformLocation("dudvMap");
 		location_moveFactor = GetUniformLocation("moveFactor");
+		location_cameraPosition = GetUniformLocation("cameraPosition");
 	}
 
 	void LoadProjectionMatrix(glm::mat4 projection) {
@@ -42,4 +43,5 @@ private:
 	int location_refractionTexture;
 	int location_dudvMap;
 	int location_moveFactor;
+	int location_cameraPosition;
 };

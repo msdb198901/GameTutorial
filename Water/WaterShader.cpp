@@ -1,6 +1,7 @@
 #include "StdAfx.h"
 #include "WaterShader.h"
 #include "Maths.h"
+#include "Camera.h"
 
 const char* VERTEX_FILE = "Water\\water.vs";
 const char* FRAGMENT_FILE = "Water\\water.fs";
@@ -18,6 +19,8 @@ WaterShader::~WaterShader()
 void WaterShader::LoadViewMatrix(Camera* camera) {
 	glm::mat4 viewMatrix = Maths::CreateViewMatrix(camera);
 	LoadMatrix(location_viewMatrix, viewMatrix);
+
+	LoadVector(location_cameraPosition, camera->GetPosition());
 }
 
 void WaterShader::LoadMoveFactor(float move_factor)

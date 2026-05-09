@@ -3,6 +3,7 @@
 #include "ShaderProgram.h"
 
 class Camera;
+class Light;
 class WaterShader : public ShaderProgram
 {
 public:
@@ -22,6 +23,9 @@ public:
 		location_dudvMap = GetUniformLocation("dudvMap");
 		location_moveFactor = GetUniformLocation("moveFactor");
 		location_cameraPosition = GetUniformLocation("cameraPosition");
+		location_normalMap = GetUniformLocation("normalMap");
+		location_lightPosition = GetUniformLocation("lightPosition");
+		location_lightColor = GetUniformLocation("lightColor");
 	}
 
 	void LoadProjectionMatrix(glm::mat4 projection) {
@@ -32,6 +36,8 @@ public:
 	void LoadModelMatrix(glm::mat4 modelMatrix);
 
 	void LoadMoveFactor(float move_factor);
+
+	void LoadLight(Light* light);
 
 	void ConnectTextureUnits();
 
@@ -44,4 +50,7 @@ private:
 	int location_dudvMap;
 	int location_moveFactor;
 	int location_cameraPosition;
+	int location_normalMap;
+	int location_lightPosition;
+	int location_lightColor;
 };

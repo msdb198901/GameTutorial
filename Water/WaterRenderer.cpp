@@ -6,6 +6,7 @@
 #include "Maths.h"
 #include "RawModel.h"
 #include "WaterFrameBuffers.h"
+#include "Light.h"
 
 const float WAVE_SPEED = 0.03f;
 
@@ -15,6 +16,7 @@ WaterRenderer::WaterRenderer(Loader* loader, WaterShader* shader, glm::mat4 proj
 	this->shader = shader;
 	moveFactor = 0;
 	dudvTextureID = loader->LoadTexture("Resources\\waterDUDV.png");
+	normalTextureID = loader->LoadTexture("Resources\\matchingNormalMap.png");
 	shader->Start();
 	shader->ConnectTextureUnits();
 	shader->LoadProjectionMatrix(projectionMatrix);
@@ -22,9 +24,9 @@ WaterRenderer::WaterRenderer(Loader* loader, WaterShader* shader, glm::mat4 proj
 	setUpVAO(loader);
 }
 
-void WaterRenderer::RenderModel(std::vector<WaterTile*> water, Camera* camera) 
+void WaterRenderer::RenderModel(std::vector<WaterTile*> water, Camera* camera, Light* light)
 {
-	prepareRender(camera);	
+	prepareRender(camera, light);
 	for (WaterTile* tile : water) 
 	{
 		glm::mat4 modelMatrix = Maths::CreateTransformationMatrix(glm::vec3(tile->GetX(), tile->GetHeight(), tile->GetZ()), glm::vec3(0, 0, 0), WaterTile::TILE_SIZE);
@@ -34,10 +36,11 @@ void WaterRenderer::RenderModel(std::vector<WaterTile*> water, Camera* camera)
 	unbind();
 }
 	
-void WaterRenderer::prepareRender(Camera* camera)
+void WaterRenderer::prepareRender(Camera* camera, Light* light)
 {
 	shader->Start();
 	shader->LoadViewMatrix(camera);
+	shader->LoadLight(light);
 
 	moveFactor += WAVE_SPEED * 0.01;
 	moveFactor = modf(moveFactor, &moveFactor);
@@ -54,6 +57,9 @@ void WaterRenderer::prepareRender(Camera* camera)
 
 	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, dudvTextureID);
+
+	glActiveTexture(GL_TEXTURE3);
+	glBindTexture(GL_TEXTURE_2D, normalTextureID);
 }
 	
 void WaterRenderer::unbind()

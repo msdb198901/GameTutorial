@@ -228,6 +228,7 @@ void DisplayManager::UpdateDisplay()
 	lights.push_back(light2);
 	lights.push_back(light3);
 	lights.push_back(light4);
+	Light* sunLight = new Light(glm::vec3(0, 10000, -7000), glm::vec3(0.8f, 0.8f, 0.8f));
 
 	// 创建发光物
 	RawModel* lampModel = ObjLoader::LoadObjModel("Resources\\lamp.obj", loader);
@@ -297,7 +298,7 @@ void DisplayManager::UpdateDisplay()
 		glDisable(GL_CLIP_DISTANCE0);
 
 		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0, 1, 0, 1000));
-		waterRender->RenderModel(waterTiles, camera);
+		waterRender->RenderModel(waterTiles, camera, sunLight);
 		guiRender->RenderModel(guis);
 
 		glfwSwapBuffers(windows);

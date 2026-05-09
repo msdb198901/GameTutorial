@@ -46,4 +46,5 @@ void WaterShader::ConnectTextureUnits()
 	LoadInt(location_refractionTexture, 1);
 	LoadInt(location_dudvMap, 2);
 	LoadInt(location_normalMap, 3);
+	LoadInt(location_depthMap, 4);
 }

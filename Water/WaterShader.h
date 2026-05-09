@@ -26,6 +26,7 @@ public:
 		location_normalMap = GetUniformLocation("normalMap");
 		location_lightPosition = GetUniformLocation("lightPosition");
 		location_lightColor = GetUniformLocation("lightColor");
+		location_depthMap = GetUniformLocation("depthMap");
 	}
 
 	void LoadProjectionMatrix(glm::mat4 projection) {
@@ -53,4 +54,5 @@ private:
 	int location_normalMap;
 	int location_lightPosition;
 	int location_lightColor;
+	int location_depthMap;
 };

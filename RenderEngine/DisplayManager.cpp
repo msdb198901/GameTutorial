@@ -286,13 +286,13 @@ void DisplayManager::UpdateDisplay()
 		float distance = 2 * (camera->GetPosition().y - water->GetHeight());
 		camera->IncreasePosition(0, -distance, 0);
 		camera->InvertPitch();
-		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0.0f, 1.0f, 0.0f, -water->GetHeight()));
+		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0.0f, 1.0f, 0.0f, -water->GetHeight()+1));
 		camera->IncreasePosition(0, distance, 0);
 		camera->InvertPitch();
 
 		// 渲染水面折射场景 (水面之下) 原点的距离就等于-水面高度
 		waterFrameBuffers->BindRefractionFrameBuffer();
-		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0, -1.0f, 0.0f, water->GetHeight()));
+		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0, -1.0f, 0.0f, water->GetHeight()+1));
 		waterFrameBuffers->UnBindCurrentFrameBuffer(WIDTH, HEIHGT);
 		
 		glDisable(GL_CLIP_DISTANCE0);

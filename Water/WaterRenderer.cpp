@@ -60,10 +60,18 @@ void WaterRenderer::prepareRender(Camera* camera, Light* light)
 
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_2D, normalTextureID);
+
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, fbo->GetRefractionDepthTexture());
+
+	// 水体边缘的混合效果
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 	
 void WaterRenderer::unbind()
 {
+	glDisable(GL_BLEND);
 	glDisableVertexAttribArray(0);
 	glBindVertexArray(0);
 	shader->Stop();

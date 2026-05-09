@@ -81,6 +81,7 @@ uniform sampler2D reflectionTexture;
 uniform sampler2D refractionTexture;
 uniform sampler2D dudvMap;
 uniform sampler2D normalMap;
+uniform sampler2D depthMap;
 uniform vec3 lightColor;
 uniform float moveFactor;
 
@@ -98,6 +99,16 @@ void main(void)
     vec2 refractCoords = screenCoords;
     // 反射坐标（Y方向翻转）
     vec2 reflectCoords = vec2(screenCoords.x, 1.0 - screenCoords.y);
+
+    // 深度测试（可选，用于水下效果）
+    // 与主渲染器设定保持一致 最好uniform float near, far; 定义在主渲染器中
+    float near = 0.1;
+    float far = 1000.0;
+    float depth = texture(depthMap, refractCoords).r;
+    float floorDistance = 2.0 * near* far/(far+near - (2.0*depth - 1.0)*(far - near));
+    depth = gl_FragCoord.z;
+    float waterDistance = 2.0 * near* far/(far+near - (2.0*depth - 1.0)*(far - near));
+    float waterDepth = floorDistance - waterDistance;
     
     // ----- 扰动计算（经典两次叠加，产生流动感）-----
     vec2 distortedUV1 = textureCoords + vec2(moveFactor, 0.0);
@@ -105,7 +116,7 @@ void main(void)
     
     vec2 distord1 = texture(dudvMap, distortedUV1).rg * 2.0 - 1.0;
     vec2 distord2 = texture(dudvMap, distortedUV2).rg * 2.0 - 1.0;
-    vec2 distord = (distord1 + distord2) * waveStrength;
+    vec2 distord = (distord1 + distord2) * waveStrength * clamp(waterDepth/20, 0.0, 1.0);
     
     // 对反射和折射纹理坐标分别添加扰动
     reflectCoords += distord;
@@ -117,12 +128,7 @@ void main(void)
     
     vec4 reflectionColor = texture(reflectionTexture, reflectCoords);
     vec4 refractionColor = texture(refractionTexture, refractCoords);
-    
-    // ----- 菲涅尔效应（视角与水面的夹角）-----
-    vec3 viewVector = normalize(toCameraVector);
-    float refractiveFactor = dot(viewVector, vec3(0.0, 1.0, 0.0));
-    refractiveFactor = pow(1.0 - refractiveFactor, 0.5); // 修正：角度越小反射越强
-    
+
     // ----- 法线贴图（根据扰动后的UV采样）-----
     vec2 normalUV = textureCoords + distord * 2.0;  // 让法线扰动幅度稍大
     vec4 normalMapColor = texture(normalMap, normalUV);
@@ -133,16 +139,25 @@ void main(void)
     normal.y = normalMapColor.b * 2.0 - 1.0;
     normal = normalize(normal);
     
+    // ----- 菲涅尔效应（视角与水面的夹角）-----
+    vec3 viewVector = normalize(toCameraVector);
+    float refractiveFactor = dot(viewVector, normal);
+    refractiveFactor = pow(1.0 - refractiveFactor, 0.5); // 修正：角度越小反射越强
+   
+    
     // ----- 高光反射 -----
     vec3 lightDir = normalize(fromLightVector);
     vec3 reflectDir = reflect(lightDir, normal);
     float specular = max(dot(viewVector, reflectDir), 0.0);
     specular = pow(specular, shineDamper);
-    vec3 specularHighlights = lightColor * specular * reflectivity;
+    vec3 specularHighlights = lightColor * specular * reflectivity * clamp(waterDepth/5, 0.0, 1.0);
     
     // ----- 混合颜色 -----
     vec4 waterColor = mix(reflectionColor, refractionColor, refractiveFactor);
     // 加入浅水底色并加上高光
     waterColor = mix(waterColor, vec4(0.0, 0.3, 0.5, 1.0), 0.2);
     out_Color = waterColor + vec4(specularHighlights, 0.0);
+
+    // 加入水下深度效果（可选）
+    out_Color.a = clamp(waterDepth/5, 0.0, 1.0);
 }

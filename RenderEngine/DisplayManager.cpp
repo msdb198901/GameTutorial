@@ -274,10 +274,18 @@ void DisplayManager::UpdateDisplay()
 	// 创建骨骼实体
 	AnimatedEntity* character = new AnimatedEntity(myModel, idleAnim);
 	character->SetPosition(glm::vec3(100, 5, 100));
-	character->SetScale(0.5f);
+	character->SetScale(5.0f);
+
+	// 加载模型和动画
+	std::filesystem::path path1 = "E:\\Learn\\OpenGL\\GameTutorial\\Resources\\objects\\nanosuit\\nanosuit.obj";
+	Model* nanosuit = new Model(path1.generic_string());
+	AnimatedEntity* nanosuitEntity = new AnimatedEntity(nanosuit, nullptr);
+	nanosuitEntity->SetPosition(glm::vec3(150, 5, 150));
+	nanosuitEntity->SetScale(0.5f);
 
 	std::vector<AnimatedEntity*> animatedEntities;
 	animatedEntities.push_back(character);
+	animatedEntities.push_back(nanosuitEntity);
 
 	// 设置鼠标滚动回调函数
 	glfwSetWindowUserPointer(windows, camera);

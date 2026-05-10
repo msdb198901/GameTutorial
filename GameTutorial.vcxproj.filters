@@ -38,6 +38,12 @@
     <Filter Include="Water">
       <UniqueIdentifier>{a7567826-6b45-4b83-aada-60b3c4b3b7c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{9124fc49-d205-4485-9fce-292917dfc0d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation\learnopengl">
+      <UniqueIdentifier>{af13bbd0-d275-41ce-9218-3f3ebe10f0bd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RenderEngine\DisplayManager.cpp">
@@ -147,6 +153,12 @@
     </ClCompile>
     <ClCompile Include="Water\WaterFrameBuffers.cpp">
       <Filter>Water</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\AnimatedEntity.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\AnimatedRender.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +270,36 @@
     <ClInclude Include="Water\WaterFrameBuffers.h">
       <Filter>Water</Filter>
     </ClInclude>
+    <ClInclude Include="Animation\AnimatedEntity.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\AnimatedRender.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\learnopengl\model.h">
+      <Filter>Animation\learnopengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\learnopengl\animator.h">
+      <Filter>Animation\learnopengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\learnopengl\bone.h">
+      <Filter>Animation\learnopengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\learnopengl\animation.h">
+      <Filter>Animation\learnopengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\learnopengl\mesh.h">
+      <Filter>Animation\learnopengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\learnopengl\shader.h">
+      <Filter>Animation\learnopengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\learnopengl\assimp_glm_helpers.h">
+      <Filter>Animation\learnopengl</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\learnopengl\animdata.h">
+      <Filter>Animation\learnopengl</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\shader.vs">
@@ -295,6 +337,12 @@
     </None>
     <None Include="Water\water.vs">
       <Filter>Water</Filter>
+    </None>
+    <None Include="Animation\animated.fs">
+      <Filter>Animation</Filter>
+    </None>
+    <None Include="Animation\animated.vs">
+      <Filter>Animation</Filter>
     </None>
   </ItemGroup>
 </Project>

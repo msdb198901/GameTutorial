@@ -4,6 +4,7 @@
 #include "EntityRender.h"
 #include "Entity.h"
 #include "TextureModel.h"
+#include "Camera.h"
 #include "Maths.h"
 #include "DisplayManager.h"
 #include "TerrainShader.h"
@@ -12,6 +13,9 @@
 #include "EmissiveEntity.h"
 #include "EmissiveShader.h"
 #include "EmissiveRender.h"
+
+#include "AnimatedEntity.h"
+#include "AnimatedRender.h"
 
 #include "SkyboxRender.h"
 
@@ -46,6 +50,8 @@ MasterRender::MasterRender(Loader* loader)
 	m_pEmissiveShader = new EmissiveShader();
 	m_pEmissiveRender = new EmissiveRender(m_pEmissiveShader, m_projectionMatrix);
 
+	m_pAnimatedRender = new AnimatedRender(m_projectionMatrix);
+
 	m_pSkyboxRender = new SkyboxRender(loader, m_projectionMatrix);
 }
 
@@ -72,7 +78,7 @@ void MasterRender::Prepare()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void MasterRender::RenderScene(std::vector<Entity*> entities, std::vector<EmissiveEntity*> emissives, std::vector<Terrain*> terrains, std::vector<Light*> lights, Camera* camera, glm::vec4 clipPlane)
+void MasterRender::RenderScene(std::vector<Entity*> entities, std::vector<AnimatedEntity*> animatedEntities, std::vector<EmissiveEntity*> emissives, std::vector<Terrain*> terrains, std::vector<Light*> lights, Camera* camera, glm::vec4 clipPlane)
 {
 	for (auto entity : entities)
 	{
@@ -86,7 +92,18 @@ void MasterRender::RenderScene(std::vector<Entity*> entities, std::vector<Emissi
 	{
 		ProcessTerrain(terrain);
 	}
+	
 	RenderModel(lights, camera, clipPlane);
+
+	for (auto animatedEntity : animatedEntities)
+	{
+		ProcessAnimatedEntity(animatedEntity);
+	}
+	if (m_pAnimatedRender && !m_animatedEntities.empty()) {
+		glm::mat4 viewMatrix = Maths::CreateViewMatrix(camera); // 你已有的函数
+		m_pAnimatedRender->Render(m_animatedEntities, viewMatrix, camera->GetPosition());
+		m_animatedEntities.clear();
+	}
 }
 
 void MasterRender::RenderModel(std::vector<Light*> lights, Camera* pCamera, glm::vec4 clipPlane)
@@ -141,9 +158,14 @@ void MasterRender::ProcessTerrain(Terrain* terrain)
 	m_terrains.push_back(terrain);
 }
 
-void  MasterRender::ProcessEmissiveEntity(EmissiveEntity* emissiveEntity)
+void MasterRender::ProcessEmissiveEntity(EmissiveEntity* emissiveEntity)
 {
 	m_emissiveEntities.push_back(emissiveEntity);
+}
+
+void MasterRender::ProcessAnimatedEntity(AnimatedEntity* entity)
+{
+	m_animatedEntities.push_back(entity);
 }
 
 void MasterRender::CleanUp()

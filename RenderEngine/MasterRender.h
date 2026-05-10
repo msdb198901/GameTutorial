@@ -20,6 +20,9 @@ class EmissiveEntity;
 class EmissiveShader;
 class EmissiveRender;
 
+class AnimatedRender;
+class AnimatedEntity;
+
 class SkyboxRender;
 
 // 负责管理所有渲染代码
@@ -34,13 +37,15 @@ public:
 
 	void RenderModel(std::vector<Light*>, Camera*, glm::vec4);
 
-	void RenderScene(std::vector<Entity*>, std::vector<EmissiveEntity*>, std::vector<Terrain*>, std::vector<Light*>, Camera*, glm::vec4);
+	void RenderScene(std::vector<Entity*>, std::vector<AnimatedEntity*>, std::vector<EmissiveEntity*>, std::vector<Terrain*>, std::vector<Light*>, Camera*, glm::vec4);
 
 	void ProcessEntity(Entity*);
 
 	void ProcessTerrain(Terrain*);
 
 	void ProcessEmissiveEntity(EmissiveEntity*);
+
+	void ProcessAnimatedEntity(AnimatedEntity* entity);
 
 	void CleanUp();
 
@@ -78,6 +83,9 @@ private:
 	std::map<TextureModel*, std::vector<Entity*> > m_entities;
 	std::list<Terrain*> m_terrains;
 	std::list<EmissiveEntity*> m_emissiveEntities;
+
+	AnimatedRender* m_pAnimatedRender;
+	std::vector<AnimatedEntity*> m_animatedEntities;
 
 	glm::mat4 m_projectionMatrix;
 };

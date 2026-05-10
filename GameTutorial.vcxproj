@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation\AnimatedEntity.cpp" />
+    <ClCompile Include="Animation\AnimatedRender.cpp" />
     <ClCompile Include="Dependences\glad\src\glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
@@ -63,6 +65,16 @@
     <ClCompile Include="Water\WaterTile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation\AnimatedEntity.h" />
+    <ClInclude Include="Animation\AnimatedRender.h" />
+    <ClInclude Include="Animation\learnopengl\animation.h" />
+    <ClInclude Include="Animation\learnopengl\animator.h" />
+    <ClInclude Include="Animation\learnopengl\animdata.h" />
+    <ClInclude Include="Animation\learnopengl\assimp_glm_helpers.h" />
+    <ClInclude Include="Animation\learnopengl\bone.h" />
+    <ClInclude Include="Animation\learnopengl\mesh.h" />
+    <ClInclude Include="Animation\learnopengl\model.h" />
+    <ClInclude Include="Animation\learnopengl\shader.h" />
     <ClInclude Include="EngineTester\MainLoop.h" />
     <ClInclude Include="Entities\Camera.h" />
     <ClInclude Include="Entities\EmissiveEntity.h" />
@@ -101,6 +113,8 @@
     <ClInclude Include="Water\WaterTile.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Animation\animated.fs" />
+    <None Include="Animation\animated.vs" />
     <None Include="Guis\GuiFragmentShader.fs" />
     <None Include="Guis\GuiVertexShader.vs" />
     <None Include="Shaders\emissive.fs" />
@@ -167,8 +181,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Dependences\glfw\include;$(SolutionDir)Dependences\glad\include;$(SolutionDir)Dependences\glm;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependences\glfw\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependences\glfw\include;$(SolutionDir)Dependences\glad\include;$(SolutionDir)Dependences\glm;E:\Learn\OpenGL\GameTutorial\Dependences\assimp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependences\glfw\lib;E:\Learn\OpenGL\GameTutorial\Dependences\assimp\lib\Debug;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)$(Configuration)\$(ShortProjectName)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -177,13 +191,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)RenderEngine;$(SolutionDir)Shaders;$(SolutionDir)Models;$(SolutionDir)Textures;$(SolutionDir)ToolBox;$(SolutionDir)Entities;$(SolutionDir)Terrains;$(SolutionDir)Guis;$(SolutionDir)SkyBox;$(SolutionDir)Water;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)RenderEngine;$(SolutionDir)Shaders;$(SolutionDir)Models;$(SolutionDir)Textures;$(SolutionDir)ToolBox;$(SolutionDir)Entities;$(SolutionDir)Terrains;$(SolutionDir)Guis;$(SolutionDir)SkyBox;$(SolutionDir)Water;$(SolutionDir)Animation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

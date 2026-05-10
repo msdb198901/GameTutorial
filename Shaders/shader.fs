@@ -46,7 +46,7 @@ void main()
         totalFinalSpecular += totalFinalSpecular;
     }
     // 防止光照过暗 漫反射至少为0.2
-    totalDiffuse = max(totalDiffuse, 0.2);
+    totalDiffuse = max(totalDiffuse, 0.8);
     
     vec4 textureColor = texture(textureSampler, fragment_textureCoords);
     if (textureColor.a < 0.5)

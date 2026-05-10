@@ -32,6 +32,11 @@
 #include "WaterRenderer.h"
 #include "WaterFrameBuffers.h"
 
+#include "AnimatedEntity.h"
+#include <filesystem>
+#include <learnopengl/model.h>
+#include <learnopengl/animation.h>
+
 
 float  deltaTime = 0.0f;
 float  lastFrame = 0.0f;
@@ -260,6 +265,20 @@ void DisplayManager::UpdateDisplay()
 	// 创建鼠标拾取器
 	//MousePicker* picker = new MousePicker(camera, render->GetProjectionMatrix(), terrain1, WIDTH, HEIHGT);
 
+	// 加载模型和动画
+	std::filesystem::path path = "E:\\Learn\\OpenGL\\GameTutorial\\Resources\\objects\\vampire\\dancing_vampire .dae";
+	Model* myModel = new Model(path.generic_u8string());
+	Animation* idleAnim = new Animation(path.generic_string(), myModel);
+	//Animation* walkAnim = new Animation("resources/character/walk.fbx", myModel);
+	// 
+	// 创建骨骼实体
+	AnimatedEntity* character = new AnimatedEntity(myModel, idleAnim);
+	character->SetPosition(glm::vec3(100, 5, 100));
+	character->SetScale(0.5f);
+
+	std::vector<AnimatedEntity*> animatedEntities;
+	animatedEntities.push_back(character);
+
 	// 设置鼠标滚动回调函数
 	glfwSetWindowUserPointer(windows, camera);
 	//glfwSetWindowUserPointer(windows, picker);
@@ -270,6 +289,14 @@ void DisplayManager::UpdateDisplay()
 
 		camera->Move(windows, deltaTime);
 		player->Move(windows, deltaTime, terrain1);
+		character->Update(deltaTime);
+
+		static glm::vec3 lastPos = character->GetPosition();
+		if (lastPos != character->GetPosition())
+		{
+			std::cout << "Position changed to: " << character->GetPosition().x << ", " << character->GetPosition().y << ", " << character->GetPosition().z << std::endl;
+			lastPos = character->GetPosition();
+		}
 
 		//// 相机移动后再更新鼠标拾取器
 		//picker->Update();
@@ -286,18 +313,20 @@ void DisplayManager::UpdateDisplay()
 		float distance = 2 * (camera->GetPosition().y - water->GetHeight());
 		camera->IncreasePosition(0, -distance, 0);
 		camera->InvertPitch();
-		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0.0f, 1.0f, 0.0f, -water->GetHeight()+1));
+		render->RenderScene(entities, animatedEntities, emissiveEntities, terrains, lights, camera, glm::vec4(0.0f, 1.0f, 0.0f, -water->GetHeight()+1));
 		camera->IncreasePosition(0, distance, 0);
 		camera->InvertPitch();
 
 		// 渲染水面折射场景 (水面之下) 原点的距离就等于-水面高度
 		waterFrameBuffers->BindRefractionFrameBuffer();
-		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0, -1.0f, 0.0f, water->GetHeight()+1));
+		render->RenderScene(entities, animatedEntities, emissiveEntities, terrains, lights, camera, glm::vec4(0, -1.0f, 0.0f, water->GetHeight()+1));
 		waterFrameBuffers->UnBindCurrentFrameBuffer(WIDTH, HEIHGT);
 		
 		glDisable(GL_CLIP_DISTANCE0);
 
-		render->RenderScene(entities, emissiveEntities, terrains, lights, camera, glm::vec4(0, 1, 0, 1000));
+		render->RenderScene(entities, animatedEntities, emissiveEntities, terrains, lights, camera, glm::vec4(0, 1, 0, 1000));
+		//if (isWalking) character->PlayAnimation(walkAnim);
+		
 		waterRender->RenderModel(waterTiles, camera, sunLight);
 		guiRender->RenderModel(guis);
 

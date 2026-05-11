@@ -266,7 +266,7 @@ void DisplayManager::UpdateDisplay()
 	//MousePicker* picker = new MousePicker(camera, render->GetProjectionMatrix(), terrain1, WIDTH, HEIHGT);
 
 	// 加载模型和动画
-	std::filesystem::path path = "E:\\Learn\\OpenGL\\GameTutorial\\Resources\\objects\\vampire\\dancing_vampire .dae";
+	std::filesystem::path path = "Resources\\objects\\vampire\\dancing_vampire .dae";
 	Model* myModel = new Model(path.generic_u8string());
 	Animation* idleAnim = new Animation(path.generic_string(), myModel);
 	//Animation* walkAnim = new Animation("resources/character/walk.fbx", myModel);
@@ -277,7 +277,7 @@ void DisplayManager::UpdateDisplay()
 	character->SetScale(5.0f);
 
 	// 加载模型和动画
-	std::filesystem::path path1 = "E:\\Learn\\OpenGL\\GameTutorial\\Resources\\objects\\nanosuit\\nanosuit.obj";
+	std::filesystem::path path1 = "Resources\\objects\\nanosuit\\nanosuit.obj";
 	Model* nanosuit = new Model(path1.generic_string());
 	AnimatedEntity* nanosuitEntity = new AnimatedEntity(nanosuit, nullptr);
 	nanosuitEntity->SetPosition(glm::vec3(150, 5, 150));

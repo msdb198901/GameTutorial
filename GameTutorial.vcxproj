@@ -181,8 +181,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)Dependences\glfw\include;$(SolutionDir)Dependences\glad\include;$(SolutionDir)Dependences\glm;E:\Learn\OpenGL\GameTutorial\Dependences\assimp\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Dependences\glfw\lib;E:\Learn\OpenGL\GameTutorial\Dependences\assimp\lib\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)Dependences\glfw\include;$(SolutionDir)Dependences\glad\include;$(SolutionDir)Dependences\glm;$(SolutionDir)Dependences\assimp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)Dependences\glfw\lib;$(SolutionDir)Dependences\assimp\lib\Debug;$(LibraryPath)</LibraryPath>
     <IntDir>$(SolutionDir)$(Configuration)\$(ShortProjectName)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

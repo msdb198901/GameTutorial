@@ -267,7 +267,7 @@ void DisplayManager::UpdateDisplay()
 
 	// 加载模型和动画
 	std::filesystem::path path = "Resources\\objects\\vampire\\dancing_vampire .dae";
-	Model* myModel = new Model(path.generic_u8string());
+	Model* myModel = new Model(path.generic_string());
 	Animation* idleAnim = new Animation(path.generic_string(), myModel);
 	//Animation* walkAnim = new Animation("resources/character/walk.fbx", myModel);
 	// 
@@ -283,9 +283,17 @@ void DisplayManager::UpdateDisplay()
 	nanosuitEntity->SetPosition(glm::vec3(150, 5, 150));
 	nanosuitEntity->SetScale(0.5f);
 
+	// 加载模型豹子
+	std::filesystem::path path2 = "Resources\\objects\\vampire\\leopard.mesh.xml";
+	Model* leopard = new Model(path2.generic_string());
+	AnimatedEntity* leopardEntity = new AnimatedEntity(leopard, nullptr);
+	leopardEntity->SetPosition(glm::vec3(140, 5, 150));
+	leopardEntity->SetScale(0.05f);
+
 	std::vector<AnimatedEntity*> animatedEntities;
 	animatedEntities.push_back(character);
 	animatedEntities.push_back(nanosuitEntity);
+	animatedEntities.push_back(leopardEntity);
 
 	// 设置鼠标滚动回调函数
 	glfwSetWindowUserPointer(windows, camera);

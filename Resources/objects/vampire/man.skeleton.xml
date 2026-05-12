@@ -1,0 +1,406 @@
+<skeleton>
+    <bones>
+        <bone id="0" name="m_Bip01">
+            <position x="2e-006" y="106.333" z="5.52645" />
+            <rotation angle="2.09439">
+                <axis x="-0.577351" y="-0.57735" z="-0.57735" />
+            </rotation>
+        </bone>
+        <bone id="1" name="m_Bip01_Footsteps">
+            <position x="0" y="0" z="-106.027" />
+            <rotation angle="1.5708">
+                <axis x="0" y="0" z="1" />
+            </rotation>
+        </bone>
+        <bone id="2" name="m_Bip01_Pelvis">
+            <position x="-1.26562" y="0" z="0" />
+            <rotation angle="2.09439">
+                <axis x="-0.57735" y="-0.577351" z="-0.57735" />
+            </rotation>
+        </bone>
+        <bone id="3" name="m_Bip01_Spine">
+            <position x="10.4646" y="-0.014903" z="1.5e-005" />
+            <rotation angle="0.000690534">
+                <axis x="-0.005225" y="-0.001742" z="0.999985" />
+            </rotation>
+        </bone>
+        <bone id="4" name="m_Bip01_L_Thigh">
+            <position x="-10.4646" y="0.023205" z="13.1541" />
+            <rotation angle="3.05471">
+                <axis x="-0.006766" y="-0.999969" z="-0.004101" />
+            </rotation>
+        </bone>
+        <bone id="5" name="m_Bip01_L_Calf">
+            <position x="44.7615" y="0" z="1e-006" />
+            <rotation angle="0.200003">
+                <axis x="0" y="0" z="-1" />
+            </rotation>
+        </bone>
+        <bone id="6" name="m_Bip01_L_Foot">
+            <position x="50.0852" y="0" z="-1e-006" />
+            <rotation angle="0.281652">
+                <axis x="-0.681271" y="-0.372849" z="0.629962" />
+            </rotation>
+        </bone>
+        <bone id="7" name="m_Bip01_L_Toe0">
+            <position x="12.4101" y="15.5238" z="2e-006" />
+            <rotation angle="1.5708">
+                <axis x="0" y="0" z="1" />
+            </rotation>
+        </bone>
+        <bone id="8" name="m_zuohouqun">
+            <position x="32.5886" y="-21.1979" z="8.50304" />
+            <rotation angle="2.83016">
+                <axis x="-0.999924" y="0.012017" z="0.002754" />
+            </rotation>
+        </bone>
+        <bone id="9" name="m_zuoqianqun">
+            <position x="23.7484" y="24.1467" z="8.9051" />
+            <rotation angle="3.45384">
+                <axis x="-0.989926" y="-0.140882" z="-0.014079" />
+            </rotation>
+        </bone>
+        <bone id="10" name="m_Bip01_R_Thigh">
+            <position x="-10.4646" y="0.023278" z="-13.1541" />
+            <rotation angle="3.22847">
+                <axis x="-0.006767" y="-0.999969" z="0.004098" />
+            </rotation>
+        </bone>
+        <bone id="11" name="m_Bip01_R_Calf">
+            <position x="44.7615" y="0" z="1e-006" />
+            <rotation angle="0.200005">
+                <axis x="0" y="0" z="-1" />
+            </rotation>
+        </bone>
+        <bone id="12" name="m_Bip01_R_Foot">
+            <position x="50.0852" y="0" z="0" />
+            <rotation angle="0.281652">
+                <axis x="0.681273" y="0.372849" z="0.629961" />
+            </rotation>
+        </bone>
+        <bone id="13" name="m_Bip01_R_Toe0">
+            <position x="12.4101" y="15.5238" z="1e-006" />
+            <rotation angle="1.5708">
+                <axis x="0" y="0" z="1" />
+            </rotation>
+        </bone>
+        <bone id="14" name="m_youhouqun">
+            <position x="32.5885" y="-21.198" z="-8.50312" />
+            <rotation angle="3.45302">
+                <axis x="-0.999924" y="0.012018" z="-0.002754" />
+            </rotation>
+        </bone>
+        <bone id="15" name="m_youqianqun">
+            <position x="23.7485" y="24.1466" z="-8.90505" />
+            <rotation angle="2.82934">
+                <axis x="-0.989926" y="-0.140881" z="0.014079" />
+            </rotation>
+        </bone>
+        <bone id="16" name="m_Bip01_Spine1">
+            <position x="18.7199" y="-0.020488" z="0" />
+            <rotation angle="0.139627">
+                <axis x="0" y="3e-006" z="-1" />
+            </rotation>
+        </bone>
+        <bone id="17" name="m_Bip01_Neck">
+            <position x="25.987" y="-0.006506" z="0" />
+            <rotation angle="0.523599">
+                <axis x="0" y="-3e-006" z="1" />
+            </rotation>
+        </bone>
+        <bone id="18" name="m_Bip01_Head">
+            <position x="9.43164" y="1e-006" z="0" />
+            <rotation angle="0.122971">
+                <axis x="0" y="3e-006" z="-1" />
+            </rotation>
+        </bone>
+        <bone id="19" name="m_Bip01_Ponytail1">
+            <position x="2.73318" y="-7.06493" z="-1.8e-005" />
+            <rotation angle="2.81904">
+                <axis x="0" y="3e-006" z="-1" />
+            </rotation>
+        </bone>
+        <bone id="20" name="m_Bip01_Ponytail11">
+            <position x="13.1846" y="-0.012262" z="0" />
+            <rotation angle="0.289113">
+                <axis x="0" y="3e-006" z="-1" />
+            </rotation>
+        </bone>
+        <bone id="21" name="m_Bip01_Ponytail12">
+            <position x="16.057" y="-0.008708" z="0" />
+            <rotation angle="0.306566">
+                <axis x="0" y="3e-006" z="-1" />
+            </rotation>
+        </bone>
+        <bone id="22" name="m_zuojianyan">
+            <position x="10.8806" y="4.58571" z="4.6e-005" />
+            <rotation angle="3.14159">
+                <axis x="-0.793353" y="-0.608762" z="0" />
+            </rotation>
+        </bone>
+        <bone id="23" name="m_Bip01_L_Clavicle">
+            <position x="-5.60066" y="2.67543" z="10.9909" />
+            <rotation angle="3.60889">
+                <axis x="-0.576717" y="0.124352" z="-0.807425" />
+            </rotation>
+        </bone>
+        <bone id="24" name="m_Bip01_L_UpperArm">
+            <position x="10.7505" y="2e-006" z="0" />
+            <rotation angle="0.43835">
+                <axis x="0.170048" y="0.924502" z="-0.341145" />
+            </rotation>
+        </bone>
+        <bone id="25" name="m_Bip01_L_Forearm">
+            <position x="28.2193" y="1e-006" z="-4e-006" />
+            <rotation angle="0.688692">
+                <axis x="0" y="0" z="-1" />
+            </rotation>
+        </bone>
+        <bone id="26" name="m_Bip01_L_Hand">
+            <position x="26.3589" y="-5e-006" z="-1e-006" />
+            <rotation angle="2.27316">
+                <axis x="-0.997567" y="0.069547" z="0.004902" />
+            </rotation>
+        </bone>
+        <bone id="27" name="Bone02_m_mirror01">
+            <position x="11.5094" y="2.89229" z="-1.29402" />
+            <rotation angle="1.53656">
+                <axis x="0.084678" y="0.992599" z="-0.087044" />
+            </rotation>
+        </bone>
+        <bone id="28" name="m_Bip01_L_Finger0">
+            <position x="12.9984" y="0" z="6e-006" />
+            <rotation angle="0.810345">
+                <axis x="-0.000928" y="0.000398" z="1" />
+            </rotation>
+        </bone>
+        <bone id="29" name="m_zuojianjia">
+            <position x="-0.75175" y="-3.06699" z="8.9678" />
+            <rotation angle="0.191199">
+                <axis x="0.609992" y="-0.605324" z="0.511363" />
+            </rotation>
+        </bone>
+        <bone id="30" name="m_Bip01_R_Clavicle">
+            <position x="-5.60066" y="2.67549" z="-10.9909" />
+            <rotation angle="3.6089">
+                <axis x="0.576716" y="-0.124349" z="-0.807425" />
+            </rotation>
+        </bone>
+        <bone id="31" name="m_Bip01_R_UpperArm">
+            <position x="10.7505" y="0" z="3e-006" />
+            <rotation angle="0.43835">
+                <axis x="-0.170048" y="-0.924502" z="-0.341145" />
+            </rotation>
+        </bone>
+        <bone id="32" name="m_Bip01_R_Forearm">
+            <position x="28.2193" y="0" z="3e-006" />
+            <rotation angle="0.688692">
+                <axis x="0" y="0" z="-1" />
+            </rotation>
+        </bone>
+        <bone id="33" name="m_Bip01_R_Hand">
+            <position x="26.3589" y="-1e-006" z="0" />
+            <rotation angle="4.01002">
+                <axis x="-0.997567" y="0.069547" z="-0.004902" />
+            </rotation>
+        </bone>
+        <bone id="34" name="Bone02_m">
+            <position x="11.5094" y="2.89176" z="1.2937" />
+            <rotation angle="1.53656">
+                <axis x="-0.084678" y="-0.992599" z="-0.087045" />
+            </rotation>
+        </bone>
+        <bone id="35" name="m_Bip01_R_Finger0">
+            <position x="12.9984" y="2e-006" z="-3e-006" />
+            <rotation angle="0.810345">
+                <axis x="0.000928" y="-0.000398" z="1" />
+            </rotation>
+        </bone>
+        <bone id="36" name="m_youjianjia">
+            <position x="-0.751594" y="-3.06691" z="-8.96736" />
+            <rotation angle="0.191199">
+                <axis x="-0.609982" y="0.605323" z="0.511375" />
+            </rotation>
+        </bone>
+        <bone id="37" name="m_cegu01">
+            <position x="4.91692" y="-16.1817" z="10.9309" />
+            <rotation angle="1.66725">
+                <axis x="-0.296384" y="0.907916" z="-0.296387" />
+            </rotation>
+        </bone>
+        <bone id="38" name="m_cegu02">
+            <position x="12.2444" y="-0.000196" z="2e-006" />
+            <rotation angle="0.420515">
+                <axis x="-1e-006" y="0" z="1" />
+            </rotation>
+        </bone>
+        <bone id="39" name="m_cegu03">
+            <position x="25.4674" y="0.000126" z="3e-006" />
+            <rotation angle="0.0652465">
+                <axis x="0" y="0" z="1" />
+            </rotation>
+        </bone>
+        <bone id="40" name="m_youhou01">
+            <position x="-15.6042" y="-8.38834" z="9.92857" />
+            <rotation angle="1.90656">
+                <axis x="-0.110014" y="0.993272" z="0.036154" />
+            </rotation>
+        </bone>
+        <bone id="41" name="m_youhou02">
+            <position x="13.9251" y="1e-006" z="1e-005" />
+            <rotation angle="0.157679">
+                <axis x="-0.012604" y="-0.943935" z="0.32989" />
+            </rotation>
+        </bone>
+        <bone id="42" name="m_youhou03">
+            <position x="21.6944" y="1e-006" z="0" />
+            <rotation angle="0.0591507">
+                <axis x="-0.043004" y="-0.863268" z="-0.50291" />
+            </rotation>
+        </bone>
+        <bone id="43" name="m_youhou04">
+            <position x="19.3145" y="0" z="1e-006" />
+            <rotation angle="0.0595405">
+                <axis x="-0.013241" y="0.85401" z="0.520088" />
+            </rotation>
+        </bone>
+        <bone id="44" name="m_youqian01">
+            <position x="14.5209" y="-8.2462" z="8.94321" />
+            <rotation angle="1.46193">
+                <axis x="-0.019714" y="0.997345" z="-0.070102" />
+            </rotation>
+        </bone>
+        <bone id="45" name="m_youqian02">
+            <position x="13.9251" y="-8.3e-005" z="-3e-006" />
+            <rotation angle="0.0781239">
+                <axis x="-0.060939" y="0.890775" z="0.450341" />
+            </rotation>
+        </bone>
+        <bone id="46" name="m_youqian03">
+            <position x="21.6944" y="2.4e-005" z="1e-006" />
+            <rotation angle="0.0353191">
+                <axis x="0.289414" y="0.614208" z="0.734158" />
+            </rotation>
+        </bone>
+        <bone id="47" name="m_youqian04">
+            <position x="19.3145" y="-1e-006" z="0" />
+            <rotation angle="0.0188733">
+                <axis x="-0.004295" y="-0.999933" z="-0.010753" />
+            </rotation>
+        </bone>
+        <bone id="48" name="m_zuohou01">
+            <position x="-15.6042" y="8.38838" z="9.92857" />
+            <rotation angle="3.32123">
+                <axis x="0.581356" y="-0.029598" z="-0.813111" />
+            </rotation>
+        </bone>
+        <bone id="49" name="m_zuohou02">
+            <position x="13.9251" y="-2e-006" z="3e-006" />
+            <rotation angle="0.157681">
+                <axis x="0.012606" y="0.943936" z="0.329888" />
+            </rotation>
+        </bone>
+        <bone id="50" name="m_zuohou03">
+            <position x="21.6944" y="-2e-006" z="3e-006" />
+            <rotation angle="0.0591507">
+                <axis x="0.043008" y="0.863268" z="-0.50291" />
+            </rotation>
+        </bone>
+        <bone id="51" name="m_zuohou04">
+            <position x="19.3145" y="-2e-006" z="1e-006" />
+            <rotation angle="0.0595405">
+                <axis x="0.013237" y="-0.854017" z="0.520077" />
+            </rotation>
+        </bone>
+        <bone id="52" name="m_zuoqian01">
+            <position x="14.5209" y="8.24621" z="8.94321" />
+            <rotation angle="3.11526">
+                <axis x="-0.744595" y="-0.046803" z="0.665874" />
+            </rotation>
+        </bone>
+        <bone id="53" name="m_zuoqian02">
+            <position x="13.9251" y="-2e-006" z="-2e-006" />
+            <rotation angle="0.0781269">
+                <axis x="0.060941" y="-0.890738" z="0.450413" />
+            </rotation>
+        </bone>
+        <bone id="54" name="m_zuoqian03">
+            <position x="21.6944" y="-1e-006" z="1e-006" />
+            <rotation angle="0.0353191">
+                <axis x="-0.2894" y="-0.614229" z="0.734146" />
+            </rotation>
+        </bone>
+        <bone id="55" name="m_zuoqian04">
+            <position x="19.3145" y="-2e-006" z="1e-006" />
+            <rotation angle="0.0188733">
+                <axis x="0.00433" y="0.999933" z="-0.010778" />
+            </rotation>
+        </bone>
+    </bones>
+    <bonehierarchy>
+        <boneparent bone="m_Bip01_Footsteps" parent="m_Bip01" />
+        <boneparent bone="m_Bip01_Pelvis" parent="m_Bip01" />
+        <boneparent bone="m_Bip01_Spine" parent="m_Bip01_Pelvis" />
+        <boneparent bone="m_Bip01_L_Thigh" parent="m_Bip01_Spine" />
+        <boneparent bone="m_Bip01_L_Calf" parent="m_Bip01_L_Thigh" />
+        <boneparent bone="m_Bip01_L_Foot" parent="m_Bip01_L_Calf" />
+        <boneparent bone="m_Bip01_L_Toe0" parent="m_Bip01_L_Foot" />
+        <boneparent bone="m_zuohouqun" parent="m_Bip01_L_Calf" />
+        <boneparent bone="m_zuoqianqun" parent="m_Bip01_L_Calf" />
+        <boneparent bone="m_Bip01_R_Thigh" parent="m_Bip01_Spine" />
+        <boneparent bone="m_Bip01_R_Calf" parent="m_Bip01_R_Thigh" />
+        <boneparent bone="m_Bip01_R_Foot" parent="m_Bip01_R_Calf" />
+        <boneparent bone="m_Bip01_R_Toe0" parent="m_Bip01_R_Foot" />
+        <boneparent bone="m_youhouqun" parent="m_Bip01_R_Calf" />
+        <boneparent bone="m_youqianqun" parent="m_Bip01_R_Calf" />
+        <boneparent bone="m_Bip01_Spine1" parent="m_Bip01_Spine" />
+        <boneparent bone="m_Bip01_Neck" parent="m_Bip01_Spine1" />
+        <boneparent bone="m_Bip01_Head" parent="m_Bip01_Neck" />
+        <boneparent bone="m_Bip01_Ponytail1" parent="m_Bip01_Head" />
+        <boneparent bone="m_Bip01_Ponytail11" parent="m_Bip01_Ponytail1" />
+        <boneparent bone="m_Bip01_Ponytail12" parent="m_Bip01_Ponytail11" />
+        <boneparent bone="m_zuojianyan" parent="m_Bip01_Head" />
+        <boneparent bone="m_Bip01_L_Clavicle" parent="m_Bip01_Neck" />
+        <boneparent bone="m_Bip01_L_UpperArm" parent="m_Bip01_L_Clavicle" />
+        <boneparent bone="m_Bip01_L_Forearm" parent="m_Bip01_L_UpperArm" />
+        <boneparent bone="m_Bip01_L_Hand" parent="m_Bip01_L_Forearm" />
+        <boneparent bone="Bone02_m_mirror01" parent="m_Bip01_L_Hand" />
+        <boneparent bone="m_Bip01_L_Finger0" parent="m_Bip01_L_Hand" />
+        <boneparent bone="m_zuojianjia" parent="m_Bip01_L_Clavicle" />
+        <boneparent bone="m_Bip01_R_Clavicle" parent="m_Bip01_Neck" />
+        <boneparent bone="m_Bip01_R_UpperArm" parent="m_Bip01_R_Clavicle" />
+        <boneparent bone="m_Bip01_R_Forearm" parent="m_Bip01_R_UpperArm" />
+        <boneparent bone="m_Bip01_R_Hand" parent="m_Bip01_R_Forearm" />
+        <boneparent bone="Bone02_m" parent="m_Bip01_R_Hand" />
+        <boneparent bone="m_Bip01_R_Finger0" parent="m_Bip01_R_Hand" />
+        <boneparent bone="m_youjianjia" parent="m_Bip01_R_Clavicle" />
+        <boneparent bone="m_cegu01" parent="m_Bip01" />
+        <boneparent bone="m_cegu02" parent="m_cegu01" />
+        <boneparent bone="m_cegu03" parent="m_cegu02" />
+        <boneparent bone="m_youhou01" parent="m_Bip01" />
+        <boneparent bone="m_youhou02" parent="m_youhou01" />
+        <boneparent bone="m_youhou03" parent="m_youhou02" />
+        <boneparent bone="m_youhou04" parent="m_youhou03" />
+        <boneparent bone="m_youqian01" parent="m_Bip01" />
+        <boneparent bone="m_youqian02" parent="m_youqian01" />
+        <boneparent bone="m_youqian03" parent="m_youqian02" />
+        <boneparent bone="m_youqian04" parent="m_youqian03" />
+        <boneparent bone="m_zuohou01" parent="m_Bip01" />
+        <boneparent bone="m_zuohou02" parent="m_zuohou01" />
+        <boneparent bone="m_zuohou03" parent="m_zuohou02" />
+        <boneparent bone="m_zuohou04" parent="m_zuohou03" />
+        <boneparent bone="m_zuoqian01" parent="m_Bip01" />
+        <boneparent bone="m_zuoqian02" parent="m_zuoqian01" />
+        <boneparent bone="m_zuoqian03" parent="m_zuoqian02" />
+        <boneparent bone="m_zuoqian04" parent="m_zuoqian03" />
+    </bonehierarchy>
+    <animations>
+        <animation name="&#xC5;&#xDC;&#xB2;&#xBD;" length="0.64">
+            <tracks>
+                <track bone="m_Bip01">
+                    <keyframes />
+                </track>
+            </tracks>
+        </animation>
+    </animations>
+</skeleton>
